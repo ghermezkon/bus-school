@@ -1,0 +1,67 @@
+<ion-content class="main-bg">
+    <ion-grid *ngIf="!landscape">
+        <ion-row justify-content-center>
+            <ion-col col-10 text-center>
+                <img src="assets/imgs/login.webp" type="image/webp" class="login-logo">
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-center>
+            <ion-col col-12 col-lg-4 col-md-6>
+                <form>
+                    <ion-item class="transparent_item" text-center>
+                        <ion-label>تلفن همراه(09xxxxxxxxx)</ion-label>
+                        <ion-input type="number" #username></ion-input>
+                        <ion-icon name="contact" item-right></ion-icon>
+                    </ion-item>
+
+                    <ion-item class="transparent_item" text-center>
+                        <ion-label>رمز عبور</ion-label>
+                        <ion-input type="password" #password></ion-input>
+                        <ion-icon name="unlock" item-right></ion-icon>
+                    </ion-item>
+                    <ion-item class="transparent_item" text-center no-lines>
+                        <button ion-button large full color="primary" (click)="login(username.value, password.value)"> ورود به سیستم</button>
+                    </ion-item>
+                    <div class="msg-error" *ngIf="showError && buttonClick">
+                        نام کاربری و رمز عبور اشتباه است
+                    </div>
+                </form>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <!-- landscape -->
+    <ion-grid *ngIf="landscape" class="padding-top-grid">
+        <ion-row justify-content-center>
+            <ion-col col-4 col-md-3 text-center>
+                <img src="assets/imgs/login.webp" type="image/webp" class="login-logo">
+            </ion-col>
+            <ion-col col-8 col-md-6 text-center>
+                <ion-list class="padding-list">
+                    <ion-item class="transparent_item" text-center>
+                        <ion-label>تلفن همراه(09xxxxxxxxx)</ion-label>
+                        <ion-input type="number" #username></ion-input>
+                        <ion-icon name="contact" item-right></ion-icon>
+                    </ion-item>
+
+                    <ion-item class="transparent_item" text-center>
+                        <ion-label>رمز عبور</ion-label>
+                        <ion-input type="password" #password></ion-input>
+                        <ion-icon name="unlock" item-right></ion-icon>
+                    </ion-item>
+                    <ion-item class="transparent_item" text-center>
+                        <button ion-button large color="primary" (click)="login(username.value, password.value)"> ورود به سیستم</button>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+<ion-footer>
+    <ion-toolbar transparent text-center>
+        <button ion-button color="secondary" style="font-weight:400;" icon-right [navPush]="registerPage">
+            <ion-icon name="add-circle" style="padding-left:10px;"></ion-icon>
+            ثبت نام
+        </button>
+    </ion-toolbar>
+</ion-footer>

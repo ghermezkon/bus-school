@@ -1,0 +1,34 @@
+$roboto-font-path: $font-path !default;
+@font-face {
+  font-family: "IRANSans";
+  font-style: normal;
+  font-weight: 200;
+  src: local("IRANSansMobile UltraLight"), local("IRANSansMobile_UltraLight"), url("#{$roboto-font-path}/IRANSansMobile_UltraLight.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IRANSans";
+  font-style: normal;
+  font-weight: 300;
+  src: local("IRANSansMobile Light"), local("IRANSansMobile_Light"), url("#{$roboto-font-path}/IRANSansMobile_Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "IRANSans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("IRANSansMobile"), local("IRANSansMobile"), url("#{$roboto-font-path}/IRANSansMobile.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "IRANSans";
+  font-style: normal;
+  font-weight: 500;
+  src: local("IRANSansMobile Medium"), local("_IRANSansMobile_Medium"), url("#{$roboto-font-path}/IRANSansMobile_Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "IRANSans";
+  font-style: normal;
+  font-weight: 700;
+  src: local("IRANSansMobile Bold"), local("IRANSansMobile_Bold"), url("#{$roboto-font-path}/IRANSansMobile_Bold.ttf") format("truetype");
+}

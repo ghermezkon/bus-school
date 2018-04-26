@@ -1,0 +1,33 @@
+<ion-header no-border>
+    <ion-navbar transparent no-padding no-margin>
+        <ion-item class="transparent_item" no-lines>
+            <ion-avatar item-left>
+                <img src="{{teacher_pic}}" class="effect7 img-lesson-list" />
+            </ion-avatar>
+            <h2 class="fluid" ion-text>آموزگار: <span class="fluid" ion-text color="subTitle">{{teacher_name}}</span></h2>
+        </ion-item>
+    </ion-navbar>
+</ion-header>
+<ion-content class="main-bg">
+    <ion-grid>
+        <ion-row>
+            <ion-col text-center>
+                <div text-center class="main-lesson-list-img">
+                    <img src="assets/imgs/lesson-list.png" class="img"/>
+                    <img src="assets/imgs/question-red.svg" class="svg">
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-4 *ngFor="let t of lesson_list | async">
+                <div class="circle" (click)="itemClick(t)">
+                    <img src="{{t._id.exam_lesson_detail.lesson_pic}}" class="effect7" />
+                    <h3 class="fluid centered">{{t._id.exam_lesson}}</h3>
+                    <ion-badge item-end class="lesson-list" color="accent">{{t.count}}</ion-badge>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

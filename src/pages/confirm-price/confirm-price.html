@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-navbar transparent>
+    <ion-buttons style="float:left;">
+      <button ion-button icon-only navPop>
+        <ion-icon style="color:#fff;font-weight:bold;" name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="main-bg">
+  <ion-grid padding>
+    <ion-row style="border-bottom:dashed 1px #fff;">
+      <ion-col col-12>
+        <ion-avatar class="item-center">
+          <img *ngIf="exam_info?.exam_level === 'ساده'" src="assets/imgs/simple.svg" class="level effect7">
+          <img *ngIf="exam_info?.exam_level === 'متوسط'" src="assets/imgs/middle.svg" class="level effect7">
+          <img *ngIf="exam_info?.exam_level === 'سخت'" src="assets/imgs/hard.svg" class="level effect7">
+        </ion-avatar>
+      </ion-col>
+      <ion-col col-12 text-center>
+        <h2 ion-text color="light">{{exam_info?.exam_level}}</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-2 no-padding>
+        <ion-avatar>
+          <img class="level" src="assets/imgs/exam-title.png">
+        </ion-avatar>
+      </ion-col>
+      <ion-col col-4>
+        <h2 class="fluid" padding-top>عنوان آزمون: </h2>
+      </ion-col>
+      <ion-col col-6>
+        <h2 class="fluid orange-title" padding-top>{{exam_info?.exam_name}}</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-2 no-padding>
+        <ion-avatar>
+          <img src="assets/imgs/numberOfQuestion.png" class="level">
+        </ion-avatar>
+      </ion-col>
+      <ion-col col-4>
+        <h2 class="fluid" padding-top>تعداد سوالات: </h2>
+      </ion-col>
+      <ion-col col-6>
+        <h2 class="fluid orange-title" padding-top>{{exam_info?.numberOfQuestion | number}}</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-2 no-padding>
+        <ion-avatar>
+          <img class="level" src="{{teacher_pic}}" class="effect7" style="border-radius: 50%;max-width:48px;">
+        </ion-avatar>
+      </ion-col>
+      <ion-col col-4>
+        <h2 class="fluid" padding-top>نام آموزگار: </h2>
+      </ion-col>
+      <ion-col col-6>
+        <h2 class="fluid orange-title" padding-top>{{teacher_name}}</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-2 no-padding>
+        <ion-avatar>
+          <img class="level" src="assets/imgs/lesson.png">
+        </ion-avatar>
+      </ion-col>
+      <ion-col col-4>
+        <h2 class="fluid" padding-top>نام درس: </h2>
+      </ion-col>
+      <ion-col col-6>
+        <h2 class="fluid orange-title" padding-top>{{lesson_name}}</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-2 no-padding>
+        <ion-avatar>
+          <img class="level" src="assets/imgs/calendar.png" >
+        </ion-avatar>
+      </ion-col>
+      <ion-col col-4>
+        <h2 class="fluid"padding-top>تاریخ: </h2>
+      </ion-col>
+      <ion-col col-6>
+        <h3 class="fluid orange-title"padding-top>{{exam_info?.last_update_long}}</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 text-center padding-top>
+        <h2 class="fluid">قیمت برگزاری آزمون:
+          <span class="orange-title">{{exam_info?.exam_price | number}}</span>
+          <span> تومان</span>
+        </h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 text-center>
+        <button ion-button large icon-left color="accent" (click)="doExam()">
+            <ion-icon name="logo-usd"></ion-icon>
+            <h2 class="fluid">پرداخت و شروع آزمون</h2>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

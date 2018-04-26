@@ -1,0 +1,28 @@
+$font-path: "../assets/fonts";
+$app-direction: rtl;
+$font-family-md-base: "IRANSans";
+$font-family-ios-base: "IRANSans";
+$font-family-wp-base: "IRANSans";
+$item-ios-divider-background: transparent;
+$item-md-divider-background: transparent;
+$item-wp-divider-background: transparent;
+$backgroundColor: #1A237E;
+$subTitleColor:#ffc400;
+
+@import "ionic.globals";
+$colors: (
+  primary:    #488aff,
+  subTitle: #ffc400,
+  secondary:  #4CAF50,
+  danger:     #f53d3d,
+  light:      #f4f4f4,
+  dark:       #222,
+  grey-color: #BDBDBD,
+  tabs-color :  rgba(255,255,255,0.1),
+  accent:#EC407A
+);
+
+@import "ionic.theme.default";
+@import "ionic.ionicons";
+@import "roboto";
+@import "iransans";

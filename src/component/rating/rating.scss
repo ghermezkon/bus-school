@@ -1,0 +1,19 @@
+.rating:not(:checked) > input {
+    position: absolute;
+    top:-9999px;    
+    clip:rect(0,0,0,0);
+}
+
+.rating:not(:checked) > label {
+    float:left;
+    width:0.8em;
+    overflow:hidden;
+    white-space:nowrap;
+    font-size:2vh;  
+    color:#ddd;
+    text-shadow:2px 1px 3px rgba(0,0,0,0.3);
+}
+
+.rating:not(:checked) > label:before {
+    content: '★ ';
+}

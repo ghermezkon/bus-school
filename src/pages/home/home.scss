@@ -1,0 +1,95 @@
+  page-home{
+    .teacher-exam-boy-6-12{
+      padding-top:3px;
+      max-width: 6.5vh;
+    }
+    .teacher-exam-girl-6-12{
+      padding-top:2px;
+      max-width: 9.5vh
+    }
+    .teacher-exam-man-12-18{
+      padding-top:5px;
+      max-width: 11.5vh
+    }
+    .teacher-exam-woman-12-18{
+      padding-top:5px;
+      max-width: 9.1vh
+    }    
+    .teacher-exam-18{
+      padding-top:5px;
+      max-width: 18.1vh
+    }
+    //----------------------------------------
+    .top-pic-boy-6-12, .top-pic-girl-6-12{
+      max-width:40vh;
+    }
+    .top-pic-man-12-18{
+      max-width:36vh;
+    }
+    .top-pic-woman-12-18{
+      max-width:46vh;
+    }
+    .top-pic-18{
+      max-width:45vh;
+    }                
+    //----------------------------------------
+    .profile-boy-6-12{
+      padding-top:3px;
+      max-width: 6.3vh;
+    }
+    .profile-girl-6-12{
+      padding-top:3px;
+      max-width: 4.8vh;
+    }
+    .profile-man-12-18{
+      padding-top:3px;
+      max-width: 2.6vh;
+    }
+    .profile-woman-12-18{
+      padding-top:3px;
+      max-width: 4.6vh;
+    }
+    .profile-18{
+      padding-top:3px;
+      max-width: 8.3vh;
+    }
+  }
+  .bar {
+    position: relative;
+    margin: 0.15em;
+    text-align: center;
+    vertical-align: middle;
+    color: #FFF;
+    text-shadow: 0px 1px 2px rgba(0,0,0,0.25);
+    height: 26.5vh;
+    width: auto;
+    background: rgba(230,240,255,0.1);
+    border: 1px dashed transparent;
+    box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.15);
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    & > span.centered{
+      line-height: 3vh;
+      font-size:2.5vh;
+      width: 100%;
+      word-wrap: none;
+      position: absolute;
+      top: 95%;
+      left: 50%;
+      transform: translate(-50%, -95%);
+    }
+    & .icon{
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);      
+    }
+  }
+  .bar1{
+    margin:0.15em;
+    height: 12.85vh !important;
+  }
+  .bar-margin{
+    margin-top:0.44em;
+  }
+  

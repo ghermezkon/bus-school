@@ -1,0 +1,60 @@
+register-page{
+    .avatar-range{
+        width:100% !important;height:auto !important;max-width: 64px !important;
+        border: solid 2px #fff !important;
+        border-radius: 50% !important;
+    }
+    .avatar-security{
+        width:100% !important;height:auto !important;max-width: 128px !important;
+    }
+    .avatar-sex{
+        width:100% !important;height:auto !important;min-width: 64px !important;max-width: 128px !important;
+    }
+    .avatar-password{
+        width:100% !important;height:auto !important;min-width: 64px !important;max-width: 64px !important;
+    }
+    ion-datetime{
+        & > div.datetime-text{
+            color: map-get($colors, light) !important;
+        }
+    }
+    .error-sms{
+        position:absolute;
+        color: #FFFF00;
+        font-size:1.5rem;
+    }
+}
+
+.register-logo{
+    width:100%;height:auto;max-width:200px;
+}
+.security-code-logo{
+    width:100%;height:auto;max-width:200px;
+}
+ion-select.country{
+    min-width:100% !important;
+}
+/*Mobile (Landscape)*/
+@media (min-width: 481px) and (max-width: 767px) {
+    .padding-top-grid-register{
+        padding-top:5vh;
+    }
+    .padding-list{
+        padding-top:6vw;
+    }
+    .register-logo{
+        max-width:150px;
+    }
+}
+/*Mobile (Portrait)*/
+@media (min-width: 320px) and (max-width: 480px) {
+    .padding-top-grid-register{
+        padding-top:10vh !important;
+    }
+    .security-code-logo{
+        max-width:150px !important;
+    }
+    .register-logo{
+        max-width:120px;
+    }
+}

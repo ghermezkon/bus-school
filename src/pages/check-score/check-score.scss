@@ -1,0 +1,25 @@
+check-score{
+    ion-col.col-text{
+        & div > h2.fluid.success.size-5{
+            font-weight:bold;font-size:5rem;
+            color:map-get($colors, subTitle);
+        }
+        & div > h2.fluid.middle.size-5{
+            font-weight:bold;font-size:5rem;
+            color:map-get($colors, grey-color);
+        }
+        & div > h2.fluid.lose.size-5{
+            font-weight:bold;font-size:5rem;
+            color:map-get($colors, danger);
+        }
+        & div > h2.fluid.score{
+            font-weight:bold;font-size:2rem;
+        }
+    }
+    .percentage{
+        position: absolute;top:50%;left:50%;font-weight:bold;color:#fff;transform: translate(-50%,-50%);
+    }
+    .check-score-img{
+        width:100%;height:auto;max-width:200px;
+    }
+}

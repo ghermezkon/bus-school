@@ -1,0 +1,102 @@
+<ion-header no-border>
+    <ion-navbar transparent no-padding no-margin>
+    </ion-navbar>
+</ion-header>
+<ion-content class="main-bg">
+    <ion-grid>
+        <ion-row justify-content-center>
+            <ion-col col-4 text-center class="item-center">
+                <ion-avatar>
+                    <img src="assets/imgs/profile-image.png" />
+                </ion-avatar>
+            </ion-col>
+            <ion-col col-8 text-right>
+                <ion-row>
+                    <ion-col no-padding>
+                        <h2 class="fluid" ion-text color="light">{{userInfo?.user_info?.family}}</h2>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col no-padding>
+                        <h2 class="fluid" ion-text color="light">{{userInfo?.user_info?.birthdate}}</h2>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col no-padding>
+                        <h2 class="fluid" ion-text color="light">{{userInfo?.user_info?.mobile}}</h2>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-item-divider></ion-item-divider>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-4 item-right>
+                <h2 class="fluid" ion-text color="light">شرایط سنی: </h2>
+            </ion-col>
+            <ion-col col-8 item-right>
+                <ion-item class="transparent_item" no-lines>
+                    <ion-select okText="تائید" cancelText="لغو" [(ngModel)]="range_selected" (ionChange)="rangeSelectChange($event)" [compareWith]="compareFnRange"
+                        [selectOptions]="rangeOption">
+                        <ion-option *ngFor="let r of range_list" [value]="r">{{r.user_range_name}}</ion-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-4 item-right>
+                <h2 class="fluid" ion-text color="light">مقطع تحصیلی: </h2>
+            </ion-col>
+            <ion-col col-8 item-right>
+                <ion-item class="transparent_item" no-lines>
+                    <ion-select okText="تائید" cancelText="لغو" [(ngModel)]="study_selected" [compareWith]="compareFnStudy" [selectOptions]="studyOption">
+                        <ion-option text-right *ngFor="let s of study_list" [value]="s">{{s.study_name}}</ion-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-item-divider></ion-item-divider>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-12 item-right no-padding>
+                <ion-item class="transparent_item" no-lines>
+                    <ion-label>تغییر رمز عبور</ion-label>
+                    <ion-checkbox [(ngModel)]="checkPassword" (ionChange)="passwordReset($event)"></ion-checkbox>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="checkPassword" [formGroup]="passwordForm">
+            <ion-col col-6 item-right no-padding>
+                <ion-item class="transparent_item">
+                    <ion-label floating>رمز عبور جدید</ion-label>
+                    <ion-input type="password" formControlName="password" text-right required></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col col-6 item-right no-padding>
+                <ion-item class="transparent_item">
+                    <ion-label floating>تکرار رمز عبور</ion-label>
+                    <ion-input type="password" formControlName="confirmPassword" text-right required></ion-input>
+                </ion-item>
+                <ng-container *ngFor="let validation of validation_msg.password">
+                    <div class="error-msg" *ngIf="passwordForm.get('confirmPassword').hasError(validation.type) && 
+                    (passwordForm.get('confirmPassword').dirty || passwordForm.get('confirmPassword').touched)">{{validation.message}}</div>
+                </ng-container>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+<ion-footer>
+    <ion-toolbar transparent text-center>
+        <button ion-button color="secondary" style="font-weight:400;" (click)="updateUser()"
+            [disabled]="(checkPassword && !passwordForm.valid) || (range_selected == '') || (study_selected == '')" icon-right>
+            <ion-icon name="add-circle" style="padding-left:10px;"></ion-icon>
+            ویرایش
+        </button>
+    </ion-toolbar>
+</ion-footer>

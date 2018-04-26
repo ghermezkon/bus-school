@@ -1,0 +1,166 @@
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+html,
+body
+{
+  margin: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+// .scroll-content { padding-bottom: 0!important; }
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    margin: 0; 
+}
+
+.main-bg{
+    background:url('../assets/imgs/main-bg.png') repeat,
+    radial-gradient(circle,#1c80b9 10%, #0d47a1);
+}
+.select{
+    color:#f4f4f4 !important;
+}
+.sub-title{
+    color:$subTitleColor !important;
+    float:right;
+    position: fixed;
+    transform: translate(-0%, -40%) !important; 
+    padding-top:20px;
+}
+.title.white *{
+    color:#f4f4f4 !important;
+}
+.item-center{
+    display:flex;align-items:center;justify-content:center;
+}
+
+ion-item.transparent_item  {
+    background: rgba(0, 0, 0, 0) !important;
+    border: none !important;
+    outline: none !important;
+    direction:rtl;
+}
+
+ion-item.transparent_item * ion-label, ion-item.transparent_item * ion-input, ion-item.transparent_item * ion-icon {
+    color:#f4f4f4 !important;
+}
+input.searchbar-input{
+    direction:rtl !important;
+    text-align:right !important;
+}
+ion-navbar.toolbar{
+    direction:ltr;
+    text-align: right;
+}
+ion-navbar.toolbar > button{
+    text-align:right;
+    color:#f4f4f4;
+}
+ion-navbar.toolbar > button > span > ion-icon::before{
+    content:'\f287';
+    color:#f4f4f4;
+}
+button.back-button > span.button-inner > span.back-button-text{
+    color:#f4f4f4;
+}
+ion-loading.my-svg-loading {
+    .loading-wrapper {
+      background: transparent;
+      box-shadow: none;
+    }
+  }
+ion-alert > div.alert-wrapper{
+    border-radius: 10px !important;
+}
+ion-alert > div.alert-wrapper >  div.alert-head{
+    background-color:#2196f3 !important;
+    color:#fff !important;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}
+.error-msg{
+    position:absolute;width:75%;right:25%;transform: translateY(-50%);
+    color: #FFFF00;
+    font-size:1rem;
+}
+.toastCss{
+    text-align:center;
+}
+  .effect7
+  {
+      position:relative;
+      -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+         -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+              box-shadow:0 1px 5px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  }
+  .effect7:before, .effect7:after
+  {
+      content:"";
+      position:absolute;
+      z-index:-1;
+      -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+      -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+      box-shadow:0 0 20px rgba(0,0,0,0.8);
+      top:0;
+      bottom:0;
+      left:10px;
+      right:10px;
+      -moz-border-radius:100px / 10px;
+      border-radius:100px / 10px;
+  }
+  .effect7:after
+  {
+      right:10px;
+      left:auto;
+      -webkit-transform:skew(8deg) rotate(3deg);
+         -moz-transform:skew(8deg) rotate(3deg);
+          -ms-transform:skew(8deg) rotate(3deg);
+           -o-transform:skew(8deg) rotate(3deg);
+              transform:skew(8deg) rotate(3deg);
+  }
+  h3.fluid {
+    // Minimum font-size
+    font-size: 14px;
+    // Font-size between 576 - 768
+    @media (min-width:320px) {
+      $map: (320px: 12px, 768px: 20px);
+      font-size: linear-interpolation($map);
+    }
+    // Font-size between 768 - 992
+    @media (min-width:768px) {
+      $map: (768px: 16px, 992px: 20px);
+      font-size: linear-interpolation($map);
+    }
+    // Maximum font-size
+    @media (min-width:992px) {
+      font-size: 20px;
+    }
+  }
+  h2.fluid {
+    // Minimum font-size
+    font-size: 16px;
+    // Font-size between 576 - 768
+    @media (min-width:320px) {
+      $map: (320px: 14px, 768px: 20px);
+      font-size: linear-interpolation($map);
+    }
+    // Font-size between 768 - 992
+    @media (min-width:768px) {
+      $map: (768px: 16px, 992px: 20px);
+      font-size: linear-interpolation($map);
+    }
+    // Maximum font-size
+    @media (min-width:992px) {
+      font-size: 20px;
+    }
+  }

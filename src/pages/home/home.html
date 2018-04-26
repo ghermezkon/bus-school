@@ -1,0 +1,82 @@
+<ion-header no-border>
+    <ion-toolbar transparent>
+        <!-- <ion-buttons start left>
+            <button ion-button icon-only color="light" [navPush]="registerPage">
+                <ion-icon name="person-add"></ion-icon>
+            </button>
+        </ion-buttons> -->
+        <ion-title text-center class="white" no-padding no-margin>
+            <ion-grid no-padding no-margin>
+                <ion-row justify-content-center>
+                    <ion-col col-2 col-lg-1 col-md-1>
+                        <h2 class="fluid">اتوبوس</h2>
+                    </ion-col>
+                    <ion-col col-2 col-lg-1 col-md-1>
+                        <img style="width:100%;height:auto;max-width:70px;" src="assets/imgs/bus-logo.svg" />
+                    </ion-col>
+                    <ion-col col-2 col-lg-1 col-md-1>
+                        <h2 class="fluid">مدرسه</h2>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-title>
+        <ion-buttons end right *ngIf="isLoggedIn$ | async">
+            <button ion-button icon-only color="light">
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="main-bg">
+    <ion-grid style="height:100%;padding:0;">
+        <ion-row justify-content-center style="height:50%;">
+            <ion-col class="item-center">
+                <img src="assets/imgs/{{folder}}/bg-top.png" style="width:100%;height:auto;" class="top-pic-{{folder}}">
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-center>
+            <ion-col col-4>
+                <div class="bar bar1" (click)="test()">
+                </div>
+                <div class="bar bar1 bar-margin">
+                </div>
+            </ion-col>
+
+            <ion-col col-4>
+                <div class="bar" [navPush]="teacherListPage">
+                    <img class="icon" src="assets/imgs/{{folder}}/teacher-exam.png" style="width:100%;height:auto;padding-bottom:1px;" class="teacher-exam-{{folder}}"
+                    />
+                    <span class="centered">آموزگاران</span>
+                </div>
+            </ion-col>
+            <ion-col col-4>
+                <div class="bar bar1">
+                </div>
+                <div class="bar bar1 bar-margin">
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-center>
+            <ion-col col-4>
+                <div class="bar bar1 bar-margin">
+                </div>
+            </ion-col>
+            <ion-col col-4>
+                <div class="bar bar1 bar-margin">
+                </div>
+            </ion-col>
+            <ion-col col-4>
+                <div class="bar bar1 bar-margin" [navPush]="profilePage">
+                    <img class="icon" src="assets/imgs/{{folder}}/profile.png" 
+                        style="width:100%;height:auto;padding-bottom:1px;" class="profile-{{folder}}"
+                    />
+                    <span class="centered">پروفایل</span>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+<ion-footer>
+    <ion-toolbar transparent>
+    </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,21 @@
+<ion-header no-border>
+    <ion-navbar transparent>
+        <ion-title>
+            <ion-searchbar text-right [(ngModel)]="input_search" placeholder="نام آموزگار"></ion-searchbar>
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content class="main-bg">
+    <ion-list [virtualScroll]="teacher_list | async | filterPipe: input_search" [approxItemHeight]="'40px'"
+        no-lines>
+        <ion-item *virtualItem="let t" class="transparent_item">
+            <ion-avatar item-left>
+                <img src="{{t.teacher_pic}}" class="effect7 img-teacher-list"/>
+            </ion-avatar>
+            <h2 class="fluid" ion-text style="position:absolute;top:20%;">{{t.teacher_name}}</h2>
+            <rating [value]="3.2"></rating><br/>
+            <ion-note color="subTitle"><h3 class="fluid">{{t.teacher_school}}</h3></ion-note>
+            <button ion-button (click)="itemClick(t)" item-right>نمایش</button>
+        </ion-item>
+    </ion-list>
+</ion-content>

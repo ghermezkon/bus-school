@@ -1,0 +1,75 @@
+<ion-header no-border>
+    <ion-navbar transparent no-padding no-margin>
+        <ion-item class="transparent_item" no-lines>
+            <ion-avatar item-left>
+                <img src="{{teacher_pic}}" class="effect7 img-lesson-list" />
+            </ion-avatar>
+            <h3 class="fluid" ion-text class="fluid title-lesson">آموزگار:<span ion-text color="subTitle">{{teacher_name}} - {{lesson_name}}</span></h3>
+        </ion-item>
+    </ion-navbar>
+</ion-header>
+<ion-content class="main-bg">
+    <ion-list [virtualScroll]="exam_list | async" no-lines>
+        <ion-item *virtualItem="let t" class="transparent_item">
+            <ion-grid no-padding no-margin class="border-bottom">
+                <ion-row>
+                    <ion-col col-3 col-lg-1 col-md-1 style="position:relative;">
+                        <ion-avatar>
+                            <ng-container *ngIf="t.exam_level == 'ساده'">
+                                <img src="assets/imgs/simple.svg">
+                                <h3 class="fluid">{{t.exam_level}}</h3>
+                            </ng-container>
+                            <ng-container *ngIf="t.exam_level == 'متوسط'">
+                                <img src="assets/imgs/middle.svg">
+                                <h3 class="fluid">{{t.exam_level}}</h3>
+                            </ng-container>
+                            <ng-container *ngIf="t.exam_level == 'سخت'">
+                                <img src="assets/imgs/hard.svg">
+                                <h3 class="fluid">{{t.exam_level}}</h3>
+                            </ng-container>
+                        </ion-avatar>
+                    </ion-col>
+                    <ion-col col-6 col-lg-9 col-md-9>
+                        <ion-grid no-padding no-margin>
+                            <ion-row>
+                                <ion-col>
+                                    <h2 class="fluid">{{t.exam_name}}</h2>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col>
+                                    <h3 class="fluid" ion-text color="subTitle">تعداد سوالات: {{t.numberOfQuestion}}</h3>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col>
+                                    <h3 class="fluid" ion-text color="subTitle">تاریخ: <span class="blue">{{t.last_update_short | datePipe}}</span></h3>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-col>
+                    <ion-col col-3 col-lg-2 col-md-2>
+                        <ion-grid no-padding no-margin>
+                            <ion-row text-left>
+                                <ion-col col-12>
+                                    <h2 class="fluid">{{t.exam_price | number}}</h2>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row text-left>
+                                <ion-col col-12>
+                                    <h3 class="fluid" ion-text color="subTitle">تومان</h3>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row text-left>
+                                <ion-col col-12>
+                                    <rating [value]="3.2"></rating>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+            <button ion-button (click)="itemClick(t)" item-right>انتخاب</button>
+        </ion-item>
+    </ion-list>
+</ion-content>

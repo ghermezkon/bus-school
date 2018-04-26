@@ -1,0 +1,14 @@
+login{
+    .login-logo{
+        width:100%;height:auto;max-width:250px;display:block;
+    }
+    .text-color{
+        color:white !important;
+    }
+    .msg-error{
+        color: map-get($colors, subTitle);
+        font-weight: bold;
+        text-align:center;
+        width:100%;
+    }
+}

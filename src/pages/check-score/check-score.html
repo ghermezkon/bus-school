@@ -1,0 +1,56 @@
+<ion-header>
+    <ion-navbar transparent hideBackButton="true">
+    </ion-navbar>
+</ion-header>
+<ion-content class="main-bg">
+    <ion-grid style="display:block;">
+        <ion-row justify-content-center>
+            <ion-col col-10 text-center item-center>
+                <div *ngIf="current !== 100">
+                    <round-progress [current]="current" [max]="max" [color]="'#FFB300'" [background]="'#eaeaea'" 
+                        [radius]="125" [stroke]="20" [semicircle]="false" [rounded]="true" [clockwise]="false" 
+                        [responsive]="false" [duration]="3800" [animation]="'easeInOutQuart'" [animationDelay]="1"></round-progress>
+                </div>
+                <div *ngIf="current !== 100" class="percentage">
+                    <h2 class="fluid" style="font-size:25px;">{{current}} %</h2>
+                </div>
+                <div *ngIf="current === 100" text-center style="padding-top:5vh;">
+                    <img src="assets/imgs/golden-cup.png" *ngIf="condition === 'success'" class="check-score-img">
+                    <img src="assets/imgs/silver-cup.png" *ngIf="condition === 'middle'" class="check-score-img">
+                    <img src="assets/imgs/bad-cup.png" *ngIf="condition === 'lose'" class="check-score-img">
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid>
+        <ion-row justify-content-center>
+            <ion-col col-10 text-center class="col-text">
+                <div style="width:100%" *ngIf="current === 100">
+                    <div style="width:100%;" *ngIf="condition === 'success'">
+                        <h2 class="fluid success size-5">قبول</h2>
+                    </div>
+                    <div style="width:100%;" *ngIf="condition === 'middle'">
+                        <h2 class="fluid middle size-5">متوسط</h2>
+                    </div>
+                    <div style="width:100%;" *ngIf="condition === 'lose'">
+                        <h2 class="fluid lose size-5">شکست</h2>
+                    </div>
+                    <div style="width:100%;">
+                        <h2 class="fluid score" ion-text color="light">نمره شما
+                            <span> {{user_score}} </span>
+                            <span> از </span>
+                            <span> {{exam_score}} </span>
+                            <span> است </span>
+                        </h2>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+
+    </ion-grid>
+</ion-content>
+<ion-footer>
+    <ion-toolbar transparent style="direction:ltr;" text-center>
+        <button ion-button color="accent" *ngIf="current === 100" (click)="backToHome()">بازگشت به منوی اصلی</button>
+    </ion-toolbar>
+</ion-footer>

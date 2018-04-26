@@ -1,0 +1,212 @@
+<ion-content class="main-bg">
+    <ion-grid style="height:100%;" *ngIf="level_panel === 1">
+        <ion-row style="min-height:25%;" justify-content-center>
+            <ion-col col-8></ion-col>
+        </ion-row>
+        <ion-row style="min-height:50%;" justify-content-center>
+            <ion-col col-11 col-lg-6 col-md-6>
+                <ion-list *ngFor="let t of range_list">
+                    <ion-item class="transparent_item" (click)="rangeItemClick(t)">
+                        <ion-avatar item-start>
+                            <img src="assets/imgs/{{t.user_pic_default}}" class="avatar-range">
+                        </ion-avatar>
+                        <h2 class="fluid">{{t.user_range_name}}</h2>
+                        <h3 class="fluid" ion-text color="subTitle">{{t.user_range_number}}</h3>
+                        <button ion-button item-end (click)="rangeItemClick(t)">انتخاب</button>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row style="min-height:25%;" justify-content-center>
+            <ion-col col-8></ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid style="height:100%;" *ngIf="level_panel === 2">
+        <ion-row style="min-height:15%;" justify-content-center>
+            <ion-col col-8></ion-col>
+        </ion-row>
+        <ion-row style="min-height:50%;" justify-content-center>
+            <ion-col col-6 col-lg-2 col-md-3 text-center>
+                <h2 class="fluid" ion-text color="light" style="font-size:2.5rem;">جنسیت</h2>
+                <ion-list *ngFor="let t of user_sex" class="item-center">
+                    <ion-item class="transparent_item" margin (click)="sexItemClick(t)">
+                        <ion-avatar item-start style="border:solid 2px #fff;border-radius: 50%;">
+                            <img src="assets/imgs/{{t.img}}" class="avatar-sex">
+                        </ion-avatar>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row style="min-height:35%;" justify-content-center>
+            <ion-col col-8></ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid style="height:100%;" *ngIf="level_panel === 3">
+        <ion-row style="min-height:15%;" justify-content-center>
+            <ion-col col-8></ion-col>
+        </ion-row>
+        <ion-row style="min-height:50%;" justify-content-center>
+            <ion-col col-12 col-lg-6 col-md-6 text-center>
+                <ion-list *ngFor="let t of study_list">
+                    <ion-item class="transparent_item" (click)="studyItemClick(t)">
+                        <ion-avatar item-start style="border:solid 2px #fff;border-radius: 50%;">
+                            <img src="assets/imgs/{{userInfo?.user_sex?.img}}">
+                        </ion-avatar>
+                        <h2 class="fluid">{{t.study_name}}</h2>
+                        <button ion-button item-end (click)="studyItemClick(t)">انتخاب</button>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row style="min-height:35%;" justify-content-center>
+            <ion-col col-8></ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid style="height:100%;" padding *ngIf="level_panel === 4">
+        <ion-row style="height:5%;min-height:5%;padding-top:50px;" justify-content-center>
+            <ion-col col-8></ion-col>
+        </ion-row>
+        <ion-row style="min-height:60%;height:60%;display:block;" justify-content-center>
+            <ion-col col-12 col-lg-1 col-md-6>
+                <form [formGroup]="dataForm">
+                    <div style="width:100%;" class="item-center">
+                        <div style="position: relative;padding-bottom:3em;" col-12 col-lg-4 col-md-6>
+                            <ion-avatar item-start style="position:absolute;">
+                                <img src="assets/imgs/family.svg" class="avatar-range">
+                            </ion-avatar>
+                            <ion-item class="transparent_item" style="width:80%;right:18%;transform: translateY(-20%)">
+                                <ion-label floating>نام و نام خانوادگی</ion-label>
+                                <ion-input text-right formControlName="family" required></ion-input>
+                            </ion-item>
+                        </div>
+                    </div>
+                    <div style="width:100%;" class="item-center">
+                        <div style="position: relative;" col-12 col-lg-4 col-md-6 style="padding-bottom:3em;">
+                            <ion-avatar item-start style="position:absolute">
+                                <img src="assets/imgs/calendar.svg" class="avatar-range">
+                            </ion-avatar>
+                            <ion-item class="transparent_item" style="width:80%;right:18%;transform: translateY(-20%)">
+                                <ion-label floating>تاریخ تولد</ion-label>
+                                <ion-datetime min="1360" formControlName="birthdate" required max="1400" doneText="تائید" cancelText="بستن" displayFormat="YYYY/MM/DD"
+                                    pickerFormat="YYYY/MMMM/DD"></ion-datetime>
+                            </ion-item>
+                        </div>
+                    </div>
+                    <div style="width:100%;" class="item-center">
+                        <div style="position: relative;" col-12 col-lg-4 col-md-6>
+                            <ion-avatar item-start style="position:absolute">
+                                <img src="assets/imgs/mobile.svg" class="avatar-range">
+                            </ion-avatar>
+                            <ion-item class="transparent_item" style="width:80%;right:18%;transform: translateY(-20%);">
+                                <ion-label floating>تلفن همراه(09xx-xxx-xxxx)</ion-label>
+                                <ion-input text-right formControlName="mobile" required type="number" style="text-align:center;"></ion-input>
+                            </ion-item>
+                            <ng-container *ngFor="let validation of validation_msg.mobile">
+                                <div class="error-msg" *ngIf="dataForm.get('mobile').hasError(validation.type) && 
+                                        (dataForm.get('mobile').dirty || dataForm.get('mobile').touched)">{{validation.message}}</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div style="width:100%;" class="item-center">
+                        <div text-left col-12 col-lg-4 col-md-6>
+                            <button ion-button icon-right [disabled]="!dataForm.valid" (click)="familyItemClick()">
+                                ادامه
+                                <ion-icon name="arrow-forward"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </ion-col>
+        </ion-row>
+        <ion-row style="min-height:35%;height:35%;display:block;" justify-content-center>
+            <ion-col col-8></ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid style="height:100%;" padding *ngIf="level_panel === 5">
+        <ion-row style="height:10%;min-height:10%;" justify-content-center>
+            <ion-col col-8></ion-col>
+        </ion-row>
+        <ion-row style="min-height:80%;height:80%;display:block;" justify-content-center>
+            <ion-col col-12 col-lg-1 col-md-6>
+                <form [formGroup]="passwordForm">
+                    <div style="width:100%;" class="item-center">
+                        <div style="position: relative;padding-bottom:3em;" col-12 col-lg-4 col-md-6>
+                            <ion-avatar item-start style="position:absolute;">
+                                <img src="assets/imgs/password.svg" class="avatar-password">
+                            </ion-avatar>
+                            <ion-item class="transparent_item" style="width:80%;right:18%;transform: translateY(-20%)">
+                                <ion-label floating>رمز عبور</ion-label>
+                                <ion-input type="password" formControlName="password" text-right required></ion-input>
+                            </ion-item>
+                        </div>
+                    </div>
+                    <div style="width:100%;" class="item-center">
+                        <div style="position: relative;" col-12 col-lg-4 col-md-6>
+                            <ion-avatar item-start style="position:absolute">
+                                <img src="assets/imgs/verify-password.svg" class="avatar-password">
+                            </ion-avatar>
+                            <ion-item class="transparent_item" style="width:80%;right:18%;transform: translateY(-20%)">
+                                <ion-label floating>تکرار رمز عبور</ion-label>
+                                <ion-input type="password" formControlName="confirmPassword" text-right required></ion-input>
+                            </ion-item>
+                            <ng-container *ngFor="let validation of validation_msg.password">
+                                <div class="error-msg" *ngIf="passwordForm.get('confirmPassword').hasError(validation.type) && 
+                                (passwordForm.get('confirmPassword').dirty || passwordForm.get('confirmPassword').touched)">{{validation.message}}</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div style="width:100%;" class="item-center">
+                        <div text-left col-12 col-lg-4 col-md-6>
+                            <button ion-button icon-right *ngIf="!error_security_code" [disabled]="!passwordForm.valid" (click)="passwordItemClick()">
+                                ادامه
+                                <ion-icon name="arrow-forward"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div style="width:100%;" class="item-center" col-12 col-lg-4 col-md-6>
+                        <div text-center>
+                            <span *ngIf="error_security_code">
+                                خطا در ارسال کد تائید امنیتی
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </ion-col>
+        </ion-row>
+        <ion-row style="min-height:10%;height:10%;display:block;" justify-content-center>
+            <ion-col col-8></ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid style="height:100%;" padding *ngIf="level_panel === 6">
+        <ion-row style="min-height:15%;" justify-content-center>
+            <ion-col col-8>
+            </ion-col>
+        </ion-row>
+        <ion-row style="min-height:50%;" justify-content-center>
+            <ion-col col-12 col-lg-6 col-md-6 text-center>
+                <img src="assets/imgs/securityCode.svg" class="avatar-security">
+                <div style="width:100%;" class="item-center">
+                    <div style="position: relative" col-8 col-lg-6 col-md-6 text-center>
+                        <form [formGroup]="codeForm">
+                            <ion-item class="transparent_item" padding>
+                                <ion-label>کد تائید</ion-label>
+                                <ion-input text-right formControlName="security_code" type="number" style="text-align:center;"></ion-input>
+                            </ion-item>
+                            <ng-container *ngFor="let validation of validation_msg.security_code">
+                                <div style="width:100%;text-align:right;padding-bottom:10px;" class="error-msg" *ngIf="codeForm.get('security_code').hasError(validation.type) && 
+                                    (codeForm.get('security_code').dirty || codeForm.get('security_code').touched)">{{validation.message}}</div>
+                            </ng-container>
+                        </form>
+                        <button ion-button icon-right full [disabled]="!codeForm.valid" (click)="securityItemClick()">
+                            {{securityButtonText}}
+                            <ion-icon name="arrow-forward"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row style="min-height:35%;" justify-content-center>
+            <ion-col col-8></ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

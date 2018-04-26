@@ -1,0 +1,12 @@
+teacher-list{
+    .img-teacher-list{
+        width: 100% !important;
+        height: auto !important;
+        max-width:42px !important;
+    }
+    @media (min-width: 1024px)  {
+        .img-teacher-list{
+            max-width:64px !important;
+        }
+    }
+}
