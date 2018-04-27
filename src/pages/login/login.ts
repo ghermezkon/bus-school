@@ -3,6 +3,7 @@ import { ScreenOrientation } from "@ionic-native/screen-orientation";
 import { AuthService } from "../../service/AuthService";
 import { NavController } from "ionic-angular/navigation/nav-controller";
 import { Storage } from "@ionic/storage";
+import { LoaderService } from "../../service/LoaderService";
 @Component({
     selector: 'login',
     templateUrl: 'login.html',
@@ -14,7 +15,7 @@ export class LoginPage {
     buttonClick: any = false;
     //----------------------------------------------------------
     constructor(private screenOrientation: ScreenOrientation, private storage: Storage,
-        private _auth: AuthService, private navCtrl: NavController) { }
+        private _auth: AuthService, private navCtrl: NavController, private _loader: LoaderService) { }
     //----------------------------------------------------------
     ngOnInit() {
         this.screenOrientation.onChange().subscribe(
@@ -31,16 +32,19 @@ export class LoginPage {
     }
     //----------------------------------------------------------
     login(mobile, pass) {
-        this.buttonClick = true;
-        this._auth.login(mobile, pass).subscribe((res: any) => {
-            if(res._id){
-                this.showError = false;
-                this.storage.set('user', res);
-                this.navCtrl.setRoot('HomePage', {folder: res.user_sex.img.split('.')[0] + '-' + res.user_range.range_value})
-            }else{
-                this.showError = true;
-            }
-        })
+        this._loader.show().present().then(() => {
+            this.buttonClick = true;
+            this._auth.login(mobile, pass).subscribe((res: any) => {
+                if (res._id) {
+                    this.showError = false;
+                    this.storage.set('user', res);
+                    this.navCtrl.setRoot('HomePage', { folder: res.user_sex.img.split('.')[0] + '-' + res.user_range.range_value })
+                } else {
+                    this.showError = true;
+                }
+            })
+            this._loader.hide();
+        });
     }
     //----------------------------------------------------------
 }

@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class HttpService {
     //----------------------------------------------------------
-    //urlPoint: any = 'http://www.monosisgroup.com/api/';
-    urlPoint: any = 'http://localhost:5001/api/';
+    urlPoint: any = 'http://www.monosisgroup.com/api/';
+    //urlPoint: any = 'http://localhost:5001/api/';
     urlBase: any = 'azmoon_base/';
     urlApp: any = 'azmoon_app/';
     //----------------------------------------------------------
@@ -25,12 +25,12 @@ export class HttpService {
         return this.http.get(this.urlPoint + this.urlApp + 'find_teacher_for_app/' + data)
     }
     //----------------------------------------------------------
-    public find_exam_lesson_by_teacher_name(data?: any) {
-        return this.http.get(this.urlPoint + this.urlApp + 'find_exam_lesson_by_teacher_name/' + data);
+    public find_exam_lesson_by_teacher_name(data?: any, student_id?: any) {
+        return this.http.get(this.urlPoint + this.urlApp + 'find_exam_lesson_by_teacher_name/' + data + '/' + student_id);
     }
     //----------------------------------------------------------
-    public find_exam_list_by_lesson_name(lesson_name?: any, teacher_name?: any) {
-        return this.http.get(this.urlPoint + this.urlApp + 'find_exam_list_by_lesson_name/' + lesson_name + '/' + teacher_name);
+    public find_exam_list_by_lesson_name(lesson_name?: any, teacher_name?: any,  student_id?: any) {
+        return this.http.get(this.urlPoint + this.urlApp + 'find_exam_list_by_lesson_name/' + lesson_name + '/' + teacher_name + '/' + student_id);
     }
     //----------------------------------------------------------
     public find_exam_by_id(value?: any) {

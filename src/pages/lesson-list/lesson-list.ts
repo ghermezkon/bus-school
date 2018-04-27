@@ -5,6 +5,7 @@ import { HttpService } from "../../service/HttpService";
 import { LoaderService } from "../../service/LoaderService";
 import { Observable } from "rxjs/Observable";
 import { HomePage } from "../home/home";
+import { Storage } from "@ionic/storage";
 //---------------------------------------------------------------------
 @IonicPage()
 @Component({
@@ -17,16 +18,19 @@ export class LessonListPage {
     teacher_pic: any;
     lesson_list: Observable<Object>;
     //---------------------------------------------------------------------
-    constructor(private _http: HttpService, private _loader: LoaderService, private navParams: NavParams, private navCtrl: NavController) {
+    constructor(private _http: HttpService, private _loader: LoaderService, private navParams: NavParams,
+        private navCtrl: NavController, private storage: Storage) {
         this.getParams();
-        if(this.teacher_name == undefined){
+        if (this.teacher_name == undefined) {
             this.navCtrl.setRoot('HomePage')
         }
     }
     //---------------------------------------------------------------------
     ionViewWillLoad() {
         this._loader.show().present().then(() => {
-            this.lesson_list = this._http.find_exam_lesson_by_teacher_name(this.teacher_name);
+            this.storage.get('user').then((res: any) => {
+                this.lesson_list = this._http.find_exam_lesson_by_teacher_name(this.teacher_name, res._id);
+            })
             this._loader.hide();
         })
     }

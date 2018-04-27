@@ -133,7 +133,7 @@ export class RegisterPage {
                 this.auth.signUp(this.userInfo).take(1).subscribe((res: any) => {
                     if (res.result.n >= 1) {//Success    
                         this.storage.set('user', res.ops[0]);                   
-                        this.navCtrl.setRoot('HomePage', {folder: res.user_sex.img.split('.')[0] + '-' + res.user_range.range_value});
+                        this.navCtrl.setRoot('HomePage', {folder: res.ops[0].user_sex.img.split('.')[0] + '-' + res.ops[0].user_range.range_value});
                     }
                 })
             } else {
