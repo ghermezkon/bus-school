@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { HttpService } from "../../service/HttpService";
 import { LoaderService } from "../../service/LoaderService";
 import { HomePage } from "../home/home";
-import { Storage } from "@ionic/storage";
+import { MessageService } from "../../util/message.service";
 
 @IonicPage()
 @Component({
@@ -17,7 +17,7 @@ export class ExamListPage {
     teacher_pic: any;
     lesson_name: string;
     //---------------------------------------------------------
-    constructor(private _http: HttpService, private navCtrl: NavController, private storage: Storage,
+    constructor(private _http: HttpService, private navCtrl: NavController, private _msg: MessageService,
         private _loader: LoaderService, private navParams: NavParams, private modal: ModalController) {
         this.getParams();
         if (this.teacher_name == undefined) {
@@ -26,12 +26,13 @@ export class ExamListPage {
     }
     //---------------------------------------------------------
     ionViewWillLoad() {
+        var res = this._msg.inMemoryFindUser();
         this._loader.show().present().then(() => {
-            this.storage.get('user').then((res: any) => {
-                this.exam_list = this._http.find_exam_list_by_lesson_name(this.lesson_name, this.teacher_name, res._id);
-            })
-            this._loader.hide();
+            // this.storage.get('user').then((res: any) => {
+            this.exam_list = this._http.find_exam_list_by_lesson_name(this.lesson_name, this.teacher_name, res._id);
         })
+        this._loader.hide();
+        // })
     }
     //---------------------------------------------------------
     getParams() {

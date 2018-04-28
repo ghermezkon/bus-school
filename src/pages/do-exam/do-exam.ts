@@ -6,7 +6,7 @@ import { HttpService } from "../../service/HttpService";
 import 'rxjs/add/observable/interval';
 import { PersianCalendar } from "../../service/persian.calendar";
 import { LoaderService } from "../../service/LoaderService";
-import { Storage } from "@ionic/storage";
+import { MessageService } from "../../util/message.service";
 
 @IonicPage()
 @Component({
@@ -30,7 +30,7 @@ export class DoExamPage {
     progressWidth: any = 0;
     current = 5; max = 100;
     //------------------------------------------------------
-    constructor(private timerService: TimerService, private _http: HttpService, private storage: Storage,
+    constructor(private timerService: TimerService, private _http: HttpService, private _msg: MessageService,
         private pc: PersianCalendar, private navCtrl: NavController, private loader: LoaderService,
         private navParams: NavParams, private modal: ModalController, private toastCtrl: ToastController) { }
     //------------------------------------------------------
@@ -115,22 +115,22 @@ export class DoExamPage {
                 save_info['final'] = final;
                 save_info['user_score'] = sumScore;
                 save_info['exam_score'] = exam_score;
-                this.storage.get('user').then((res: any) => {
-                    var result = { student_id: res._id, exam_id: this.exam_info._id, result: final, exam_score: exam_score, user_score: sumScore };
-                    this._http.save_result_exam(result).take(1).subscribe((data: any) => {
-                        if (data.ok == 1 && data.n >= 1) {
-                            this.navCtrl.push('CheckScorePage', { exam_info: save_info });
-                        } else {
-                            let toast = this.toastCtrl.create({
-                                message: 'ارتباط با سرور قطع گردید',
-                                duration: 2000,
-                                cssClass: 'toastCss'
-                            });
-                            toast.present();
-                        }
-                    });
-
+                var user = this._msg.inMemoryFindUser();
+                // this.storage.get('user').then((res: any) => {
+                var result = { student_id: user._id, exam_id: this.exam_info._id, result: final, exam_score: exam_score, user_score: sumScore };
+                this._http.save_result_exam(result).take(1).subscribe((data: any) => {
+                    if (data.ok == 1 && data.n >= 1) {
+                        this.navCtrl.push('CheckScorePage', { exam_info: save_info });
+                    } else {
+                        let toast = this.toastCtrl.create({
+                            message: 'ارتباط با سرور قطع گردید',
+                            duration: 2000,
+                            cssClass: 'toastCss'
+                        });
+                        toast.present();
+                    }
                 });
+                // });
             })
             this.loader.hide();
         })

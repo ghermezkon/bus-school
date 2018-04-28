@@ -9,7 +9,7 @@ export class HttpService {
     urlBase: any = 'azmoon_base/';
     urlApp: any = 'azmoon_app/';
     //----------------------------------------------------------
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
     //----------------------------------------------------------
     public getUrlPoint() {
         return this.urlPoint;

@@ -1,1 +1,37 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="content">
+    <ion-header>
+        <ion-toolbar style="height:100px;" color="accent">
+            <div style="width:100%;min-width:100%;">
+                <ion-grid>
+                    <ion-row justify-content-center>
+                        <ion-col class="item-center">
+                            <ion-list>
+                                <ion-item class="transparent_item">
+                                    <ion-avatar class="item-center">
+                                        <img src="assets/imgs/profile-image.png" style="width:100%;height:auto;max-width:64px;">
+                                    </ion-avatar>
+                                    <ion-note>
+                                        <h2 class="fluid" ion-text color="light">مهدی قرمزکن</h2>
+                                    </ion-note>
+                                </ion-item>
+                            </ion-list>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list>
+            <button ion-item (click)="openPage(homePage)">
+                <ion-icon name="home" item-left style="font-size:2rem;"></ion-icon>
+                آزمونهای برگزار شده
+            </button>
+            <button ion-item (click)="openPage(friendsPage)">
+                <ion-icon name="exit" item-left style="font-size:2rem;"></ion-icon>
+                خروج
+            </button>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+<ion-nav id="nav" #content [root]="rootPage"></ion-nav>

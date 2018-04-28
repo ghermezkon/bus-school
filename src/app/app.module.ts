@@ -11,7 +11,6 @@ import { MessageService } from '../util/message.service';
 import { LoaderService } from '../service/LoaderService';
 import { HttpService } from '../service/HttpService';
 import { HttpClientModule } from '@angular/common/http';
-import { IonicStorageModule } from '@ionic/storage';
 import { LoginPage } from '../pages/login/login';
 import { AuthService } from '../service/AuthService';
 import 'rxjs/add/operator/take';
@@ -29,9 +28,9 @@ import 'rxjs/add/observable/forkJoin';
       scrollPadding: false,
       scrollAssist: true,
       autoFocusAssist: false,
-      monthNames: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند' ]
+      monthNames: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند' ],
+      animate:false
     }),
-    IonicStorageModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [

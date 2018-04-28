@@ -2,8 +2,9 @@ import { Component } from "@angular/core";
 import { ScreenOrientation } from "@ionic-native/screen-orientation";
 import { AuthService } from "../../service/AuthService";
 import { NavController } from "ionic-angular/navigation/nav-controller";
-import { Storage } from "@ionic/storage";
 import { LoaderService } from "../../service/LoaderService";
+import { MessageService } from "../../util/message.service";
+
 @Component({
     selector: 'login',
     templateUrl: 'login.html',
@@ -14,7 +15,7 @@ export class LoginPage {
     showError: any = false;
     buttonClick: any = false;
     //----------------------------------------------------------
-    constructor(private screenOrientation: ScreenOrientation, private storage: Storage,
+    constructor(private screenOrientation: ScreenOrientation, private _msg: MessageService,
         private _auth: AuthService, private navCtrl: NavController, private _loader: LoaderService) { }
     //----------------------------------------------------------
     ngOnInit() {
@@ -37,12 +38,14 @@ export class LoginPage {
             this._auth.login(mobile, pass).subscribe((res: any) => {
                 if (res._id) {
                     this.showError = false;
-                    this.storage.set('user', res);
+                    //this.storage.set('user', res);
+                    this._msg.inMemoryInsert(res);
+
                     this.navCtrl.setRoot('HomePage', { folder: res.user_sex.img.split('.')[0] + '-' + res.user_range.range_value })
                 } else {
                     this.showError = true;
                 }
-            })
+            });
             this._loader.hide();
         });
     }

@@ -1,11 +1,9 @@
 import { Component } from "@angular/core";
 import { IonicPage } from "ionic-angular/navigation/ionic-page";
 import { MessageService } from "../../util/message.service";
-import { Observable } from "rxjs/Observable";
 import { IUser } from "../../model/IUser";
 import { LoaderService } from "../../service/LoaderService";
 import { HttpService } from "../../service/HttpService";
-import { Storage } from "@ionic/storage";
 import 'rxjs/add/observable/fromPromise'
 import { Subscription } from "rxjs";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -20,7 +18,6 @@ export class ProfilePage {
     rangeOption: any;
     studyOption: any;
     userInfo: IUser;
-    localStorage: Observable<Object>;
     subscription: Subscription;
     //-----------------------------------------------------
     range_list: any[] = [];
@@ -37,8 +34,8 @@ export class ProfilePage {
     }
     //-----------------------------------------------------
     constructor(private _msg: MessageService, private _loader: LoaderService, private fb: FormBuilder,
-        private _http: HttpService, private auth: AuthService, private storage: Storage, private toastCtrl: ToastController) {
-        this.localStorage = Observable.fromPromise(this.storage.get('user'));
+        private _http: HttpService, private auth: AuthService, private toastCtrl: ToastController) {
+        //this.localStorage = Observable.fromPromise(this.storage.get('user'));
         this.range_list = this._msg.getUserRange();
     }
     //-----------------------------------------------------
@@ -57,17 +54,19 @@ export class ProfilePage {
             mode: 'ios'
         };
         //************************************************ */
-        this.subscription = this.localStorage.subscribe((res: any) => {
-            this.userInfo = res;
-            this.range_selected = this.userInfo.user_range;
-            this.study_selected = this.userInfo.study;
-            this._loader.show().present().then(() => {
-                this.subscription = this._http.find_study_by_name(this.range_selected.user_range_value).take(1).subscribe((res: any) => {
-                    this.study_list = res;
-                })
-                this._loader.hide();
+        // this.subscription = this.localStorage.subscribe((res: any) => {
+        var res = this._msg.inMemoryFindUser();
+        this.userInfo = res;
+        this.range_selected = this.userInfo.user_range;
+        this.study_selected = this.userInfo.study;
+
+        this._loader.show().present().then(() => {
+            this.subscription = this._http.find_study_by_name(this.range_selected.user_range_value).take(1).subscribe((res: any) => {
+                this.study_list = res;
             })
+            this._loader.hide();
         })
+        // })
         this.passwordForm = this.fb.group({
             password: ['', Validators.required],
             confirmPassword: ['', Validators.compose([Validators.required])]
@@ -104,15 +103,19 @@ export class ProfilePage {
             this.userInfo.flagUpdate = false;
         }
         this.userInfo.user_range = this.range_selected;
-        this.auth.updateUser(this.userInfo).take(1).subscribe((res: any) => {
-            if (res.ok >= 1) {//Success              
-                let toast = this.toastCtrl.create({
-                    message: 'ویرایش پروفایل انجام گردید',
-                    duration: 2000,
-                    cssClass: 'toastCss'
-                });
-                toast.present();
-            }
+        this._loader.show().present().then(() => {
+            this.auth.updateUser(this.userInfo).take(1).subscribe((res: any) => {
+                if (res.ok >= 1) {//Success              
+                    this._msg.updateUser(this.userInfo);
+                    let toast = this.toastCtrl.create({
+                        message: 'ویرایش پروفایل انجام گردید',
+                        duration: 2000,
+                        cssClass: 'toastCss'
+                    });
+                    toast.present();
+                }
+            });
+            this._loader.hide();
         })
     }
     //-----------------------------------------------------

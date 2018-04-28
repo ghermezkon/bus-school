@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IonicPage, AlertController, NavController } from "ionic-angular";
+import { IonicPage, NavController } from "ionic-angular";
 import { ScreenOrientation } from "@ionic-native/screen-orientation";
 import { MessageService } from "../../util/message.service";
 import { HttpService } from "../../service/HttpService";
@@ -12,7 +12,6 @@ import { AuthService } from "../../service/AuthService";
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/first';
-import { Storage } from "@ionic/storage";
 //----------------------------------------------------------
 @IonicPage()
 @Component({
@@ -60,7 +59,7 @@ export class RegisterPage {
         ]
     }
     //----------------------------------------------------
-    constructor(private _msg: MessageService,private navCtrl: NavController,private storage: Storage,
+    constructor(private _msg: MessageService, private navCtrl: NavController,
         private fb: FormBuilder, private screenOrientation: ScreenOrientation, private auth: AuthService,
         private _http: HttpService, private _loader: LoaderService) { }
     //----------------------------------------------------
@@ -132,8 +131,10 @@ export class RegisterPage {
                 this.userInfo.isUser = true;
                 this.auth.signUp(this.userInfo).take(1).subscribe((res: any) => {
                     if (res.result.n >= 1) {//Success    
-                        this.storage.set('user', res.ops[0]);                   
-                        this.navCtrl.setRoot('HomePage', {folder: res.ops[0].user_sex.img.split('.')[0] + '-' + res.ops[0].user_range.range_value});
+                        //this.storage.set('user', res.ops[0]);                   
+                        this._msg.inMemoryInsert(res.ops[0]);
+
+                        this.navCtrl.setRoot('HomePage', { folder: res.ops[0].user_sex.img.split('.')[0] + '-' + res.ops[0].user_range.range_value });
                     }
                 })
             } else {
@@ -177,5 +178,5 @@ export class RegisterPage {
             }
         );
     }
-    
+
 }
