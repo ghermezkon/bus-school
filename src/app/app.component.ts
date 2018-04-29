@@ -10,9 +10,11 @@ import { LoginPage } from '../pages/login/login';
 })
 export class MyApp {
   rootPage: any = LoginPage;
+  platform: any;
   //--------------------------------------------------
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, keyboard: Keyboard,
     public app: App, private alertCtrl: AlertController) {
+    this.platform = platform;
     platform.ready().then(() => {
       keyboard.disableScroll(true);
       statusBar.styleDefault();
@@ -41,5 +43,8 @@ export class MyApp {
         }
       });
     });
+  }
+  exitApp() {
+    this.platform.exitApp();
   }
 }

@@ -1,6 +1,6 @@
 <ion-menu [content]="content">
-    <ion-header>
-        <ion-toolbar style="height:100px;" color="accent">
+    <ion-header no-border no-shadow style="border:none;">
+        <!-- <ion-toolbar style="height:100px;" color="accent">
             <div style="width:100%;min-width:100%;">
                 <ion-grid>
                     <ion-row justify-content-center>
@@ -19,19 +19,34 @@
                     </ion-row>
                 </ion-grid>
             </div>
-        </ion-toolbar>
+        </ion-toolbar> -->
+        <div style="width:100%;height:120px;position:relative;background: #E3F2FD; 
+        background: linear-gradient(to top, #fff, #E3F2FD);">
+            <div style="position:absolute;top:-45%;">
+                <img src="assets/imgs/menu-bg.png">
+            </div>
+            <div style="position:absolute;">
+                <ion-list>
+                    <ion-item class="transparent_item">
+                        <ion-avatar class="item-center">
+                            <img src="assets/imgs/profile-image.png" style="width:100%;height:auto;max-width:64px;">
+                            <h2 class="fluid" ion-text color="dark">مهدی قرمزکن</h2>
+                        </ion-avatar>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
     </ion-header>
-    <ion-content>
-        <ion-list>
+    <ion-content style="position:relative;">
+        <ion-list style="height:100%;min-height:100%;position:absolute;min-width:100%;">
             <button ion-item (click)="openPage(homePage)">
                 <ion-icon name="home" item-left style="font-size:2rem;"></ion-icon>
                 آزمونهای برگزار شده
             </button>
-            <button ion-item (click)="openPage(friendsPage)">
-                <ion-icon name="exit" item-left style="font-size:2rem;"></ion-icon>
-                خروج
-            </button>
         </ion-list>
+        <div style="position:absolute;bottom:0;height:70px;width:100%;text-align:center;" (click)="exitApp">            
+            <img src="assets/imgs/logout.png" style="width:100%;height:auto;max-width:64px;">
+        </div>
     </ion-content>
 </ion-menu>
 <ion-nav id="nav" #content [root]="rootPage"></ion-nav>
