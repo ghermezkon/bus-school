@@ -131,7 +131,6 @@ export class RegisterPage {
                 this.userInfo.isUser = true;
                 this.auth.signUp(this.userInfo).take(1).subscribe((res: any) => {
                     if (res.result.n >= 1) {//Success    
-                        //this.storage.set('user', res.ops[0]);                   
                         this._msg.inMemoryInsert(res.ops[0]);
 
                         this.navCtrl.setRoot('HomePage', { folder: res.ops[0].user_sex.img.split('.')[0] + '-' + res.ops[0].user_range.range_value });

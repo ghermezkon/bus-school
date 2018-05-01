@@ -1,10 +1,7 @@
-<ion-header no-border>
+<ion-header>
     <ion-navbar transparent no-padding no-margin>
         <ion-item class="transparent_item" no-lines>
-            <ion-avatar item-left>
-                <img src="{{teacher_pic}}" class="effect7 img-lesson-list" />
-            </ion-avatar>
-            <h3 class="fluid" ion-text class="fluid title-lesson">آموزگار:<span ion-text color="subTitle">{{teacher_name}} - {{lesson_name}}</span></h3>
+            <h3 class="fluid" style="text-align:center;" ion-text class="fluid">لیست آزمون های برگزار شده</h3>
         </ion-item>
     </ion-navbar>
 </ion-header>
@@ -13,19 +10,25 @@
         <ion-item *virtualItem="let t" class="transparent_item">
             <ion-grid no-padding no-margin class="border-bottom">
                 <ion-row>
-                    <ion-col col-3 col-lg-1 col-md-1 style="position:relative;">
-                        <ion-avatar class="item-center">
+                    <ion-col col-3 col-lg-1 col-md-1>
+                        <ion-avatar>
                             <ng-container *ngIf="t.exam_level == 'ساده'">
-                                <img src="assets/imgs/simple.svg">
-                                <h3 class="fluid">{{t.exam_level}}</h3>
+                                <div class="item-center" style="display:inline-block;">
+                                    <img src="assets/imgs/simple.svg">
+                                    <h3 class="fluid" style="text-align:center;">{{t.exam_level}}</h3>
+                                </div>
                             </ng-container>
                             <ng-container *ngIf="t.exam_level == 'متوسط'">
-                                <img src="assets/imgs/middle.svg">
-                                <h3 class="fluid">{{t.exam_level}}</h3>
+                                <div class="item-center" style="display:inline-block;">
+                                    <img src="assets/imgs/middle.svg">
+                                    <h3 class="fluid" style="text-align:center;">{{t.exam_level}}</h3>
+                                </div>
                             </ng-container>
                             <ng-container *ngIf="t.exam_level == 'سخت'">
-                                <img src="assets/imgs/hard.svg">
-                                <h3 class="fluid">{{t.exam_level}}</h3>
+                                <div class="item-center" style="display:inline-block;">
+                                    <img src="assets/imgs/hard.svg">
+                                    <h3 class="fluid" style="text-align:center;">{{t.exam_level}}</h3>
+                                </div>
                             </ng-container>
                         </ion-avatar>
                     </ion-col>
@@ -38,12 +41,16 @@
                             </ion-row>
                             <ion-row>
                                 <ion-col>
-                                    <h3 class="fluid" ion-text color="subTitle">تعداد سوالات: {{t.numberOfQuestion}}</h3>
+                                    <h3 class="fluid" ion-text color="light">آموزگار:
+                                        <span ion-text color="subTitle">{{t.exam_teacher}}</span>
+                                    </h3>
                                 </ion-col>
                             </ion-row>
                             <ion-row>
                                 <ion-col>
-                                    <h3 class="fluid" ion-text color="subTitle">تاریخ: <span class="blue">{{t.last_update_short | datePipe}}</span></h3>
+                                    <h3 class="fluid" ion-text color="light">درس:
+                                        <span ion-text color="subTitle">{{t.exam_lesson}}</span>
+                                    </h3>
                                 </ion-col>
                             </ion-row>
                         </ion-grid>
@@ -69,7 +76,7 @@
                     </ion-col>
                 </ion-row>
             </ion-grid>
-            <button ion-button (click)="itemClick(t)" item-right>انتخاب</button>
+            <button ion-button (click)="itemClick(t)" item-right>نمره: {{t.result_exam[0].user_score}}</button>
         </ion-item>
     </ion-list>
 </ion-content>

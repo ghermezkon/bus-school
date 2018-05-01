@@ -19,12 +19,10 @@ export class TeacherListPage {
     //-------------------------------------------------------------------------------------------------------
     ionViewWillLoad() {
         var res = this._msg.inMemoryFindUser();
-        // this.storage.get('user').then((res: any)=>{
         this._loader.show().present().then(() => {
             this.teacher_list = this._http.getAllTeacher(res.study.study_name);
             this._loader.hide();
         });
-        // })
     }
     //-------------------------------------------------------------------------------------------------------
     itemClick(event) {

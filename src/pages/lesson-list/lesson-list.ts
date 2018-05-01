@@ -29,9 +29,7 @@ export class LessonListPage {
     ionViewWillLoad() {
         var res = this._msg.inMemoryFindUser();
         this._loader.show().present().then(() => {
-            // this.storage.get('user').then((res: any) => {
             this.lesson_list = this._http.find_exam_lesson_by_teacher_name(this.teacher_name, res._id);
-            // })
             this._loader.hide();
         })
     }

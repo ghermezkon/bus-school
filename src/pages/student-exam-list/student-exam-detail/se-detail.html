@@ -1,0 +1,99 @@
+<ion-header>
+        <ion-navbar transparent>
+          <ion-grid no-padding no-margin style="direction:rtl;">
+            <ion-row justify-content-center>
+              <ion-col col-8 col-md-4 col-lg-4 padding-top>
+                <h2 class="fluid" ion-text color="light">نام آزمون:
+                  <span ion-text color="subTitle">{{exam_name}}</span>
+                </h2>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-navbar>
+      </ion-header>
+      <ion-content class="main-bg">
+        <ion-slides (ionSlideDidChange)="slideChanged()" padding dir="ltr">
+      
+          <ion-slide style="display:block;direction:rtl;" *ngFor="let t of exam;let i = index;">
+            <ion-grid fixed>
+              <ion-row justify-content-center>
+                <ion-col col-2 col-lg-1 col-md-1 style="border-bottom:dashed 2px #fff;">
+                  <div class="label-question" text-center>
+                    <h2 class="fluid">{{t.question_number + 1}}</h2>
+                  </div>
+                </ion-col>
+                <ion-col col-10 col-lg-7 co-md-7 text-right margin-top padding style="border-bottom:dashed 2px #fff;">
+                  <h2 class="fluid" ion-text color="light" text-justify>{{t.question_text}}</h2>
+                </ion-col>
+              </ion-row>
+              <ion-row justify-content-center>
+                <ion-col col-12 col-lg-8 col-md-11>
+                  <ion-list radio-group [(ngModel)]="answers[i]" style="direction:ltr;">
+                  
+                    <ion-item [ngClass]="{'transparent_item':true , 'radio-image': t.answerOne_image}" style="direction:ltr;" >
+                      <ion-label class="label-image" *ngIf="t.answerOne_image" (click)="imageClick(t.answerOne_image)">
+                        <img [src]="t.answerOne_image" style="width:80px;height:auto;">
+                        <ion-icon name="search"></ion-icon>
+                      </ion-label>
+                      <ion-label class="label-text" *ngIf="t.answerOne_text">{{t.answerOne_text}}</ion-label>
+                      <ion-radio value="1"></ion-radio>
+                    </ion-item>
+      
+                    <ion-item [ngClass]="{'transparent_item':true , 'radio-image': t.answerTwo_image}" style="direction:ltr;" >
+                      <ion-label class="label-image" *ngIf="t.answerTwo_image" (click)="imageClick(t.answerTwo_image)">
+                        <img [src]="t.answerTwo_image" style="width:80px;height:auto;">
+                        <ion-icon name="search"></ion-icon>
+                      </ion-label>
+                      <ion-label class="label-text" *ngIf="t.answerTwo_text">{{t.answerTwo_text}}</ion-label>
+                      <ion-radio value="2"></ion-radio>
+                    </ion-item>
+      
+                    <ion-item [ngClass]="{'transparent_item':true , 'radio-image': t.answerThree_image}" style="direction:ltr;" >
+                      <ion-label class="label-image" *ngIf="t.answerThree_image" (click)="imageClick(t.answerThree_image)">
+                        <img [src]="t.answerThree_image" style="width:80px;height:auto;">
+                        <ion-icon name="search"></ion-icon>
+                      </ion-label>
+                      <ion-label class="label-text" *ngIf="t.answerThree_text">{{t.answerThree_text}}</ion-label>
+                      <ion-radio value="3"></ion-radio>
+                    </ion-item>
+      
+                    <ion-item [ngClass]="{'transparent_item':true , 'radio-image': t.answerFour_image}" style="direction:ltr;" >
+                      <ion-label class="label-image" *ngIf="t.answerFour_image" (click)="imageClick(t.answerFour_image)">
+                        <img [src]="t.answerFour_image" style="width:80px;height:auto;">
+                        <ion-icon name="search"></ion-icon>
+                      </ion-label>
+                      <ion-label class="label-text" *ngIf="t.answerFour_text">{{t.answerFour_text}}</ion-label>
+                      <ion-radio value="4"></ion-radio>
+                    </ion-item>
+                  
+                  </ion-list>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-slide>
+        </ion-slides>
+      </ion-content>
+      <ion-footer>
+        <ion-toolbar transparent style="direction:ltr;">
+          <ion-grid no-padding no-margin>
+            <ion-row>
+              <ion-col col-6 text-left>
+                <ion-buttons>
+                  <button ion-button icon-only color="light" icon-left (click)="slideNext()">
+                    <ion-icon name="arrow-round-forward"></ion-icon>
+                    سوال بعدی
+                  </button>
+                </ion-buttons>
+              </ion-col>
+              <ion-col col-6 text-right>
+                <ion-buttons>
+                  <button ion-button icon-only color="light" (click)="slidePrev()">
+                    سوال قبلی
+                    <ion-icon name="arrow-round-back"></ion-icon>
+                  </button>
+                </ion-buttons>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-toolbar>
+      </ion-footer>

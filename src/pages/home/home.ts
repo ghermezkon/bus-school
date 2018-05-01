@@ -23,9 +23,6 @@ export class HomePage {
   ionViewWillLoad(){
     if(this.navParam.get('folder')) this.folder = this.navParam.get('folder');
     else{
-      // this.storage.get('user').then((res: any) => {
-      //   this.folder = res.user_sex.img.split('.')[0] + '-' + res.user_range.range_value;
-      // });  
       var res = this._msg.inMemoryFindUser();
       this.folder = res.user_sex.img.split('.')[0] + '-' + res.user_range.range_value;
     }

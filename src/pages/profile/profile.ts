@@ -4,7 +4,6 @@ import { MessageService } from "../../util/message.service";
 import { IUser } from "../../model/IUser";
 import { LoaderService } from "../../service/LoaderService";
 import { HttpService } from "../../service/HttpService";
-import 'rxjs/add/observable/fromPromise'
 import { Subscription } from "rxjs";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { CustomeValidator } from "../../util/CustomValidator";
@@ -35,7 +34,6 @@ export class ProfilePage {
     //-----------------------------------------------------
     constructor(private _msg: MessageService, private _loader: LoaderService, private fb: FormBuilder,
         private _http: HttpService, private auth: AuthService, private toastCtrl: ToastController) {
-        //this.localStorage = Observable.fromPromise(this.storage.get('user'));
         this.range_list = this._msg.getUserRange();
     }
     //-----------------------------------------------------
@@ -54,7 +52,6 @@ export class ProfilePage {
             mode: 'ios'
         };
         //************************************************ */
-        // this.subscription = this.localStorage.subscribe((res: any) => {
         var res = this._msg.inMemoryFindUser();
         this.userInfo = res;
         this.range_selected = this.userInfo.user_range;
@@ -66,7 +63,6 @@ export class ProfilePage {
             })
             this._loader.hide();
         })
-        // })
         this.passwordForm = this.fb.group({
             password: ['', Validators.required],
             confirmPassword: ['', Validators.compose([Validators.required])]
