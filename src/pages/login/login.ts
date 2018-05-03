@@ -38,7 +38,6 @@ export class LoginPage {
             this._auth.login(mobile, pass).subscribe((res: any) => {
                 if (res._id) {
                     this.showError = false;
-                    //this.storage.set('user', res);
                     this._msg.inMemoryInsert(res);
 
                     this.navCtrl.setRoot('HomePage', { folder: res.user_sex.img.split('.')[0] + '-' + res.user_range.range_value })

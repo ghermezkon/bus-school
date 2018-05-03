@@ -116,7 +116,6 @@ export class DoExamPage {
                 save_info['user_score'] = sumScore;
                 save_info['exam_score'] = exam_score;
                 var user = this._msg.inMemoryFindUser();
-                // this.storage.get('user').then((res: any) => {
                 var result = { student_id: user._id, exam_id: this.exam_info._id, result: final, exam_score: exam_score, user_score: sumScore };
                 this._http.save_result_exam(result).take(1).subscribe((data: any) => {
                     if (data.ok == 1 && data.n >= 1) {
@@ -130,7 +129,6 @@ export class DoExamPage {
                         toast.present();
                     }
                 });
-                // });
             })
             this.loader.hide();
         })

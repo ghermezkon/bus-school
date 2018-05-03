@@ -4,8 +4,6 @@ import { IUser } from "../model/IUser";
 import { Observable } from 'rxjs/Rx';
 import { HttpClient } from "@angular/common/http";
 import { HttpService } from "./HttpService";
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import { MessageService } from "../util/message.service";
 
@@ -35,13 +33,10 @@ export class AuthService {
     updateUser(data?: IUser) {
         return this.http.put<IUser>(this._http.getUrlPoint() + this._http.getUrlApp() + 'users', data)
             .do((user: any) => {
-                //this.storage.remove('user');
-                //this.storage.set('user', data);
                 this.subject.next(true);
             });
     }
     logOut() {
-        //this.storage.clear();
         this.subject.next(false);
     }
 }

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Platform, AlertController, App } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, AlertController, App, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
@@ -11,6 +11,7 @@ import { LoginPage } from '../pages/login/login';
 export class MyApp {
   rootPage: any = LoginPage;
   platform: any;
+  @ViewChild(Nav) nav: Nav;
   //--------------------------------------------------
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, keyboard: Keyboard,
     public app: App, private alertCtrl: AlertController) {
@@ -46,5 +47,8 @@ export class MyApp {
   }
   exitApp() {
     this.platform.exitApp();
+  }
+  gotToStudentExamList(){
+    this.nav.push('SePage');
   }
 }

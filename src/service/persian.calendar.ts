@@ -146,10 +146,10 @@ export class PersianCalendar {
         return fullDate
       }
       else {
-        var day2 = this.day + 10;
-        this.month = (day2 / 30) + 10;
-        this.day = (day2 % 30);
-        if (day2 % 30 == 0) {
+        var day27 = this.day + 10;
+        this.month = (day27 / 30) + 10;
+        this.day = (day27 % 30);
+        if (day27 % 30 == 0) {
           this.month--;
           this.day = 30;
         }

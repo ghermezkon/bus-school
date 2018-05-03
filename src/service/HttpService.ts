@@ -4,19 +4,21 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class HttpService {
     //----------------------------------------------------------
-    urlPoint: any = 'http://www.monosisgroup.com/api/';
-    //urlPoint: any = 'http://localhost:5001/api/';
+    //urlPoint: any = 'http://www.monosisgroup.com/api/';
+    urlPoint: any = 'http://localhost:5001/api/';
     urlBase: any = 'azmoon_base/';
     urlApp: any = 'azmoon_app/';
     //----------------------------------------------------------
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
     //----------------------------------------------------------
     public getUrlPoint() {
         return this.urlPoint;
     }
+    //----------------------------------------------------------
     public getUrlApp() {
         return this.urlApp;
     }
+    //----------------------------------------------------------
     public getDate() {
         return this.http.get(this.urlPoint + 'currentDate');
     }
@@ -29,7 +31,7 @@ export class HttpService {
         return this.http.get(this.urlPoint + this.urlApp + 'find_exam_lesson_by_teacher_name/' + data + '/' + student_id);
     }
     //----------------------------------------------------------
-    public find_exam_list_by_lesson_name(lesson_name?: any, teacher_name?: any,  student_id?: any) {
+    public find_exam_list_by_lesson_name(lesson_name?: any, teacher_name?: any, student_id?: any) {
         return this.http.get(this.urlPoint + this.urlApp + 'find_exam_list_by_lesson_name/' + lesson_name + '/' + teacher_name + '/' + student_id);
     }
     //----------------------------------------------------------
@@ -58,5 +60,12 @@ export class HttpService {
     //----------------------------------------------------------
     public save_result_exam(data?: any) {
         return this.http.post(this.urlPoint + this.urlApp + 'result_exam', data);
+    }
+    //-----------------------------------------------------------
+    public find_student_exam_list(value?: any) {
+        return this.http.get(this.urlPoint + this.urlApp + 'find_student_exam_list/' + value);
+    }
+    public find_student_exam_detail(exam_id?: any, student_id?: any) {
+        return this.http.get(this.urlPoint + this.urlApp + 'find_student_exam_detail/' + exam_id + '/' + student_id);
     }
 }
