@@ -14,7 +14,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   //--------------------------------------------------
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, keyboard: Keyboard,
-    public app: App, private alertCtrl: AlertController) {
+    public app: App, public alertCtrl: AlertController) {
     this.platform = platform;
     platform.ready().then(() => {
       keyboard.disableScroll(true);

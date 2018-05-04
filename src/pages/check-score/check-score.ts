@@ -13,7 +13,7 @@ export class CheckScorePage {
     exam_info: any; condition: any = 'empty';
     user_score: number = 0; exam_score: number = 0;
     //------------------------------------------------
-    constructor(private navCtrl: NavController, private navParams: NavParams) {
+    constructor(public navParams: NavParams, public navCtrl: NavController) {
         this.exam_info = this.navParams.get('exam_info');
     }
     //------------------------------------------------
@@ -36,5 +36,6 @@ export class CheckScorePage {
     }
     backToHome() {
         this.navCtrl.setRoot('HomePage');
+        this.navCtrl.popToRoot();
     }
 }

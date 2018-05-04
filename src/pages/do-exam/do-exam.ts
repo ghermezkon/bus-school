@@ -31,8 +31,8 @@ export class DoExamPage {
     current = 5; max = 100;
     //------------------------------------------------------
     constructor(private timerService: TimerService, private _http: HttpService, private _msg: MessageService,
-        private pc: PersianCalendar, private navCtrl: NavController, private loader: LoaderService,
-        private navParams: NavParams, private modal: ModalController, private toastCtrl: ToastController) { }
+        private pc: PersianCalendar, public navCtrl: NavController, private loader: LoaderService,
+        public navParams: NavParams, public modal: ModalController, public toastCtrl: ToastController) { }
     //------------------------------------------------------
     ionViewWillLoad() {
         this.slides.lockSwipes(true);
@@ -102,11 +102,10 @@ export class DoExamPage {
                     }
                 }
                 for (let i = 0; i < this.answers.length; i++) {
+                    pattern = { question_number: +score[i].question_number, user_answer: +this.answers[i], answer_fine: +score[i].answer_fine }
+
                     if (+this.answers[i] == +score[i].answer_fine) {
-                        pattern = { question_number: +score[i].question_number, user_answer: +this.answers[i], answer_fine: +score[i].answer_fine }
                         sumScore += +score[i].question_grade;
-                    } else {
-                        pattern = { question_number: +score[i].question_number, user_answer: 0, answer_fine: +score[i].answer_fine }
                     }
                     exam_score += +score[i].question_grade;
                     final.push(pattern);

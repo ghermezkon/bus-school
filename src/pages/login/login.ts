@@ -39,8 +39,9 @@ export class LoginPage {
                 if (res._id) {
                     this.showError = false;
                     this._msg.inMemoryInsert(res);
-
-                    this.navCtrl.setRoot('HomePage', { folder: res.user_sex.img.split('.')[0] + '-' + res.user_range.range_value })
+                    
+                    this.navCtrl.setRoot('HomePage');
+                    this.navCtrl.popToRoot();
                 } else {
                     this.showError = true;
                 }

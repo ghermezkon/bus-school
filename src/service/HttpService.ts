@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class HttpService {
     //----------------------------------------------------------
-    //urlPoint: any = 'http://www.monosisgroup.com/api/';
-    urlPoint: any = 'http://localhost:5001/api/';
+    urlPoint: any = 'http://www.monosisgroup.com/api/';
+    //urlPoint: any = 'http://localhost:5001/api/';
     urlBase: any = 'azmoon_base/';
     urlApp: any = 'azmoon_app/';
     //----------------------------------------------------------

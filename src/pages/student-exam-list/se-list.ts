@@ -15,7 +15,8 @@ export class SePage {
     constructor(private _msg: MessageService, private _http: HttpService, private navCtrl: NavController) { }
     //----------------------------------------------------
     ionViewWillLoad() {
-        this.exam_list = this._http.find_student_exam_list('123');
+        var res = this._msg.inMemoryFindUser();
+        this.exam_list = this._http.find_student_exam_list(res._id);
     }
     //----------------------------------------------------
     itemClick(data) {

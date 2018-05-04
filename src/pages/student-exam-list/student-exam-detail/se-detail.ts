@@ -14,6 +14,7 @@ export class SeDetailPage {
     exam_name: any;
     exam: any;
     answers: any[] = [];
+    user_answer: any[] = [];
     currentIndex: number = -1;
     @ViewChild(Slides) slides: Slides;
     //-------------------------------------------
@@ -23,11 +24,23 @@ export class SeDetailPage {
     }
     //-------------------------------------------
     ionViewWillLoad() {
+        var user_res = this._msg.inMemoryFindUser();
         this.slides.lockSwipes(true);
-        this._http.find_student_exam_detail(this.exam_id, '123654').take(1).subscribe((res: any) => {
+        this._http.find_student_exam_detail(this.exam_id, user_res._id).take(1).subscribe((res: any) => {
             this.exam = res[0].exam_questions;
-            for(let i = 0; i < this.exam.length; i++){
+            for (let i = 0; i < this.exam.length; i++) {
                 this.answers[i] = this.exam[i].answer_fine;
+            }
+            for (let i = 0; i < res[0].result_exam[0].result.length; i++) {
+                if (res[0].result_exam[0].result[i].user_answer == 1)
+                    this.user_answer[i] = 'الف';
+                else if (res[0].result_exam[0].result[i].user_answer == 2)
+                    this.user_answer[i] = 'ب';
+                else if (res[0].result_exam[0].result[i].user_answer == 3)
+                    this.user_answer[i] = 'ج';
+                else
+                    this.user_answer[i] = 'دال';
+
             }
         })
     }

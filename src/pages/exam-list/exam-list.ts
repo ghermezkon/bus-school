@@ -17,8 +17,8 @@ export class ExamListPage {
     teacher_pic: any;
     lesson_name: string;
     //---------------------------------------------------------
-    constructor(private _http: HttpService, private navCtrl: NavController, private _msg: MessageService,
-        private _loader: LoaderService, private navParams: NavParams, private modal: ModalController) {
+    constructor(private _http: HttpService, public navCtrl: NavController, private _msg: MessageService,
+        private _loader: LoaderService, public navParams: NavParams, public modal: ModalController) {
         this.getParams();
         if (this.teacher_name == undefined) {
             this.navCtrl.setRoot('HomePage');
@@ -40,8 +40,9 @@ export class ExamListPage {
     }
     //---------------------------------------------------------
     itemClick(event) {
-        let confirmPriceModal = this.modal.create('ConfirmPriceModal',
-            { exam_info: event, teacher_name: this.teacher_name, teacher_pic: this.teacher_pic, lesson_name: this.lesson_name });
-        confirmPriceModal.present();
+        // let confirmPriceModal = this.modal.create('ConfirmPriceModal',
+        //     { exam_info: event, teacher_name: this.teacher_name, teacher_pic: this.teacher_pic, lesson_name: this.lesson_name });
+        // confirmPriceModal.present();
+        this.navCtrl.push('ConfirmPriceModal', { exam_info: event, teacher_name: this.teacher_name, teacher_pic: this.teacher_pic, lesson_name: this.lesson_name });
     }
 }

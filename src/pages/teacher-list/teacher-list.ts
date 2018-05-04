@@ -14,7 +14,7 @@ export class TeacherListPage {
     teacher_list: Observable<Object>;
     input_search: any;
     //-------------------------------------------------------------------------------------------------------
-    constructor(private navCtrl: NavController, private _loader: LoaderService, private _msg: MessageService,
+    constructor(public navCtrl: NavController, private _loader: LoaderService, private _msg: MessageService,
         private _http: HttpService) { }
     //-------------------------------------------------------------------------------------------------------
     ionViewWillLoad() {
