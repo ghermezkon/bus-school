@@ -1,16 +1,16 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/observable/timer'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/take'
-import 'rxjs/add/operator/do'
+import { timer } from "rxjs";
+import { take, map } from "rxjs/operators";
+import { DoExamPageModule } from "../pages/do-exam/do-exam.module";
 
-@Injectable()
+@Injectable({
+    providedIn: DoExamPageModule,
+})
 export class TimerService {
     tick = 1000;
     //----------------------------------------------------------------------------
     getCounter(counter) {
-        return Observable.timer(0, this.tick).take(counter).map(() => --counter)
+        return timer(0, this.tick).pipe(take(counter), map(() => --counter))
     }
     //----------------------------------------------------------------------------
 }

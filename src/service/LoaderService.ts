@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { LoadingController } from 'ionic-angular';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class LoaderService {
-    constructor(private loadingCtrl: LoadingController) { }
     loader: any;
+    constructor(private loadingCtrl: LoadingController) { }
     //-------------------------------------------------------------------
     public show() {
         let loader = this.loadingCtrl.create({
@@ -15,8 +17,8 @@ export class LoaderService {
         return loader;
     }
     public hide() {
-        setTimeout(() => {
-            this.loader.dismiss();
-        }, 200);
+        //setTimeout(() => {
+        this.loader.dismiss();
+        //}, 200);
     }
 }

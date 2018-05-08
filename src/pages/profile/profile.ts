@@ -2,13 +2,13 @@ import { Component } from "@angular/core";
 import { IonicPage } from "ionic-angular/navigation/ionic-page";
 import { MessageService } from "../../util/message.service";
 import { IUser } from "../../model/IUser";
-import { LoaderService } from "../../service/LoaderService";
 import { HttpService } from "../../service/HttpService";
 import { Subscription } from "rxjs";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { CustomeValidator } from "../../util/CustomValidator";
 import { AuthService } from "../../service/AuthService";
 import { ToastController } from "ionic-angular";
+import { take } from "rxjs/operators";
 
 @IonicPage()
 @Component({ selector: 'profile-page', templateUrl: 'profile.html' })
@@ -32,7 +32,7 @@ export class ProfilePage {
         ]
     }
     //-----------------------------------------------------
-    constructor(private _msg: MessageService, private _loader: LoaderService, private fb: FormBuilder,
+    constructor(private _msg: MessageService, private fb: FormBuilder,
         private _http: HttpService, private auth: AuthService, private toastCtrl: ToastController) {
         this.range_list = this._msg.getUserRange();
     }
@@ -57,11 +57,8 @@ export class ProfilePage {
         this.range_selected = this.userInfo.user_range;
         this.study_selected = this.userInfo.study;
 
-        this._loader.show().present().then(() => {
-            this.subscription = this._http.find_study_by_name(this.range_selected.user_range_value).take(1).subscribe((res: any) => {
-                this.study_list = res;
-            })
-            this._loader.hide();
+        this.subscription = this._http.find_study_by_name(this.range_selected.user_range_value).pipe(take(1)).subscribe((res: any) => {
+            this.study_list = res;
         })
         this.passwordForm = this.fb.group({
             password: ['', Validators.required],
@@ -79,12 +76,9 @@ export class ProfilePage {
     }
     //-----------------------------------------------------
     rangeSelectChange(event) {
-        this._loader.show().present().then(() => {
-            this.subscription = this._http.find_study_by_name(event['user_range_value']).take(1).subscribe((res: any) => {
-                this.study_list = res;
-            })
-            this._loader.hide();
-        });
+        this.subscription = this._http.find_study_by_name(event['user_range_value']).pipe(take(1)).subscribe((res: any) => {
+            this.study_list = res;
+        })
         this.study_selected = '';
     }
     passwordReset(event) {
@@ -99,20 +93,17 @@ export class ProfilePage {
             this.userInfo.flagUpdate = false;
         }
         this.userInfo.user_range = this.range_selected;
-        this._loader.show().present().then(() => {
-            this.auth.updateUser(this.userInfo).take(1).subscribe((res: any) => {
-                if (res.ok >= 1) {//Success              
-                    this._msg.updateUser(this.userInfo);
-                    let toast = this.toastCtrl.create({
-                        message: 'ویرایش پروفایل انجام گردید',
-                        duration: 2000,
-                        cssClass: 'toastCss'
-                    });
-                    toast.present();
-                }
-            });
-            this._loader.hide();
-        })
+        this.auth.updateUser(this.userInfo).pipe(take(1)).subscribe((res: any) => {
+            if (res.ok >= 1) {//Success              
+                this._msg.updateUser(this.userInfo);
+                let toast = this.toastCtrl.create({
+                    message: 'ویرایش پروفایل انجام گردید',
+                    duration: 2000,
+                    cssClass: 'toastCss'
+                });
+                toast.present();
+            }
+        });
     }
     //-----------------------------------------------------
     ionViewDidLeave() {

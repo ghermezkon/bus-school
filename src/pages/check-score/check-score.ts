@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/observable/interval';
+import { interval } from "rxjs";
 
 @IonicPage()
 @Component({
@@ -18,7 +17,7 @@ export class CheckScorePage {
     }
     //------------------------------------------------
     ionViewDidLoad() {
-        let progressBar = Observable.interval(10).subscribe(res => {
+        let progressBar = interval(10).subscribe(res => {
             this.current = res + 1;
             if (this.current >= 100) {
                 this.user_score = this.exam_info.user_score;

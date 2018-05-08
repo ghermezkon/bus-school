@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class HttpService {
     //----------------------------------------------------------
     urlPoint: any = 'http://www.monosisgroup.com/api/';
@@ -67,5 +69,12 @@ export class HttpService {
     }
     public find_student_exam_detail(exam_id?: any, student_id?: any) {
         return this.http.get(this.urlPoint + this.urlApp + 'find_student_exam_detail/' + exam_id + '/' + student_id);
+    }
+    //-----------------------------------------------------------
+    public test() {
+        return this.http.post('http://pardano.com/p/mobilepayment/', {
+            API: '0c153439632cdf6116476214e1f43a56532',
+            AMOUNT: 1000
+        }, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
     }
 }

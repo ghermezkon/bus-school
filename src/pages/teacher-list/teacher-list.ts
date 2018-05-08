@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController } from "ionic-angular";
 import { HttpService } from "../../service/HttpService";
-import { LoaderService } from "../../service/LoaderService";
 import { Observable } from "rxjs/Observable";
 import { MessageService } from "../../util/message.service";
 
@@ -14,15 +13,13 @@ export class TeacherListPage {
     teacher_list: Observable<Object>;
     input_search: any;
     //-------------------------------------------------------------------------------------------------------
-    constructor(public navCtrl: NavController, private _loader: LoaderService, private _msg: MessageService,
+    constructor(public navCtrl: NavController, private _msg: MessageService,
         private _http: HttpService) { }
     //-------------------------------------------------------------------------------------------------------
     ionViewWillLoad() {
         var res = this._msg.inMemoryFindUser();
-        this._loader.show().present().then(() => {
-            this.teacher_list = this._http.getAllTeacher(res.study.study_name);
-            this._loader.hide();
-        });
+        this.teacher_list = this._http.getAllTeacher(res.study.study_name);
+
     }
     //-------------------------------------------------------------------------------------------------------
     itemClick(event) {

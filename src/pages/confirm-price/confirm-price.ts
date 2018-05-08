@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavParams, ViewController, NavController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavParams, NavController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -12,7 +12,7 @@ export class ConfirmPriceModal {
   teacher_pic: any;
   lesson_name: any;
   //-------------------------------------------------------------------------
-  constructor(public navParams: NavParams, public navCtrl: NavController, public viewCtrl: ViewController) { }
+  constructor(public navParams: NavParams, public navCtrl: NavController) { }
   //-------------------------------------------------------------------------
   ionViewWillLoad() {
     this.exam_info = this.navParams.get('exam_info');
@@ -20,10 +20,6 @@ export class ConfirmPriceModal {
     this.teacher_pic = this.navParams.get('teacher_pic');
     this.lesson_name = this.navParams.get('lesson_name');
   }
-  //-------------------------------------------------------------------------
-  // closeModal() {
-  //   this.viewCtrl.dismiss();
-  // }
   //-------------------------------------------------------------------------
   doExam() {
     this.navCtrl.push('DoExamPage', { exam_info: this.exam_info });

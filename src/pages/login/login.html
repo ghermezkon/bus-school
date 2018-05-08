@@ -21,6 +21,7 @@
                     </ion-item>
                     <ion-item class="transparent_item" text-center no-lines>
                         <button ion-button large full color="primary" (click)="login(username.value, password.value)"> ورود به سیستم</button>
+                        <button ion-button large full color="primary" (click)="test()">asasasas</button>
                     </ion-item>
                     <div class="msg-error" *ngIf="showError && buttonClick">
                         نام کاربری و رمز عبور اشتباه است
@@ -56,6 +57,7 @@
             </ion-col>
         </ion-row>
     </ion-grid>
+    {{resp | json}}
 </ion-content>
 <ion-footer>
     <ion-toolbar transparent text-center>

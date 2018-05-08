@@ -7,14 +7,11 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
-import { MessageService } from '../util/message.service';
-import { LoaderService } from '../service/LoaderService';
-import { HttpService } from '../service/HttpService';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginPage } from '../pages/login/login';
-import { AuthService } from '../service/AuthService';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/observable/forkJoin';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoaderInterceptor } from '../service/loader.interceptor';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -28,8 +25,8 @@ import 'rxjs/add/observable/forkJoin';
       scrollPadding: false,
       scrollAssist: true,
       autoFocusAssist: false,
-      monthNames: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند' ],
-      animate:false
+      monthNames: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'],
+      animate: false
     }),
   ],
   bootstrap: [IonicApp],
@@ -37,17 +34,14 @@ import 'rxjs/add/observable/forkJoin';
     MyApp,
     LoginPage
   ],
-  exports:[],
+  exports: [],
   providers: [
-    MessageService,
-    LoaderService,
-    HttpService,
-    AuthService, 
     StatusBar,
     SplashScreen,
     ScreenOrientation,
     Keyboard,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ]
 })
-export class AppModule {}
+export class AppModule { }

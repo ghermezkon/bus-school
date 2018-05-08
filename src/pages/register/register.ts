@@ -3,15 +3,13 @@ import { IonicPage, NavController } from "ionic-angular";
 import { ScreenOrientation } from "@ionic-native/screen-orientation";
 import { MessageService } from "../../util/message.service";
 import { HttpService } from "../../service/HttpService";
-import { Observable } from "rxjs/Observable";
 import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
 import { CustomeValidator } from "../../util/CustomValidator";
-import { LoaderService } from "../../service/LoaderService";
 import { IUser } from "../../model/IUser";
 import { AuthService } from "../../service/AuthService";
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/first';
+import { Observable } from "rxjs";
+import { take, debounceTime, distinctUntilChanged, first } from "rxjs/operators";
+
 //----------------------------------------------------------
 @IonicPage()
 @Component({
@@ -61,7 +59,7 @@ export class RegisterPage {
     //----------------------------------------------------
     constructor(private _msg: MessageService, private navCtrl: NavController,
         private fb: FormBuilder, private screenOrientation: ScreenOrientation, private auth: AuthService,
-        private _http: HttpService, private _loader: LoaderService) { }
+        private _http: HttpService) { }
     //----------------------------------------------------
     ionViewWillLoad() {
         this.range_list = this._msg.getUserRange();
@@ -92,11 +90,8 @@ export class RegisterPage {
     sexItemClick(data) {
         this.userInfo.user_sex = data;
         this.level_panel = 3;
-        this._loader.show().present().then(() => {
-            this._http.find_study_by_name(this.userInfo.user_range['user_range_value']).take(1).subscribe((res: any) => {
-                this.study_list = res;
-            })
-            this._loader.hide();
+        this._http.find_study_by_name(this.userInfo.user_range['user_range_value']).pipe(take(1)).subscribe((res: any) => {
+            this.study_list = res;
         })
     }
     studyItemClick(data) {
@@ -108,20 +103,17 @@ export class RegisterPage {
         this.level_panel = 5;
     }
     passwordItemClick() {
-        this._loader.show().present().then(() => {
-            this._http.generate_security_code(this.dataForm.value.mobile).take(1).subscribe((res: any) => {
-                this.token = res.headers.get('s-token');
-                if (res.body) {
-                    this.userInfo.password = this.passwordForm.get('password').value;
-                    this.level_panel = 6;
-                    this.error_security_code = false;
-                    this.runTimer(120);
-                } else {
-                    this.error_security_code = true;
-                }
-            });
-            this._loader.hide();
-        })
+        this._http.generate_security_code(this.dataForm.value.mobile).pipe(take(1)).subscribe((res: any) => {
+            this.token = res.headers.get('s-token');
+            if (res.body) {
+                this.userInfo.password = this.passwordForm.get('password').value;
+                this.level_panel = 6;
+                this.error_security_code = false;
+                this.runTimer(120);
+            } else {
+                this.error_security_code = true;
+            }
+        });
     }
     securityItemClick() {
         this._http.check_security_code(this.codeForm.get('security_code').value, this.token).subscribe((res: any) => {
@@ -129,7 +121,7 @@ export class RegisterPage {
                 this.level_panel = 7;
                 this.userInfo.isEnabled = true;
                 this.userInfo.isUser = true;
-                this.auth.signUp(this.userInfo).take(1).subscribe((res: any) => {
+                this.auth.signUp(this.userInfo).pipe(take(1)).subscribe((res: any) => {
                     if (res.result.n >= 1) {//Success    
                         this._msg.inMemoryInsert(res.ops[0]);
 
@@ -145,14 +137,13 @@ export class RegisterPage {
     //-------------------------------------------------------------------------
     asyncMobileInUse(control: FormControl) {
         return new Observable((obs) => {
-            this._loader.show().present().then(() => {
-                this._http.mobile_in_use(control.value).take(1).subscribe((res: any) => {
-                    if (res == true) obs.next({ mobileInUse: true });
-                    else obs.next(null);
-                });
-                this._loader.hide();
-            })
-        }).debounceTime(500).distinctUntilChanged().first();
+            this._http.mobile_in_use(control.value).pipe(
+                take(1), debounceTime(500), distinctUntilChanged(), first()).subscribe((res: any) => {
+                if (res == true) obs.next({ mobileInUse: true });
+                else obs.next(null);
+            });
+
+        })
     }
     //------------------------------------------------------------------------
     runTimer(seconds) {

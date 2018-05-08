@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import * as loki from 'lokijs';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class MessageService {
     //---------------------------------------------------------
     db = new loki('bus.json');
@@ -22,10 +24,10 @@ export class MessageService {
     }
     //---------------------------------------------------------
     inMemoryFindUser() {
-        return this.db.getCollection('user').find({$loki: {'$gte': 1}})[0];
+        return this.db.getCollection('user').find({ $loki: { '$gte': 1 } })[0];
     }
     //---------------------------------------------------------
-    updateUser(new_user){
+    updateUser(new_user) {
         this.db.getCollection('user').remove(this.inMemoryFindUser());
         this.db.getCollection('user').insert(new_user);
     }

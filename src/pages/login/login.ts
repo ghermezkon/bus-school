@@ -2,8 +2,8 @@ import { Component } from "@angular/core";
 import { ScreenOrientation } from "@ionic-native/screen-orientation";
 import { AuthService } from "../../service/AuthService";
 import { NavController } from "ionic-angular/navigation/nav-controller";
-import { LoaderService } from "../../service/LoaderService";
 import { MessageService } from "../../util/message.service";
+import { HttpService } from "../../service/HttpService";
 
 @Component({
     selector: 'login',
@@ -14,9 +14,10 @@ export class LoginPage {
     registerPage: any = 'RegisterPage';
     showError: any = false;
     buttonClick: any = false;
+    resp: any;
     //----------------------------------------------------------
     constructor(private screenOrientation: ScreenOrientation, private _msg: MessageService,
-        private _auth: AuthService, private navCtrl: NavController, private _loader: LoaderService) { }
+        private _auth: AuthService, private navCtrl: NavController, private _http: HttpService) { }
     //----------------------------------------------------------
     ngOnInit() {
         this.screenOrientation.onChange().subscribe(
@@ -33,21 +34,23 @@ export class LoginPage {
     }
     //----------------------------------------------------------
     login(mobile, pass) {
-        this._loader.show().present().then(() => {
-            this.buttonClick = true;
-            this._auth.login(mobile, pass).subscribe((res: any) => {
-                if (res._id) {
-                    this.showError = false;
-                    this._msg.inMemoryInsert(res);
-                    
-                    this.navCtrl.setRoot('HomePage');
-                    this.navCtrl.popToRoot();
-                } else {
-                    this.showError = true;
-                }
-            });
-            this._loader.hide();
+        this.buttonClick = true;
+        this._auth.login(mobile, pass).subscribe((res: any) => {
+            if (res._id) {
+                this.showError = false;
+                this._msg.inMemoryInsert(res);
+
+                this.navCtrl.setRoot('HomePage');
+                this.navCtrl.popToRoot();
+            } else {
+                this.showError = true;
+            }
         });
     }
     //----------------------------------------------------------
+    test(){
+        this._http.test().subscribe((res: any)=>{
+            this.resp = res;
+        });
+    }
 }
