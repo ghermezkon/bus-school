@@ -1,0 +1,6 @@
+shekayat-page{
+    input.text-input, textarea.text-input{
+        text-align:right;direction:rtl;
+        color: map-get($colors, light);
+    }
+}

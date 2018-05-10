@@ -1,0 +1,20 @@
+contact-page{
+    .list-header{
+        text-align: center !important;
+        background-color:transparent !important;
+        color:map-get($colors, subTitle) !important;
+        font-weight:bold !important;
+        font-size:2.5rem !important;
+    }
+    ion-icon{
+        color:map-get($colors, dark) !important;
+        font-size:2.9rem !important;
+    }
+    .label-circle{
+        width: 50px;height: 50px;border-radius: 50%;display:table;
+        border: solid 2px #fff;color:#fff;font-weight:bold;
+        & > h2{
+            display: table-cell;vertical-align: middle;text-align: center;padding-top:0.7vh;
+        }
+    }
+}

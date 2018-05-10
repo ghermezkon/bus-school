@@ -51,4 +51,16 @@ export class MyApp {
   gotToStudentExamList(){
     this.nav.push('SePage');
   }
+  goToRule(){
+    this.nav.push('RulePage');
+  }
+  goToContactUs(){
+    this.nav.push('ContactUsPage');
+  }
+  goToAbout(){
+    this.nav.push('AboutPage');
+  }
+  goToShekayat(){
+    this.nav.push('ShekayatPage');
+  }
 }
