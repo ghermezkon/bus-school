@@ -1,0 +1,12 @@
+rule-page{
+    .list-header{
+        text-align: center !important;
+        background-color:transparent !important;
+        color:map-get($colors, subTitle) !important;
+        font-weight:bold !important;
+        font-size:2rem !important;
+    }
+    h2.fluid > ion-icon, h3.fluid > ion-icon{
+        color:map-get($colors, dark) !important;
+    }
+}

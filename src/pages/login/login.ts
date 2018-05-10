@@ -14,7 +14,6 @@ export class LoginPage {
     registerPage: any = 'RegisterPage';
     showError: any = false;
     buttonClick: any = false;
-    resp: any;
     //----------------------------------------------------------
     constructor(private screenOrientation: ScreenOrientation, private _msg: MessageService,
         private _auth: AuthService, private navCtrl: NavController, private _http: HttpService) { }

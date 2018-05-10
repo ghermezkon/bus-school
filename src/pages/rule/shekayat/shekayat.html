@@ -1,0 +1,27 @@
+<ion-header no-border no-padding no-margin>
+    <ion-navbar transparent text-right padding>
+    </ion-navbar>
+</ion-header>
+<ion-content class="main-bg" no-padding no-margin>
+    <form>
+        <ion-grid>
+            <ion-row justify-content-center>
+                <ion-col col-12 text-center>
+                    <ion-list style="direction:rtl;text-align:right;">
+                        <ion-item class="transparent_item" text-right>
+                            <ion-label>موضوع شکایت</ion-label>
+                            <ion-input [formControl]="shekayatTitle" type="text" style="text-align:right !important;direction:rtl;"></ion-input>
+                            <ion-icon name="chatbubbles" item-right></ion-icon>
+                        </ion-item>
+                        <ion-item class="transparent_item" text-center>
+                            <ion-label>متن شکایت</ion-label>
+                            <ion-textarea [formControl]="shekayatText" type="text" rows="19"></ion-textarea>
+                            <ion-icon name="create" item-right></ion-icon>
+                        </ion-item>
+                    </ion-list>
+                    <button ion-button full large color="primary" [disabled]="shekayatTitle.invalid || shekayatText.invalid" (click)="save()">ثبت شکایت و درخواست بررسی</button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>
