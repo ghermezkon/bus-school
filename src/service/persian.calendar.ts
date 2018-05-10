@@ -138,10 +138,10 @@ export class PersianCalendar {
         }
         this.year = this.gregorianYear - 621;
       } else {
-        var day2 = this.day - 186;
-        this.month = (day2 / 30) + 7;
-        this.day = (day2 % 30);
-        if (day2 % 30 == 0) {
+        var day233 = this.day - 186;
+        this.month = (day233 / 30) + 7;
+        this.day = (day233 % 30);
+        if (day233 % 30 == 0) {
           this.month--;
           this.day = 30;
         }

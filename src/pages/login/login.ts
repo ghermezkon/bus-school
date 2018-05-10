@@ -48,9 +48,4 @@ export class LoginPage {
         });
     }
     //----------------------------------------------------------
-    test(){
-        this._http.test().subscribe((res: any)=>{
-            this.resp = res;
-        });
-    }
 }
