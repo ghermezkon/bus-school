@@ -3,7 +3,6 @@ import { ScreenOrientation } from "@ionic-native/screen-orientation";
 import { AuthService } from "../../service/AuthService";
 import { NavController } from "ionic-angular/navigation/nav-controller";
 import { MessageService } from "../../util/message.service";
-import { HttpService } from "../../service/HttpService";
 
 @Component({
     selector: 'login',
@@ -16,7 +15,7 @@ export class LoginPage {
     buttonClick: any = false;
     //----------------------------------------------------------
     constructor(private screenOrientation: ScreenOrientation, private _msg: MessageService,
-        private _auth: AuthService, private navCtrl: NavController, private _http: HttpService) { }
+        private _auth: AuthService, private navCtrl: NavController) { }
     //----------------------------------------------------------
     ngOnInit() {
         this.screenOrientation.onChange().subscribe(
