@@ -2,7 +2,6 @@ import { Component } from "@angular/core";
 import { IonicPage } from "ionic-angular/navigation/ionic-page";
 import { NavParams, NavController } from "ionic-angular";
 import { HttpService } from "../../service/HttpService";
-import { HomePage } from "../home/home";
 import { MessageService } from "../../util/message.service";
 import { Observable } from "rxjs";
 //---------------------------------------------------------------------
