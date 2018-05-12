@@ -3,7 +3,7 @@
         <ion-title>
             <ion-searchbar text-right [(ngModel)]="input_search" placeholder="نام آموزگار"></ion-searchbar>
         </ion-title>
-    </ion-navbar>
+    </ion-navbar> 
 </ion-header>
 <ion-content class="main-bg">
     <ion-list [virtualScroll]="teacher_list | async | filterPipe: input_search" [approxItemHeight]="'40px'"

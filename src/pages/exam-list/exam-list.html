@@ -4,7 +4,9 @@
             <ion-avatar item-left>
                 <img src="{{teacher_pic}}" class="effect7 img-lesson-list" />
             </ion-avatar>
-            <h3 class="fluid" ion-text class="fluid title-lesson">آموزگار:<span ion-text color="subTitle">{{teacher_name}} - {{lesson_name}}</span></h3>
+            <h3 class="fluid" ion-text class="fluid title-lesson">آموزگار:
+                <span ion-text color="subTitle">{{teacher_name}} - {{lesson_name}}</span>
+            </h3>
         </ion-item>
     </ion-navbar>
 </ion-header>
@@ -17,17 +19,15 @@
                         <ion-avatar class="item-center">
                             <ng-container *ngIf="t.exam_level == 'ساده'">
                                 <img src="assets/imgs/simple.svg">
-                                <h3 class="fluid">{{t.exam_level}}</h3>
                             </ng-container>
                             <ng-container *ngIf="t.exam_level == 'متوسط'">
                                 <img src="assets/imgs/middle.svg">
-                                <h3 class="fluid">{{t.exam_level}}</h3>
                             </ng-container>
                             <ng-container *ngIf="t.exam_level == 'سخت'">
                                 <img src="assets/imgs/hard.svg">
-                                <h3 class="fluid">{{t.exam_level}}</h3>
                             </ng-container>
-                        </ion-avatar>
+                        </ion-avatar>                      
+                        <h3 class="fluid" class="item-center">{{t.exam_level}}</h3>
                     </ion-col>
                     <ion-col col-6 col-lg-9 col-md-9>
                         <ion-grid no-padding no-margin>
@@ -43,7 +43,9 @@
                             </ion-row>
                             <ion-row>
                                 <ion-col>
-                                    <h3 class="fluid" ion-text color="subTitle">تاریخ: <span class="blue">{{t.last_update_short | datePipe}}</span></h3>
+                                    <h3 class="fluid" ion-text color="subTitle">تاریخ:
+                                        <span class="blue">{{t.last_update_short | datePipe}}</span>
+                                    </h3>
                                 </ion-col>
                             </ion-row>
                         </ion-grid>

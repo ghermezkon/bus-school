@@ -26,7 +26,7 @@ import { LoaderInterceptor } from '../service/loader.interceptor';
       scrollAssist: true,
       autoFocusAssist: false,
       monthNames: ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'],
-      animate: false
+      animate: false,
     }),
   ],
   bootstrap: [IonicApp],
@@ -41,7 +41,7 @@ import { LoaderInterceptor } from '../service/loader.interceptor';
     ScreenOrientation,
     Keyboard,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
   ]
 })
 export class AppModule { }
