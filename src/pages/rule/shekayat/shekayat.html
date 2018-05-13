@@ -4,8 +4,8 @@
 </ion-header>
 <ion-content class="main-bg" no-padding no-margin>
     <form>
-        <ion-grid>
-            <ion-row justify-content-center>
+        <ion-grid style="height:100%;">
+            <ion-row justify-content-center style="min-height:50%;">
                 <ion-col col-12 text-center>
                     <ion-list style="direction:rtl;text-align:right;">
                         <ion-item class="transparent_item" text-right>
@@ -15,13 +15,19 @@
                         </ion-item>
                         <ion-item class="transparent_item" text-center>
                             <ion-label>متن شکایت</ion-label>
-                            <ion-textarea [formControl]="shekayatText" type="text" rows="19"></ion-textarea>
+                            <ion-textarea [formControl]="shekayatText" type="text" rows="15" style="direction:rtl;"></ion-textarea>
                             <ion-icon name="create" item-right></ion-icon>
                         </ion-item>
                     </ion-list>
-                    <button ion-button full large color="primary" [disabled]="shekayatTitle.invalid || shekayatText.invalid" (click)="save()">ثبت شکایت و درخواست بررسی</button>
                 </ion-col>
             </ion-row>
         </ion-grid>
     </form>
 </ion-content>
+<ion-footer no-border style="position:absolute;bottom:0;">
+    <ion-toolbar transparent text-center>
+        <button ion-button full large color="primary" [disabled]="shekayatTitle.invalid || shekayatText.invalid" (click)="saveClick(captchaRef)">ثبت شکایت و درخواست بررسی</button>
+        <re-captcha lang="fa" #captchaRef="reCaptcha" style="display:none;" (resolved)="captchaResolved($event)" size="invisible"
+        siteKey="6LdGAy8UAAAAAJ01Dr6yvKjWvUmQ1hNphmuFTDQw"></re-captcha>
+    </ion-toolbar>
+</ion-footer>

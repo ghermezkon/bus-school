@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, AlertController, App, Nav } from 'ionic-angular';
+import { Platform, AlertController, App, Nav, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
@@ -11,10 +11,15 @@ import { LoginPage } from '../pages/login/login';
 export class MyApp {
   rootPage: any = LoginPage;
   platform: any;
+  user: any;
   @ViewChild(Nav) nav: Nav;
   //--------------------------------------------------
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, keyboard: Keyboard,
-    public app: App, public alertCtrl: AlertController) {
+    public app: App, public alertCtrl: AlertController, public events: Events) {
+    this.events.subscribe('user:login', (user) => {
+      this.user = user;
+    });
+
     this.platform = platform;
     platform.ready().then(() => {
       keyboard.disableScroll(true);
@@ -35,6 +40,7 @@ export class MyApp {
               {
                 text: 'بله',
                 handler: () => {
+                  this.events.unsubscribe("user:login");
                   platform.exitApp();
                 }
               }
@@ -45,22 +51,19 @@ export class MyApp {
       });
     });
   }
-  exitApp() {
-    this.platform.exitApp();
-  }
-  gotToStudentExamList(){
+  gotToStudentExamList() {
     this.nav.push('SePage');
   }
-  goToRule(){
+  goToRule() {
     this.nav.push('RulePage');
   }
-  goToContactUs(){
+  goToContactUs() {
     this.nav.push('ContactUsPage');
   }
-  goToAbout(){
+  goToAbout() {
     this.nav.push('AboutPage');
   }
-  goToShekayat(){
+  goToShekayat() {
     this.nav.push('ShekayatPage');
   }
 }

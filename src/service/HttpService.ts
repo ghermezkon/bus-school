@@ -71,4 +71,7 @@ export class HttpService {
         return this.http.get(this.urlPoint + this.urlApp + 'find_student_exam_detail/' + exam_id + '/' + student_id);
     }
     //-----------------------------------------------------------
+    public save_shekayat(data?: any){
+        return this.http.post(this.urlPoint + this.urlApp + 'save_shekayat', data);
+    }
 }

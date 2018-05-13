@@ -37,7 +37,6 @@ export class LoginPage {
             if (res._id) {
                 this.showError = false;
                 this._msg.inMemoryInsert(res);
-
                 this.navCtrl.setRoot('HomePage');
                 this.navCtrl.popToRoot();
             } else {

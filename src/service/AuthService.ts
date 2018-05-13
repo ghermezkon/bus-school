@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { HttpService } from "./HttpService";
 import { Observable, BehaviorSubject } from "rxjs";
 import { tap } from "rxjs/operators";
+import { Events } from "ionic-angular";
 
 @Injectable({
     providedIn: 'root',
@@ -12,12 +13,13 @@ export class AuthService {
     private subject = new BehaviorSubject<boolean>(false);
     isLoggedIn$: Observable<boolean> = this.subject.asObservable();
     //-----------------------------------------------------------------------------------
-    constructor(private http: HttpClient, private _http: HttpService) { }
+    constructor(private http: HttpClient, private _http: HttpService, public events: Events) { }
     //-----------------------------------------------------------------------------------
     signUp(data?: IUser) {
         return this.http.post<IUser>(this._http.getUrlPoint() + this._http.getUrlApp() + 'users', data).pipe(
             tap((user: any) => {
                 this.subject.next(true);
+                this.events.publish('user:login', user);
             }));
     }
     login(mobile: any, password?: any) {
@@ -26,10 +28,12 @@ export class AuthService {
             tap((user: any) => {
                 if (user) {
                     this.subject.next(true);
+                    this.events.publish('user:login', user);
                 } else {
                     this.logOut();
                 }
-            }));
+            })
+            );
     }
     updateUser(data?: IUser) {
         return this.http.put<IUser>(this._http.getUrlPoint() + this._http.getUrlApp() + 'users', data).pipe(
@@ -39,5 +43,6 @@ export class AuthService {
     }
     logOut() {
         this.subject.next(false);
+        this.events.publish('user:login', null);
     }
 }
