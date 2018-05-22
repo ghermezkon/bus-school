@@ -3,12 +3,12 @@ import { IonicPage, NavController } from "ionic-angular";
 import { ScreenOrientation } from "@ionic-native/screen-orientation";
 import { MessageService } from "../../util/message.service";
 import { HttpService } from "../../service/HttpService";
-import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
+import { FormGroup, FormControl, Validators, FormBuilder, ValidationErrors } from "@angular/forms";
 import { CustomeValidator } from "../../util/CustomValidator";
 import { IUser } from "../../model/IUser";
 import { AuthService } from "../../service/AuthService";
 import { Observable } from "rxjs";
-import { take, debounceTime, distinctUntilChanged, first } from "rxjs/operators";
+import { take, debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 
 //----------------------------------------------------------
 @IonicPage()
@@ -64,19 +64,18 @@ export class RegisterPage {
     ionViewWillLoad() {
         this.range_list = this._msg.getUserRange();
         this.dataForm = this.fb.group({
-            family: ['', Validators.compose([Validators.required])],
-            birthdate: ['', Validators.compose([Validators.required])],
-            mobile: ['',
-                Validators.compose(
-                    [CustomeValidator.isMobile, Validators.required, Validators.minLength(11), Validators.maxLength(11)]),
-                [this.asyncMobileInUse.bind(this)]],
+            family: ['', Validators.required],
+            birthdate: ['', Validators.required],
+            mobile: ['', [CustomeValidator.isMobile, Validators.required, Validators.minLength(11), Validators.maxLength(11)],
+                this.asyncMobileInUse.bind(this)
+            ],
         });
         this.codeForm = this.fb.group({
             security_code: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(6)])],
         });
         this.passwordForm = this.fb.group({
             password: ['', Validators.required],
-            confirmPassword: ['', Validators.compose([Validators.required])]
+            confirmPassword: ['', Validators.required]
         }, {
                 validator: CustomeValidator.MatchPassword
             })
@@ -135,15 +134,13 @@ export class RegisterPage {
         })
     }
     //-------------------------------------------------------------------------
-    asyncMobileInUse(control: FormControl) {
-        return new Observable((obs) => {
-            this._http.mobile_in_use(control.value).pipe(
-                take(1), debounceTime(500), distinctUntilChanged(), first()).subscribe((res: any) => {
-                if (res == true) obs.next({ mobileInUse: true });
-                else obs.next(null);
-            });
-
-        })
+    asyncMobileInUse(control: FormControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
+        return this._http.mobile_in_use(control.value).pipe(
+            take(1), debounceTime(500), distinctUntilChanged(),
+            map(res =>{
+                return (res === true) ? { mobileInUse: true } : null;
+            }),            
+        );
     }
     //------------------------------------------------------------------------
     runTimer(seconds) {
@@ -156,18 +153,18 @@ export class RegisterPage {
             };
         }, 1300);
     }
-    ngOnInit() {
-        this.screenOrientation.onChange().subscribe(
-            () => {
-                if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT ||
-                    this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY ||
-                    this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_SECONDARY) {
-                    this.landscape = false;
-                } else {
-                    this.landscape = true;
-                }
-            }
-        );
-    }
+    // ngOnInit() {
+    //     this.screenOrientation.onChange().subscribe(
+    //         () => {
+    //             if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT ||
+    //                 this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY ||
+    //                 this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_SECONDARY) {
+    //                 this.landscape = false;
+    //             } else {
+    //                 this.landscape = true;
+    //             }
+    //         }
+    //     );
+    // }
 
 }

@@ -6,10 +6,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HttpService {
     //----------------------------------------------------------
-    urlPoint: any = 'http://www.monosisgroup.com/api/';
-    //urlPoint: any = 'http://localhost:5001/api/';
+    //urlPoint: any = 'http://www.monosisgroup.com/api/';
+    urlPoint: any = 'http://localhost:5001/api/';
     urlBase: any = 'azmoon_base/';
     urlApp: any = 'azmoon_app/';
+    urlSignup: any = 'azmoon_app_signup/';
     //----------------------------------------------------------
     constructor(private http: HttpClient) { }
     //----------------------------------------------------------
@@ -18,7 +19,7 @@ export class HttpService {
     }
     //----------------------------------------------------------
     public getUrlApp() {
-        return this.urlApp;
+        return this.urlSignup;
     }
     //----------------------------------------------------------
     public getDate() {
@@ -50,14 +51,14 @@ export class HttpService {
     }
     //----------------------------------------------------------
     public mobile_in_use(value?: any) {
-        return this.http.get(this.urlPoint + this.urlApp + 'mobile_in_use/' + value);
+        return this.http.get(this.urlPoint + this.urlSignup + 'mobile_in_use/' + value);
     }
     //----------------------------------------------------------
     public generate_security_code(value?: any) {
-        return this.http.get(this.urlPoint + this.urlApp + 'generate_security_code/' + value, { observe: 'response' });
+        return this.http.get(this.urlPoint + this.urlSignup + 'generate_security_code/' + value, { observe: 'response' });
     }
     public check_security_code(value?: any, header?: any) {
-        return this.http.get(this.urlPoint + this.urlApp + 'check_security_code/' + value, { headers: { 's-token': header } });
+        return this.http.get(this.urlPoint + this.urlSignup + 'check_security_code/' + value, { headers: { 's-token': header } });
     }
     //----------------------------------------------------------
     public save_result_exam(data?: any) {

@@ -33,7 +33,7 @@ export class ProfilePage {
     }
     //-----------------------------------------------------
     constructor(private _msg: MessageService, private fb: FormBuilder,
-        private _http: HttpService, private auth: AuthService, private toastCtrl: ToastController) {
+        private _http: HttpService, public _auth: AuthService, private toastCtrl: ToastController) {
         this.range_list = this._msg.getUserRange();
     }
     //-----------------------------------------------------
@@ -62,7 +62,7 @@ export class ProfilePage {
         })
         this.passwordForm = this.fb.group({
             password: ['', Validators.required],
-            confirmPassword: ['', Validators.compose([Validators.required])]
+            confirmPassword: ['', [Validators.required]]
         }, {
                 validator: CustomeValidator.MatchPassword
             })
@@ -93,7 +93,7 @@ export class ProfilePage {
             this.userInfo.flagUpdate = false;
         }
         this.userInfo.user_range = this.range_selected;
-        this.auth.updateUser(this.userInfo).pipe(take(1)).subscribe((res: any) => {
+        this._auth.updateUser(this.userInfo).pipe(take(1)).subscribe((res: any) => {
             if (res.ok >= 1) {//Success              
                 this._msg.updateUser(this.userInfo);
                 let toast = this.toastCtrl.create({

@@ -76,7 +76,7 @@
                             </ion-avatar>
                             <ion-item class="transparent_item" style="width:80%;right:18%;transform: translateY(-20%)">
                                 <ion-label floating>نام و نام خانوادگی</ion-label>
-                                <ion-input text-right formControlName="family" required></ion-input>
+                                <ion-input text-right formControlName="family"></ion-input>
                             </ion-item>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                     </div>
                     <div style="width:100%;" class="item-center">
                         <div text-left col-12 col-lg-4 col-md-6>
-                            <button ion-button icon-right [disabled]="!dataForm.valid" (click)="familyItemClick()">
+                            <button ion-button icon-right [disabled]="dataForm.invalid" (click)="familyItemClick()">
                                 ادامه
                                 <ion-icon name="arrow-forward"></ion-icon>
                             </button>
