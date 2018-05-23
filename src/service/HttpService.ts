@@ -6,8 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HttpService {
     //----------------------------------------------------------
-    //urlPoint: any = 'http://www.monosisgroup.com/api/';
-    urlPoint: any = 'http://localhost:5001/api/';
+    urlPoint: any = 'http://www.monosisgroup.com/api/';
+    //urlPoint: any = 'http://localhost:5001/api/';
     urlBase: any = 'azmoon_base/';
     urlApp: any = 'azmoon_app/';
     urlSignup: any = 'azmoon_app_signup/';
@@ -47,7 +47,7 @@ export class HttpService {
     }
     //----------------------------------------------------------
     public find_study_by_name(value?: any) {
-        return this.http.get(this.urlPoint + this.urlApp + 'find_study_by_name/' + value);
+        return this.http.get(this.urlPoint + this.urlSignup + 'find_study_by_name/' + value);
     }
     //----------------------------------------------------------
     public mobile_in_use(value?: any) {
@@ -74,5 +74,9 @@ export class HttpService {
     //-----------------------------------------------------------
     public save_shekayat(data?: any){
         return this.http.post(this.urlPoint + this.urlApp + 'save_shekayat', data);
+    }
+    //-----------------------------------------------------------
+    public pardakht() {
+        return this.http.get('http://monosisgroup.com/api/currentDate');
     }
 }

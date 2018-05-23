@@ -3,6 +3,7 @@ import { ScreenOrientation } from "@ionic-native/screen-orientation";
 import { AuthService } from "../../service/AuthService";
 import { NavController } from "ionic-angular/navigation/nav-controller";
 import { MessageService } from "../../util/message.service";
+import { HttpService } from "../../service/HttpService";
 
 // import * as cryptico from 'cryptico';
 
@@ -17,7 +18,7 @@ export class LoginPage {
     buttonClick: any = false;
     //----------------------------------------------------------
     constructor(private screenOrientation: ScreenOrientation, private _msg: MessageService,
-        private _auth: AuthService, private navCtrl: NavController) { }
+        public _auth: AuthService, private navCtrl: NavController, public _http: HttpService) { }
     //----------------------------------------------------------
     ngOnInit() {
         this.screenOrientation.onChange().subscribe(
@@ -34,17 +35,20 @@ export class LoginPage {
     }
     //----------------------------------------------------------
     login(mobile, pass) {
-        this.buttonClick = true;
-        this._auth.login(mobile, pass).subscribe((res: any) => {
-            if (res.body._id) {
-                this.showError = false;
-                this._msg.inMemoryInsert(res.body);
-                this.navCtrl.setRoot('HomePage');
-                this.navCtrl.popToRoot();
-            } else {
-                this.showError = true;
-            }
-        });
+        // this.buttonClick = true;
+        // this._auth.login(mobile, pass).subscribe((res: any) => {
+        //     if (res.body._id) {
+        //         this.showError = false;
+        //         this._msg.inMemoryInsert(res.body);
+        //         this.navCtrl.setRoot('HomePage');
+        //         this.navCtrl.popToRoot();
+        //     } else {
+        //         this.showError = true;
+        //     }
+        // });
+        this._http.pardakht().subscribe((res: any) => {
+            console.log(res);
+        })
     }
     //----------------------------------------------------------
 }

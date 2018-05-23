@@ -121,8 +121,8 @@ export class RegisterPage {
                 this.userInfo.isEnabled = true;
                 this.userInfo.isUser = true;
                 this.auth.signUp(this.userInfo).pipe(take(1)).subscribe((res: any) => {
-                    if (res.result.n >= 1) {//Success    
-                        this._msg.inMemoryInsert(res.ops[0]);
+                    if (res.body.result.n >= 1) {//Success    
+                        this._msg.inMemoryInsert(res.body.ops[0]);
 
                         this.navCtrl.setRoot('HomePage');
                         this.navCtrl.popToRoot();

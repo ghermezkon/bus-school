@@ -23,10 +23,11 @@ export class AuthService {
     }
     //-----------------------------------------------------------------------------------
     signUp(data?: IUser) {
-        return this.http.post<IUser>(this._http.getUrlPoint() + this._http.getUrlApp() + 'users', data).pipe(
+        return this.http.post<IUser>(this._http.getUrlPoint() + this._http.getUrlApp() + 'users', data, { observe: 'response' }).pipe(
             tap((user: any) => {
+                this.token = user.headers.get('Authorization');
                 this.subject.next(true);
-                this.events.publish('user:login', user);
+                this.events.publish('user:login', user.body.ops[0]);
             }));
     }
     login(mobile: any, password?: any) {
