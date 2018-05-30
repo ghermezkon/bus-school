@@ -16,6 +16,8 @@ export class LoginPage {
     registerPage: any = 'RegisterPage';
     showError: any = false;
     buttonClick: any = false;
+    Token: any = 'Tig6Fno2K6PMXI6x0LfyxTCzhp1CeqBzQQVokLiN7e';
+    divTest: any;
     //----------------------------------------------------------
     constructor(private screenOrientation: ScreenOrientation, private _msg: MessageService,
         public _auth: AuthService, private navCtrl: NavController, public _http: HttpService) { }
@@ -35,20 +37,17 @@ export class LoginPage {
     }
     //----------------------------------------------------------
     login(mobile, pass) {
-        // this.buttonClick = true;
-        // this._auth.login(mobile, pass).subscribe((res: any) => {
-        //     if (res.body._id) {
-        //         this.showError = false;
-        //         this._msg.inMemoryInsert(res.body);
-        //         this.navCtrl.setRoot('HomePage');
-        //         this.navCtrl.popToRoot();
-        //     } else {
-        //         this.showError = true;
-        //     }
-        // });
-        this._http.pardakht().subscribe((res: any) => {
-            console.log(res);
-        })
+        this.buttonClick = true;
+        this._auth.login(mobile, pass).subscribe((res: any) => {
+            if (res.body._id) {
+                this.showError = false;
+                this._msg.inMemoryInsert(res.body);
+                this.navCtrl.setRoot('HomePage');
+                this.navCtrl.popToRoot();
+            } else {
+                this.showError = true;
+            }
+        });
     }
     //----------------------------------------------------------
 }

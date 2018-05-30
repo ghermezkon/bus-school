@@ -18,7 +18,7 @@ export class LoaderInterceptor implements HttpInterceptor {
             changeRequest = req.clone({
                 setHeaders: {
                     Authorization: this._auth.token,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 }
             });
         }

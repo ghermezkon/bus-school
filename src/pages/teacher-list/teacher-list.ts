@@ -16,9 +16,8 @@ export class TeacherListPage {
     constructor(public navCtrl: NavController, private _msg: MessageService, private _http: HttpService) { }
     //-------------------------------------------------------------------------------------------------------
     ionViewWillLoad() {
-        var res = this._msg.inMemoryFindUser();
+        var res = this._msg.inMemoryFindUser();        
         this.teacher_list = this._http.getAllTeacher(res.study.study_name);
-
     }
     //-------------------------------------------------------------------------------------------------------
     itemClick(event) {

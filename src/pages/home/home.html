@@ -22,13 +22,21 @@
         </ion-title>
         <!-- *ngIf="isLoggedIn$ | async" -->
         <!-- <ion-buttons end right *ngIf="isLoggedIn$ | async"> -->
-            <button ion-button icon-only color="light" menuToggle>
-                <ion-icon name="menu"></ion-icon>
-            </button>
+        <button ion-button icon-only color="light" menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
         <!-- </ion-buttons> -->
     </ion-toolbar>
 </ion-header>
 <ion-content class="main-bg">
+    <form #cartForm="ngForm" (submit)="onSubmit(cartForm, $event)" action="https://sep.shaparak.ir/payment.aspx" method="post">
+        <input type="hidden" id="ResNum" name="ResNum" value="1010" />
+        <input type="hidden" id="MID" name="MID" value="50024350" />
+        <input type="hidden" id="Amount" name="Amount" value="1000" />
+        <input type="hidden" id="RedirectURL" name="RedirectURL" value="http://monosisgroup.com/api/verify" />
+        <button type="submit" name="Save">خرید اینترنتی</button>
+    </form>
+
     <ion-grid style="height:100%;padding:0;">
         <ion-row justify-content-center style="height:50%;">
             <ion-col class="item-center">
@@ -68,8 +76,7 @@
             </ion-col>
             <ion-col col-4>
                 <div class="bar bar1 bar-margin" [navPush]="profilePage">
-                    <img class="icon" src="assets/imgs/{{folder}}/profile.png" 
-                        style="width:100%;height:auto;padding-bottom:1px;" class="profile-{{folder}}"
+                    <img class="icon" src="assets/imgs/{{folder}}/profile.png" style="width:100%;height:auto;padding-bottom:1px;" class="profile-{{folder}}"
                     />
                     <span class="centered">پروفایل</span>
                 </div>

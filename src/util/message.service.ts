@@ -24,7 +24,19 @@ export class MessageService {
     }
     //---------------------------------------------------------
     inMemoryFindUser() {
-        return this.db.getCollection('user').find({ $loki: { '$gte': 1 } })[0];
+        if(this.db.getCollection('user'))
+            return this.db.getCollection('user').find({ $loki: { '$gte': 1 } })[0];
+        else{
+            this.loadFromStorage(JSON.parse(localStorage.getItem('user')));
+            localStorage.clear();            
+            return this.db.getCollection('user').find({ $loki: { '$gte': 1 } })[0];
+        }
+    }
+    //---------------------------------------------------------
+    loadFromStorage(data?: any){
+        delete data.$loki;
+        delete data.meta;
+        this.inMemoryInsert(data);
     }
     //---------------------------------------------------------
     updateUser(new_user) {

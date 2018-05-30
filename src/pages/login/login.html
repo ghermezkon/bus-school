@@ -28,7 +28,18 @@
                 </form>
             </ion-col>
         </ion-row>
+        <form #cartForm="ngForm" (submit)="onSubmit(cartForm, $event)" action="http://localhost:5001/api/verify" method="get">
+            <!-- <input type="hidden" id="Token" name="Token" value="{{Token}}"/> -->
+            <input type="hidden" id="ResNum" name="ResNum" value="1010"/>
+            <input type="hidden" id="MID" name="MID" value="50024350"/>
+            <input type="hidden" id="Amount" name="Amount" value="1000"/>
+            <input type="hidden" id="RedirectURL" name="RedirectURL" value="http://monosisgroup.com/api/verify"/>
+            <button type="submit" name="Save">خرید اینترنتی</button>
+          </form>
     </ion-grid>
+    <img src="https://trustseal.enamad.ir/logo.aspx?id=92151&p=qPyseXJYidoG102U" alt="" 
+        onclick="window.open('https://trustseal.enamad.ir/Verify.aspx?id=92151&p=qPyseXJYidoG102U','Popup','toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30')"
+        style="width:100%;height:auto;max-width:128px;" id="qPyseXJYidoG102U">
 
     <!-- landscape -->
     <ion-grid *ngIf="landscape" class="padding-top-grid">

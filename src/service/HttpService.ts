@@ -72,11 +72,14 @@ export class HttpService {
         return this.http.get(this.urlPoint + this.urlApp + 'find_student_exam_detail/' + exam_id + '/' + student_id);
     }
     //-----------------------------------------------------------
-    public save_shekayat(data?: any){
+    public save_shekayat(data?: any) {
         return this.http.post(this.urlPoint + this.urlApp + 'save_shekayat', data);
     }
     //-----------------------------------------------------------
-    public pardakht() {
-        return this.http.get('http://monosisgroup.com/api/currentDate');
+    public getSamanToken() {
+        return this.http.get(this.urlPoint + 'payment/' + '5001' + '/' + 1500);
+    }
+    public test() {
+        return this.http.get(this.urlPoint + 'test', { responseType: 'text', observe: 'response' });
     }
 }
