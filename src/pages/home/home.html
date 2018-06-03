@@ -20,7 +20,7 @@
                 </ion-row>
             </ion-grid>
         </ion-title>
-        <!-- *ngIf="isLoggedIn$ | async" -->
+        <!-- *ngIf="isLoggedIn$ | async" action="https://sep.shaparak.ir/payment.aspx"-->
         <!-- <ion-buttons end right *ngIf="isLoggedIn$ | async"> -->
         <button ion-button icon-only color="light" menuToggle>
             <ion-icon name="menu"></ion-icon>
@@ -29,14 +29,6 @@
     </ion-toolbar>
 </ion-header>
 <ion-content class="main-bg">
-    <form #cartForm="ngForm" (submit)="onSubmit(cartForm, $event)" action="https://sep.shaparak.ir/payment.aspx" method="post">
-        <input type="hidden" id="ResNum" name="ResNum" value="1010" />
-        <input type="hidden" id="MID" name="MID" value="50024350" />
-        <input type="hidden" id="Amount" name="Amount" value="1000" />
-        <input type="hidden" id="RedirectURL" name="RedirectURL" value="http://monosisgroup.com/api/verify" />
-        <button type="submit" name="Save">خرید اینترنتی</button>
-    </form>
-
     <ion-grid style="height:100%;padding:0;">
         <ion-row justify-content-center style="height:50%;">
             <ion-col class="item-center">

@@ -96,9 +96,25 @@
     </ion-row>
     <ion-row>
       <ion-col col-12 text-center>
-        <button ion-button large icon-left color="accent" (click)="doExam()">
+        <form #payForm="ngForm" (submit)="onSubmit(payForm, $event)" target="{{system_type}}" action="https://sep.shaparak.ir/payment.aspx"
+          method="post">
+          <input type="hidden" id="ResNum" name="ResNum" value="{{kharid_number}}" />
+          <input type="hidden" id="MID" name="MID" value="50024350" />
+          <input type="hidden" id="Amount" name="Amount" value="{{exam_info?.exam_price}}" />
+          <input type="hidden" id="RedirectURL" name="RedirectURL" value="http://monosisgroup.com/api/verify" />
+          <button ion-button large icon-left color="accent" type="submit" *ngIf="!isPayment && kharid_number != ''">
+            <ion-icon name="logo-usd"></ion-icon>
+            <h2 class="fluid">پرداخت با درگاه بانک سامان</h2>
+          </button>
+        </form>
+        <button ion-button large icon-left color="accent" type="submit" disabled *ngIf="kharid_number == ''">
           <ion-icon name="logo-usd"></ion-icon>
-          <h2 class="fluid">پرداخت و شروع آزمون</h2>
+          <h2 class="fluid">ایراد در برنامه، لطفا برنامه را بسته و دوباره باز نمائید</h2>
+        </button>
+
+        <button ion-button large icon-left color="primary" (click)="doExam()" *ngIf="isPayment">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          <h2 class="fluid">شروع آزمون</h2>
         </button>
       </ion-col>
     </ion-row>
