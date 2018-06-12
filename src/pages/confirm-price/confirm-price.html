@@ -1,5 +1,5 @@
-<ion-header>
-  <ion-navbar transparent>
+<ion-header class="item-center">
+  <ion-navbar transparent col-md-11 col-lg-6 col-12>
     <!-- <ion-buttons style="float:left;">
       <button ion-button icon-only navPop>
         <ion-icon style="color:#fff;font-weight:bold;" name="close"></ion-icon>
@@ -8,7 +8,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="main-bg">
-  <ion-grid padding>
+  <ion-grid padding col-md-10 col-lg-6 col-12>
     <ion-row style="border-bottom:dashed 1px #fff;">
       <ion-col col-12>
         <ion-avatar class="item-center">
@@ -100,7 +100,7 @@
           method="post">
           <input type="hidden" id="ResNum" name="ResNum" value="{{kharid_number}}" />
           <input type="hidden" id="MID" name="MID" value="50024350" />
-          <input type="hidden" id="Amount" name="Amount" value="{{exam_info?.exam_price}}" />
+          <input type="hidden" id="Amount" name="Amount" value="{{exam_info?.exam_price*10}}" />
           <input type="hidden" id="RedirectURL" name="RedirectURL" value="http://monosisgroup.com/api/verify" />
           <button ion-button large icon-left color="accent" type="submit" *ngIf="!isPayment && kharid_number != ''">
             <ion-icon name="logo-usd"></ion-icon>
@@ -111,11 +111,14 @@
           <ion-icon name="logo-usd"></ion-icon>
           <h2 class="fluid">ایراد در برنامه، لطفا برنامه را بسته و دوباره باز نمائید</h2>
         </button>
-
-        <button ion-button large icon-left color="primary" (click)="doExam()" *ngIf="isPayment">
+        <button ion-button large icon-left color="primary" type="submit" *ngIf="isPayment">
+          <ion-icon name="logo-usd"></ion-icon>
+          <h2 class="fluid">بررسی وضعیت خرید</h2>
+        </button>
+        <!-- <button ion-button large icon-left color="primary" (click)="doExam()" *ngIf="isPayment">
           <ion-icon name="checkmark-circle-outline"></ion-icon>
           <h2 class="fluid">شروع آزمون</h2>
-        </button>
+        </button> -->
       </ion-col>
     </ion-row>
   </ion-grid>

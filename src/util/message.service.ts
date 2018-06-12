@@ -24,16 +24,21 @@ export class MessageService {
     }
     //---------------------------------------------------------
     inMemoryFindUser() {
-        if(this.db.getCollection('user'))
+        if (this.db.getCollection('user')){
             return this.db.getCollection('user').find({ $loki: { '$gte': 1 } })[0];
-        else{
-            this.loadFromStorage(JSON.parse(localStorage.getItem('user')));
-            localStorage.clear();            
-            return this.db.getCollection('user').find({ $loki: { '$gte': 1 } })[0];
+        }
+        else {
+            if (localStorage.getItem('user')) {
+                this.loadFromStorage(JSON.parse(localStorage.getItem('user')));
+                localStorage.clear();
+                return this.db.getCollection('user').find({ $loki: { '$gte': 1 } })[0];
+            } else {
+                return null;
+            }
         }
     }
     //---------------------------------------------------------
-    loadFromStorage(data?: any){
+    loadFromStorage(data?: any) {
         delete data.$loki;
         delete data.meta;
         this.inMemoryInsert(data);

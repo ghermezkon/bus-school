@@ -12,29 +12,14 @@ import { HttpService } from "../../service/HttpService";
     templateUrl: 'login.html',
 })
 export class LoginPage {
-    landscape: any = false;
     registerPage: any = 'RegisterPage';
     showError: any = false;
     buttonClick: any = false;
-    Token: any = 'Tig6Fno2K6PMXI6x0LfyxTCzhp1CeqBzQQVokLiN7e';
-    divTest: any;
     //----------------------------------------------------------
-    constructor(private screenOrientation: ScreenOrientation, private _msg: MessageService,
+    constructor(private _msg: MessageService,
         public _auth: AuthService, private navCtrl: NavController, public _http: HttpService) { }
     //----------------------------------------------------------
-    ngOnInit() {
-        this.screenOrientation.onChange().subscribe(
-            () => {
-                if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT ||
-                    this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY ||
-                    this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_SECONDARY) {
-                    this.landscape = false;
-                } else {
-                    this.landscape = true;
-                }
-            }
-        );
-    }
+    ngOnInit() {}
     //----------------------------------------------------------
     login(mobile, pass) {
         this.buttonClick = true;

@@ -1,10 +1,10 @@
-<ion-header no-border no-padding no-margin>
-    <ion-navbar transparent text-right padding>
+<ion-header no-border no-padding no-margin class="item-center">
+    <ion-navbar transparent text-right padding col-md-11 col-lg-6 col-12>
     </ion-navbar>
 </ion-header>
 <ion-content class="main-bg" no-padding no-margin>
     <form>
-        <ion-grid style="height:100%;">
+        <ion-grid style="height:100%;" col-md-11 col-lg-6 col-12>
             <ion-row justify-content-center style="min-height:50%;">
                 <ion-col col-12 text-center>
                     <ion-list style="direction:rtl;text-align:right;">
@@ -24,8 +24,8 @@
         </ion-grid>
     </form>
 </ion-content>
-<ion-footer no-border style="position:absolute;bottom:0;">
-    <ion-toolbar transparent text-center>
+<ion-footer no-border style="position:absolute;bottom:0;" class="item-center">
+    <ion-toolbar transparent text-center col-md-11 col-lg-6 col-12>
         <button ion-button full large color="primary" [disabled]="shekayatTitle.invalid || shekayatText.invalid" (click)="saveClick(captchaRef)">ثبت شکایت و درخواست بررسی</button>
         <re-captcha lang="fa" #captchaRef="reCaptcha" style="display:none;" (resolved)="captchaResolved($event)" size="invisible"
         siteKey="6LdGAy8UAAAAAJ01Dr6yvKjWvUmQ1hNphmuFTDQw"></re-captcha>

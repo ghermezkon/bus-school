@@ -1,5 +1,5 @@
-<ion-header no-border>
-    <ion-navbar transparent no-padding no-margin>
+<ion-header no-border class="item-center">
+    <ion-navbar transparent no-padding no-margin col-md-11 col-lg-8 col-12>
         <ion-item class="transparent_item" no-lines>
             <ion-avatar item-left>
                 <img src="{{teacher_pic}}" class="effect7 img-lesson-list" />
@@ -11,7 +11,7 @@
     </ion-navbar>
 </ion-header>
 <ion-content class="main-bg">
-    <ion-list [virtualScroll]="exam_list | async" no-lines>
+    <ion-list col-md-10 col-lg-8 col-12 push-lg-2 push-md-1 [virtualScroll]="exam_list | async" no-lines>
         <ion-item *virtualItem="let t" class="transparent_item">
             <ion-grid no-padding no-margin class="border-bottom">
                 <ion-row>

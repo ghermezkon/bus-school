@@ -1,5 +1,5 @@
-<ion-header no-border>
-    <ion-navbar transparent no-padding no-margin>
+<ion-header no-border class="item-center">
+    <ion-navbar transparent no-padding no-margin col-md-11 col-lg-8 col-12>
         <ion-item class="transparent_item" no-lines>
             <ion-avatar item-left>
                 <img src="{{teacher_pic}}" class="effect7 img-lesson-list" />
@@ -9,7 +9,7 @@
     </ion-navbar>
 </ion-header>
 <ion-content class="main-bg">
-    <ion-grid>
+    <ion-grid col-md-11 col-lg-8 col-12>
         <ion-row>
             <ion-col text-center>
                 <div text-center class="main-lesson-list-img">
@@ -19,7 +19,7 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-    <ion-grid>
+    <ion-grid col-md-11 col-lg-8 col-12>
         <ion-row>
             <ion-col col-4 *ngFor="let t of lesson_list | async">
                 <div class="circle" (click)="itemClick(t)">
