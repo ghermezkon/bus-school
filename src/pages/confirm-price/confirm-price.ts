@@ -18,7 +18,7 @@ export class ConfirmPriceModal {
   system_type: any;
   kharid_number: any = '';
   //-------------------------------------------------------------------------
-  constructor(public navParams: NavParams, public navCtrl: NavController, public _msg: MessageService, private _auth: AuthService, public platform: Platform) { }
+  constructor(public navParams: NavParams, public navCtrl: NavController, public _msg: MessageService, public _auth: AuthService, public platform: Platform) { }
   //-------------------------------------------------------------------------
   ionViewWillLoad() {
     var os_type;

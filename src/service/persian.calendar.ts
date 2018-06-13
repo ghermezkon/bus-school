@@ -37,8 +37,7 @@ export class PersianCalendar {
   buf1: number[] = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
   buf2: number[] = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];
 
-  constructor() {
-  }
+  constructor() { }
 
   PersianCalendar(gregorianDate): string {
     this.today = gregorianDate;

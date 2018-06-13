@@ -32,8 +32,8 @@ export class ProfilePage {
         ]
     }
     //-----------------------------------------------------
-    constructor(private _msg: MessageService, private fb: FormBuilder,
-        private _http: HttpService, public _auth: AuthService, private toastCtrl: ToastController) {
+    constructor(public _msg: MessageService, public fb: FormBuilder,
+        public _http: HttpService, public _auth: AuthService, public toastCtrl: ToastController) {
         this.range_list = this._msg.getUserRange();
     }
     //-----------------------------------------------------

@@ -1,9 +1,7 @@
 import { Component } from "@angular/core";
-import { ScreenOrientation } from "@ionic-native/screen-orientation";
 import { AuthService } from "../../service/AuthService";
 import { NavController } from "ionic-angular/navigation/nav-controller";
 import { MessageService } from "../../util/message.service";
-import { HttpService } from "../../service/HttpService";
 
 // import * as cryptico from 'cryptico';
 
@@ -16,8 +14,7 @@ export class LoginPage {
     showError: any = false;
     buttonClick: any = false;
     //----------------------------------------------------------
-    constructor(private _msg: MessageService,
-        public _auth: AuthService, private navCtrl: NavController, public _http: HttpService) { }
+    constructor(public _msg: MessageService, public _auth: AuthService, public navCtrl: NavController) { }
     //----------------------------------------------------------
     ngOnInit() {}
     //----------------------------------------------------------

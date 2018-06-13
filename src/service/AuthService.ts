@@ -17,7 +17,7 @@ export class AuthService {
     public token: any;
     public csrf: any;
     //-----------------------------------------------------------------------------------
-    constructor(private http: HttpClient, private _http: HttpService, public events: Events) {
+    constructor(public http: HttpClient, public _http: HttpService, public events: Events) {
         this.headers = new HttpHeaders();
         this.headers.set('Content-Type', 'application/json');
     }

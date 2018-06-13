@@ -13,7 +13,7 @@ export class TeacherListPage {
     teacher_list: Observable<Object>;
     input_search: any;
     //-------------------------------------------------------------------------------------------------------
-    constructor(public navCtrl: NavController, private _msg: MessageService, private _http: HttpService) { }
+    constructor(public navCtrl: NavController, public _msg: MessageService, public _http: HttpService) { }
     //-------------------------------------------------------------------------------------------------------
     ionViewWillLoad() {
         var res = this._msg.inMemoryFindUser();        

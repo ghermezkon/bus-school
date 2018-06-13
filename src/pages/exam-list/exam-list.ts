@@ -15,7 +15,7 @@ export class ExamListPage {
     teacher_pic: any;
     lesson_name: string;
     //---------------------------------------------------------
-    constructor(private _http: HttpService, public navCtrl: NavController, private _msg: MessageService,
+    constructor(public _http: HttpService, public navCtrl: NavController, public _msg: MessageService,
         public navParams: NavParams, public modal: ModalController) {
         this.getParams();
         if (this.teacher_name == undefined) {

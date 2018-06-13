@@ -12,7 +12,7 @@ export class HttpService {
     urlApp: any = 'azmoon_app/';
     urlSignup: any = 'azmoon_app_signup/';
     //----------------------------------------------------------
-    constructor(private http: HttpClient) { }
+    constructor(public http: HttpClient) { }
     //----------------------------------------------------------
     public getUrlPoint() {
         return this.urlPoint;

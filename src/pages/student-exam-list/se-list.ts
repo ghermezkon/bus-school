@@ -12,7 +12,7 @@ import { Observable } from "rxjs/Observable";
 export class SePage {
     exam_list: Observable<Object>;
     //----------------------------------------------------
-    constructor(private _msg: MessageService, private _http: HttpService, private navCtrl: NavController) { }
+    constructor(public _msg: MessageService, public _http: HttpService, public navCtrl: NavController) { }
     //----------------------------------------------------
     ionViewWillLoad() {
         var res = this._msg.inMemoryFindUser();

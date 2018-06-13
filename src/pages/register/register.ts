@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController } from "ionic-angular";
-import { ScreenOrientation } from "@ionic-native/screen-orientation";
 import { MessageService } from "../../util/message.service";
 import { HttpService } from "../../service/HttpService";
 import { FormGroup, FormControl, Validators, FormBuilder, ValidationErrors } from "@angular/forms";
@@ -57,9 +56,9 @@ export class RegisterPage {
         ]
     }
     //----------------------------------------------------
-    constructor(private _msg: MessageService, private navCtrl: NavController,
-        private fb: FormBuilder, private screenOrientation: ScreenOrientation, private auth: AuthService,
-        private _http: HttpService) { }
+    constructor(public _msg: MessageService, public navCtrl: NavController,
+        public fb: FormBuilder, public _auth: AuthService,
+        public _http: HttpService) { }
     //----------------------------------------------------
     ionViewWillLoad() {
         this.range_list = this._msg.getUserRange();
@@ -120,7 +119,7 @@ export class RegisterPage {
                 this.level_panel = 7;
                 this.userInfo.isEnabled = true;
                 this.userInfo.isUser = true;
-                this.auth.signUp(this.userInfo).pipe(take(1)).subscribe((res: any) => {
+                this._auth.signUp(this.userInfo).pipe(take(1)).subscribe((res: any) => {
                     if (res.body.result.n >= 1) {//Success    
                         this._msg.inMemoryInsert(res.body.ops[0]);
 

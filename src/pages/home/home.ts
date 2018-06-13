@@ -3,7 +3,6 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { AuthService } from '../../service/AuthService';
 import { MessageService } from '../../util/message.service';
 import { Observable } from 'rxjs';
-import { Platform } from 'ionic-angular/platform/platform';
 import { LoginPage } from '../login/login';
 
 @IonicPage()
@@ -19,10 +18,10 @@ export class HomePage {
   //-------------------------------------------
   isLoggedIn$: Observable<boolean>;
   //----------------------------------------------------------------------------------------
-  constructor(private authService: AuthService, private _msg: MessageService, public navCtrl: NavController) { }
+  constructor(public _auth: AuthService, public _msg: MessageService, public navCtrl: NavController) { }
   //----------------------------------------------------------------------------------------
   ionViewWillLoad() {
-    this.isLoggedIn$ = this.authService.isLoggedIn$;    
+    this.isLoggedIn$ = this._auth.isLoggedIn$;    
     var res = this._msg.inMemoryFindUser();
     if (res == null || !res || res == undefined) {
       this.navCtrl.setRoot(LoginPage);

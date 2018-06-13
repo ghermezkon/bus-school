@@ -16,8 +16,8 @@ export class LessonListPage {
     teacher_pic: any;
     lesson_list: Observable<Object>;
     //---------------------------------------------------------------------
-    constructor(private _http: HttpService, public navParams: NavParams,
-        public navCtrl: NavController, private _msg: MessageService) {
+    constructor(public _http: HttpService, public navParams: NavParams,
+        public navCtrl: NavController, public _msg: MessageService) {
         this.getParams();
         if (this.teacher_name == undefined) {
             this.navCtrl.setRoot('HomePage')

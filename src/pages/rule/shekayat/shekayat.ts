@@ -17,8 +17,8 @@ export class ShekayatPage {
     shekayatText: FormControl;
     recaptchaStr = '';
     //------------------------------------------
-    constructor(private toastCtrl: ToastController, private _msg: MessageService, private _http: HttpService,
-        private pc: PersianCalendar) {
+    constructor(public toastCtrl: ToastController, public _msg: MessageService, public _http: HttpService,
+        public pc: PersianCalendar) {
         this.shekayatTitle = new FormControl('', Validators.required);
         this.shekayatText = new FormControl('', Validators.required);
     }

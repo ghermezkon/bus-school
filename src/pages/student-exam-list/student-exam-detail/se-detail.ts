@@ -19,7 +19,7 @@ export class SeDetailPage {
     currentIndex: number = -1;
     @ViewChild(Slides) slides: Slides;
     //-------------------------------------------
-    constructor(private _msg: MessageService, private _http: HttpService, private navParams: NavParams) {
+    constructor(public _msg: MessageService, public _http: HttpService, public navParams: NavParams) {
         this.exam_id = this.navParams.get('exam_id');
         this.exam_name = this.navParams.get('exam_name');
     }

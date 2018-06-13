@@ -29,8 +29,8 @@ export class DoExamPage {
     progressWidth: any = 0;
     current = 5; max = 100;
     //------------------------------------------------------
-    constructor(private timerService: TimerService, private _http: HttpService, private _msg: MessageService,
-        private pc: PersianCalendar, public navCtrl: NavController,
+    constructor(public timerService: TimerService, public _http: HttpService, public _msg: MessageService,
+        public pc: PersianCalendar, public navCtrl: NavController,
         public navParams: NavParams, public modal: ModalController, public toastCtrl: ToastController) { }
     //------------------------------------------------------
     ionViewWillLoad() {

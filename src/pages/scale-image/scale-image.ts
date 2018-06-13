@@ -8,7 +8,7 @@ import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 export class ScaleImageModal {
   scale_image: any;
   //-------------------------------------------------------------------------
-  constructor(private navParams: NavParams, private viewCtrl: ViewController) {}
+  constructor(public navParams: NavParams, public viewCtrl: ViewController) {}
   //-------------------------------------------------------------------------
   ionViewWillLoad(){
     this.scale_image = this.navParams.get('scale_image');
