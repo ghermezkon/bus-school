@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, NavController } from 'ionic-angular';
+import { IonicPage, NavParams, NavController, Events } from 'ionic-angular';
 import { MessageService } from '../../util/message.service';
 import { AuthService } from '../../service/AuthService';
 import { Platform } from 'ionic-angular/platform/platform';
+import { HttpService } from '../../service/HttpService';
+import { take } from 'rxjs/operators';
 
 @IonicPage()
 @Component({
@@ -15,16 +17,19 @@ export class ConfirmPriceModal {
   teacher_pic: any;
   lesson_name: any;
   isPayment: boolean = false;
-  system_type: any;
+  transaction_flag: boolean = false;
   kharid_number: any = '';
+  os_type;
   //-------------------------------------------------------------------------
-  constructor(public navParams: NavParams, public navCtrl: NavController, public _msg: MessageService, public _auth: AuthService, public platform: Platform) { }
+  constructor(public navParams: NavParams, public navCtrl: NavController, public events: Events,
+    public _http: HttpService,
+    public _msg: MessageService, public _auth: AuthService, public platform: Platform) { }
   //-------------------------------------------------------------------------
   ionViewWillLoad() {
-    var os_type;
-    if ((this.platform.is('core') || this.platform.is('mobileweb')) && (document.URL.startsWith('https') || document.URL.startsWith('http')))
-      this.system_type = '_self';
-    else this.system_type = '_blank';
+    if ((this.platform.is('core') || this.platform.is('mobileweb')) && (document.URL.startsWith('https') || document.URL.startsWith('http'))) {
+      this.os_type = 's';
+    }
+    else { this.os_type = 'b'; }
     //--------
     if (this.navParams.get('exam_info')) {
       this.isPayment = false;
@@ -40,9 +45,9 @@ export class ConfirmPriceModal {
       this.teacher_pic = localStorage.getItem('teacher_pic');
       this.lesson_name = localStorage.getItem('lesson_name');
       this.isPayment = true;
+      this._auth.sendLoginStatus(true);
     }
-    if(this.system_type == '_self') os_type = 's'; else os_type = 'b';
-    this.kharid_number = this.exam_info._id + '$' + this._msg.inMemoryFindUser()._id + os_type;
+    this.kharid_number = this.exam_info._id + '$' + this._msg.inMemoryFindUser()._id + this.os_type;
   }
   //-------------------------------------------------------------------------
   doExam() {
@@ -59,4 +64,21 @@ export class ConfirmPriceModal {
     e.target.submit()
   }
   //-------------------------------------------------------------------------
+  checkConfirm() {
+    this._http.checkPayment(this.kharid_number).pipe(take(1)).subscribe((res: any) => {
+      if (res && res.length > 0) {
+
+      } else {
+        this.transaction_flag = true;
+      }
+    })
+  }
+  backToHome() {
+    this.kharid_number = '';
+    this.isPayment = false;
+    this.transaction_flag = false;
+    this.events.publish('user:login', this._msg.inMemoryFindUser());
+    this.navCtrl.setRoot('HomePage');
+    this.navCtrl.popToRoot();
+  }
 }

@@ -54,4 +54,7 @@ export class AuthService {
         this.subject.next(false);
         this.events.publish('user:login', null);
     }
+    sendLoginStatus(value){
+        this.subject.next(value);
+    }
 }

@@ -76,10 +76,7 @@ export class HttpService {
         return this.http.post(this.urlPoint + this.urlApp + 'save_shekayat', data);
     }
     //-----------------------------------------------------------
-    public getSamanToken() {
-        return this.http.get(this.urlPoint + 'payment/' + '5001' + '/' + 1500);
-    }
-    public test() {
-        return this.http.get(this.urlPoint + 'test', { responseType: 'text', observe: 'response' });
+    public checkPayment(value?: string) {
+        return this.http.get(this.urlPoint + this.urlApp + 'check_payment/' + value);
     }
 }
