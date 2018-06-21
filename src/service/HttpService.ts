@@ -6,8 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HttpService {
     //----------------------------------------------------------
-    urlPoint: any = 'http://www.monosisgroup.com/api/';
-    //urlPoint: any = 'http://localhost:5001/api/';
+    //urlPoint: any = 'http://www.monosisgroup.com/api/';
+    urlPoint: any = 'http://localhost:5001/api/';
     urlBase: any = 'azmoon_base/';
     urlApp: any = 'azmoon_app/';
     urlSignup: any = 'azmoon_app_signup/';
@@ -78,5 +78,11 @@ export class HttpService {
     //-----------------------------------------------------------
     public checkPayment(value?: string) {
         return this.http.get(this.urlPoint + this.urlApp + 'check_payment/' + value);
+    }
+    public checkTeacherPayment(kharid_number?: string, teacher_code?: string) {
+        return this.http.get(this.urlPoint + this.urlApp + 'check_payment_for_teacher/' + kharid_number + '/' + teacher_code);
+    }
+    public save_payment_for_teacher(data?: any) {
+        return this.http.post(this.urlPoint + this.urlApp + 'save_payment_for_teacher', data);
     }
 }

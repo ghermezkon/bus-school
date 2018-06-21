@@ -16,8 +16,10 @@ export class ConfirmPriceModal {
   teacher_name: any;
   teacher_pic: any;
   lesson_name: any;
+  teacher_id: string;
   isPayment: boolean = false;
   transaction_flag: boolean = false;
+  start_exam: boolean = false;
   kharid_number: any = '';
   os_type;
   //-------------------------------------------------------------------------
@@ -36,6 +38,7 @@ export class ConfirmPriceModal {
       this.exam_info = this.navParams.get('exam_info');
       this.teacher_name = this.navParams.get('teacher_name');
       this.teacher_pic = this.navParams.get('teacher_pic');
+      this.teacher_id = this.navParams.get('teacher_id');
       this.lesson_name = this.navParams.get('lesson_name');
       localStorage.clear();
     } else {
@@ -43,15 +46,12 @@ export class ConfirmPriceModal {
       this.exam_info = JSON.parse(localStorage.getItem('exam_info'));
       this.teacher_name = localStorage.getItem('teacher_name');
       this.teacher_pic = localStorage.getItem('teacher_pic');
+      this.teacher_id = localStorage.getItem('teacher_id');
       this.lesson_name = localStorage.getItem('lesson_name');
       this.isPayment = true;
       this._auth.sendLoginStatus(true);
     }
     this.kharid_number = this.exam_info._id + '$' + this._msg.inMemoryFindUser()._id + this.os_type;
-  }
-  //-------------------------------------------------------------------------
-  doExam() {
-    this.navCtrl.push('DoExamPage', { exam_info: this.exam_info });
   }
   //-------------------------------------------------------------------------
   onSubmit(form: any, e: any) {
@@ -60,15 +60,37 @@ export class ConfirmPriceModal {
     localStorage.setItem('exam_info', JSON.stringify(this.exam_info));
     localStorage.setItem('teacher_name', this.teacher_name);
     localStorage.setItem('teacher_pic', this.teacher_pic);
+    localStorage.setItem('teacher_id', this.teacher_id);
     localStorage.setItem('lesson_name', this.lesson_name);
-    e.target.submit()
+    e.target.submit();
   }
   //-------------------------------------------------------------------------
   checkConfirm() {
-    this._http.checkPayment(this.kharid_number).pipe(take(1)).subscribe((res: any) => {
-      if (res && res.length > 0) {
+    var new_kharid_number = this.kharid_number.slice(0, 49);
+    var student_id = new_kharid_number.slice(25, 49);
+    var exam_id = new_kharid_number.slice(0, 24);
 
-      } else {
+    this._http.checkPayment(new_kharid_number).pipe(take(1)).subscribe((res: any) => {
+      if (res && res.length > 0) {
+        this._http.checkTeacherPayment(new_kharid_number, this.teacher_id).pipe(take(1)).subscribe((teacher: any) => {
+          if (teacher == 0) {
+            var data = {
+              teacher_code: this.teacher_id, kharid_number: new_kharid_number,
+              student_id: student_id, exam_id: exam_id, kharid_date: new Date(), checkout_date: null
+            };
+            this._http.save_payment_for_teacher(data).pipe(take(1)).subscribe((newRes: any) => {
+              if (newRes.n >= 1) {
+                this.start_exam = true;
+                this.isPayment = false;
+                this.transaction_flag = false;
+                this.kharid_number = '';
+              } else {
+                this.transaction_flag = true;
+              }
+            })
+          }
+        })
+      } else {//invalid transaction
         this.transaction_flag = true;
       }
     })
@@ -80,5 +102,9 @@ export class ConfirmPriceModal {
     this.events.publish('user:login', this._msg.inMemoryFindUser());
     this.navCtrl.setRoot('HomePage');
     this.navCtrl.popToRoot();
+  }
+  //-------------------------------------------------------------------------
+  doExam() {
+    this.navCtrl.push('DoExamPage', { exam_info: this.exam_info });
   }
 }

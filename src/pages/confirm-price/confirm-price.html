@@ -108,7 +108,7 @@
             <h2 class="fluid">پرداخت با درگاه بانک سامان</h2>
           </button>
         </form>
-        <button ion-button large icon-left color="danger" type="submit" *ngIf="kharid_number == ''" (click)="backToHome()">
+        <button ion-button large icon-left color="danger" type="submit" *ngIf="kharid_number == '' && !start_exam" (click)="backToHome()">
           <ion-icon name="ios-bug"></ion-icon>
           <h2 class="fluid">ایراد در برنامه، جهت بازگشت کلیک نمائید</h2>
         </button>
@@ -120,10 +120,10 @@
           <ion-icon name="checkmark-circle-outline"></ion-icon>
           <h2 class="fluid">بررسی وضعیت خرید</h2>
         </button>
-        <!-- <button ion-button large icon-left color="primary" (click)="doExam()" *ngIf="isPayment">
+        <button ion-button large icon-left color="secondary" (click)="doExam()" *ngIf="start_exam">
           <ion-icon name="checkmark-circle-outline"></ion-icon>
           <h2 class="fluid">شروع آزمون</h2>
-        </button> -->
+        </button>
       </ion-col>
     </ion-row>
   </ion-grid>

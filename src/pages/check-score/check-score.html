@@ -3,9 +3,9 @@
     </ion-navbar>
 </ion-header>
 <ion-content class="main-bg">
-    <ion-grid style="display:block;">
+    <ion-grid col-8 col-md-4 col-lg-4 style="display:block;">
         <ion-row justify-content-center>
-            <ion-col col-10 text-center item-center>
+            <ion-col col-10 text-center class="item-center">
                 <div *ngIf="current !== 100">
                     <round-progress [current]="current" [max]="max" [color]="'#FFB300'" [background]="'#eaeaea'" 
                         [radius]="125" [stroke]="20" [semicircle]="false" [rounded]="true" [clockwise]="false" 
@@ -22,7 +22,7 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-    <ion-grid>
+    <ion-grid col-8 col-md-4 col-lg-4>
         <ion-row justify-content-center>
             <ion-col col-10 text-center class="col-text">
                 <div style="width:100%" *ngIf="current === 100">

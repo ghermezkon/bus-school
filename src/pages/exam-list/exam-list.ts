@@ -14,6 +14,7 @@ export class ExamListPage {
     teacher_name: string;
     teacher_pic: any;
     lesson_name: string;
+    teacher_id: string;
     //---------------------------------------------------------
     constructor(public _http: HttpService, public navCtrl: NavController, public _msg: MessageService,
         public navParams: NavParams, public modal: ModalController) {
@@ -32,9 +33,10 @@ export class ExamListPage {
         this.teacher_name = this.navParams.get('teacher_name');
         this.lesson_name = this.navParams.get('lesson_name');
         this.teacher_pic = this.navParams.get('teacher_pic');
+        this.teacher_id = this.navParams.get('teacher_id');
     }
     //---------------------------------------------------------
     itemClick(event) {
-        this.navCtrl.push('ConfirmPriceModal', { exam_info: event, teacher_name: this.teacher_name, teacher_pic: this.teacher_pic, lesson_name: this.lesson_name });
+        this.navCtrl.push('ConfirmPriceModal', { exam_info: event, teacher_name: this.teacher_name, teacher_pic: this.teacher_pic, teacher_id: this.teacher_id, lesson_name: this.lesson_name });
     }
 }

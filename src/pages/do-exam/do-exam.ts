@@ -2,9 +2,8 @@ import { Component, ViewChild } from "@angular/core";
 import { IonicPage, Slides, ModalController, NavParams, NavController, ToastController } from "ionic-angular";
 import { TimerService } from "../../service/TimerService";
 import { HttpService } from "../../service/HttpService";
-import { PersianCalendar } from "../../service/persian.calendar";
 import { MessageService } from "../../util/message.service";
-import { interval, forkJoin } from "rxjs";
+import { interval } from "rxjs";
 import { take, tap } from "rxjs/operators";
 
 @IonicPage()
@@ -30,7 +29,7 @@ export class DoExamPage {
     current = 5; max = 100;
     //------------------------------------------------------
     constructor(public timerService: TimerService, public _http: HttpService, public _msg: MessageService,
-        public pc: PersianCalendar, public navCtrl: NavController,
+        public navCtrl: NavController,
         public navParams: NavParams, public modal: ModalController, public toastCtrl: ToastController) { }
     //------------------------------------------------------
     ionViewWillLoad() {
@@ -81,16 +80,8 @@ export class DoExamPage {
         var exam_score = 0;
         var save_info: any = {};
         var score: any[] = [];
-        forkJoin(
-            this._http.find_score_by_exam_id(this.exam_info._id),
-            this._http.getDate()
-        ).pipe(take(1)).subscribe((res: any) => {
-            score = res[0][0].exam_questions;
-
-            save_info['last_update_long'] = this.pc.PersianCalendar(new Date(res[1]));
-            save_info['last_update_short'] = this.pc.PersianCalendarShort(new Date(res[1]));
-            save_info['user_exam_date'] = new Date(res[1]);
-
+        this._http.find_score_by_exam_id(this.exam_info._id).pipe(take(1)).subscribe((res: any) => {
+            score = res[0].exam_questions;
             if (this.answers.length == 0) {
                 for (let i = 0; i < score.length; i++) {
                     this.answers[i] = -1;
@@ -111,18 +102,19 @@ export class DoExamPage {
             save_info['exam_score'] = exam_score;
             var user = this._msg.inMemoryFindUser();
             var result = { student_id: user._id, exam_id: this.exam_info._id, result: final, exam_score: exam_score, user_score: sumScore };
-            this._http.save_result_exam(result).pipe(take(1)).subscribe((data: any) => {
-                if (data.ok == 1 && data.n >= 1) {
-                    this.navCtrl.push('CheckScorePage', { exam_info: save_info });
-                } else {
-                    let toast = this.toastCtrl.create({
-                        message: 'ارتباط با سرور قطع گردید',
-                        duration: 2000,
-                        cssClass: 'toastCss'
-                    });
-                    toast.present();
-                }
-            });
+            this.navCtrl.push('CheckScorePage', { exam_info: save_info });
+            // this._http.save_result_exam(result).pipe(take(1)).subscribe((data: any) => {
+            //     if (data.ok == 1 && data.n >= 1) {
+            //         this.navCtrl.push('CheckScorePage', { exam_info: save_info });
+            //     } else {
+            //         let toast = this.toastCtrl.create({
+            //             message: 'ارتباط با سرور قطع گردید',
+            //             duration: 2000,
+            //             cssClass: 'toastCss'
+            //         });
+            //         toast.present();
+            //     }
+            // });
         })
     }
 }

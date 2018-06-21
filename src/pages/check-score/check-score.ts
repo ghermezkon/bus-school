@@ -16,7 +16,7 @@ export class CheckScorePage {
         this.exam_info = this.navParams.get('exam_info');
     }
     //------------------------------------------------
-    ionViewDidLoad() {
+    ionViewWillLoad() {
         let progressBar = interval(10).subscribe(res => {
             this.current = res + 1;
             if (this.current >= 100) {
@@ -28,10 +28,10 @@ export class CheckScorePage {
                     (this.exam_info.user_score >= this.exam_info.exam_score / 3))
                     this.condition = 'middle';
                 else if ((this.exam_info.user_score < this.exam_info.exam_score / 3) || this.exam_info.user_score == 0)
-                    this.condition = 'lose';                
+                    this.condition = 'lose';
                 progressBar.unsubscribe();
             }
-        });
+        })
     }
     backToHome() {
         this.navCtrl.setRoot('HomePage');

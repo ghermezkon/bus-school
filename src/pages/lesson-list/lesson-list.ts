@@ -39,7 +39,8 @@ export class LessonListPage {
         this.navCtrl.push('ExamListPage', {
             lesson_name: event._id.exam_lesson,
             teacher_name: this.teacher_name,
-            teacher_pic: this.teacher_pic
+            teacher_pic: this.teacher_pic, 
+            teacher_id: this.teacher_id
         })
     }
 }
