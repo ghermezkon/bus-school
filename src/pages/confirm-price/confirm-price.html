@@ -96,8 +96,7 @@
     </ion-row>
     <ion-row>
       <ion-col col-12 text-center>
-        <form #payForm="ngForm" (submit)="onSubmit(payForm, $event)" target="{{os_type == 's' ? '_self' : '_blank'}}" 
-          action="https://sep.shaparak.ir/payment.aspx"
+        <form #payForm="ngForm" (submit)="onSubmit(payForm, $event)" target="{{os_type == 's' ? '_self' : '_blank'}}" action="https://sep.shaparak.ir/payment.aspx"
           method="post">
           <input type="hidden" id="ResNum" name="ResNum" value="{{kharid_number}}" />
           <input type="hidden" id="MID" name="MID" value="50024350" />
@@ -108,15 +107,16 @@
             <h2 class="fluid">پرداخت با درگاه بانک سامان</h2>
           </button>
         </form>
-        <button ion-button large icon-left color="danger" type="submit" *ngIf="kharid_number == '' && !start_exam" (click)="backToHome()">
+        <button ion-button large icon-left color="danger" type="button" *ngIf="kharid_number == '' && !start_exam" (click)="backToHome()">
           <ion-icon name="ios-bug"></ion-icon>
           <h2 class="fluid">ایراد در برنامه، جهت بازگشت کلیک نمائید</h2>
         </button>
         <button ion-button large icon-left color="danger" type="button" *ngIf="transaction_flag" (click)="backToHome()">
           <ion-icon name="help-circle"></ion-icon>
           <h2 class="fluid">تراکنش نامعتبر، جهت بازگشت کلیک نمائید</h2>
-        </button>                
-        <button ion-button large icon-left color="primary" type="button" *ngIf="isPayment && !transaction_flag && kharid_number != ''" (click)="checkConfirm()">
+        </button>
+        <button ion-button large icon-left color="primary" type="button" *ngIf="isPayment && !transaction_flag && kharid_number != ''"
+          (click)="checkConfirm()">
           <ion-icon name="checkmark-circle-outline"></ion-icon>
           <h2 class="fluid">بررسی وضعیت خرید</h2>
         </button>

@@ -17,6 +17,9 @@ export class SePage {
     ionViewWillLoad() {
         var res = this._msg.inMemoryFindUser();
         this.exam_list = this._http.find_student_exam_list(res._id);
+        // this.exam_list.subscribe((res: any)=>{
+        //     console.log(res);
+        // })
     }
     //----------------------------------------------------
     itemClick(data) {

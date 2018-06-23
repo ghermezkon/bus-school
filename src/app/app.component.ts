@@ -66,4 +66,7 @@ export class MyApp {
   goToShekayat() {
     this.nav.push('ShekayatPage');
   }
+  goToPaymentPage(){
+    this.nav.push('UserPayPage');
+  }
 }

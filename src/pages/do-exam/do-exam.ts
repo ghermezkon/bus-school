@@ -102,19 +102,20 @@ export class DoExamPage {
             save_info['exam_score'] = exam_score;
             var user = this._msg.inMemoryFindUser();
             var result = { student_id: user._id, exam_id: this.exam_info._id, result: final, exam_score: exam_score, user_score: sumScore };
-            this.navCtrl.push('CheckScorePage', { exam_info: save_info });
-            // this._http.save_result_exam(result).pipe(take(1)).subscribe((data: any) => {
-            //     if (data.ok == 1 && data.n >= 1) {
-            //         this.navCtrl.push('CheckScorePage', { exam_info: save_info });
-            //     } else {
-            //         let toast = this.toastCtrl.create({
-            //             message: 'ارتباط با سرور قطع گردید',
-            //             duration: 2000,
-            //             cssClass: 'toastCss'
-            //         });
-            //         toast.present();
-            //     }
-            // });
+            //this.navCtrl.push('CheckScorePage', { exam_info: save_info });
+            this._http.update_result_exam(result).pipe(take(1)).subscribe((data: any) => {
+                console.log(data);
+                if (data.ok == 1 && data.n >= 1) {
+                    this.navCtrl.push('CheckScorePage', { exam_info: save_info });
+                } else {
+                    let toast = this.toastCtrl.create({
+                        message: 'ارتباط با سرور قطع گردید',
+                        duration: 2000,
+                        cssClass: 'toastCss'
+                    });
+                    toast.present();
+                }
+            });
         })
     }
 }

@@ -1,12 +1,12 @@
-<ion-header>
-    <ion-navbar transparent no-padding no-margin>
+<ion-header class="item-center">
+    <ion-navbar transparent no-padding no-margin col-md-11 col-lg-8 col-12>
         <ion-item class="transparent_item" no-lines>
-            <h3 class="fluid" style="text-align:center;" ion-text class="fluid">لیست آزمون های برگزار شده</h3>
+            <h3 class="fluid" ion-text class="fluid">لیست آزمون های برگزار شده</h3>
         </ion-item>
     </ion-navbar>
 </ion-header>
 <ion-content class="main-bg">
-    <ion-list [virtualScroll]="exam_list | async" no-lines>
+    <ion-list col-md-10 col-lg-8 col-12 push-lg-2 push-md-1 [virtualScroll]="exam_list | async" no-lines>
         <ion-item *virtualItem="let t" class="transparent_item">
             <ion-grid no-padding no-margin class="border-bottom">
                 <ion-row>

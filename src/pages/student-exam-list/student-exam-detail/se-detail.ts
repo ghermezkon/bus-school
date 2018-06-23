@@ -39,8 +39,10 @@ export class SeDetailPage {
                     this.user_answer[i] = 'ب';
                 else if (res[0].result_exam[0].result[i].user_answer == 3)
                     this.user_answer[i] = 'ج';
-                else
+                else if (res[0].result_exam[0].result[i].user_answer == 4)
                     this.user_answer[i] = 'دال';
+                else
+                this.user_answer[i] = 'اشتباه (بدون انتخاب)';
 
             }
         })

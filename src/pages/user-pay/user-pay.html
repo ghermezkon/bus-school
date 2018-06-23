@@ -1,0 +1,37 @@
+<ion-header class="item-center">
+    <ion-navbar transparent no-margin col-md-11 col-lg-6 col-12>
+        <h2 class="fluid" ion-text color="light">لیست پرداخت های انجام شده</h2>
+    </ion-navbar>
+</ion-header>
+<ion-content class="main-bg">
+    <ion-list col-md-12 col-lg-7 col-12 push-lg-3 push-md-2 [virtualScroll]="pay_list | async" [approxItemHeight]="'40px'" no-lines>
+        <ion-item *virtualItem="let t" class="transparent_item" text-right>
+            <ion-grid no-padding no-margin class="border-bottom">
+                <ion-row>
+                    <ion-col col-6 col-lg-6 col-md-6 text-right>
+                        <h3 class="fluid" ion-text color="light">شماره پیگیری:
+                            <span ion-text color="subTitle">{{t.TRACENO}}</span>
+                        </h3>
+                    </ion-col>
+                    <ion-col col-6 col-lg-6 col-md-6 text-right>
+                        <h3 class="fluid" ion-text color="light">مبلغ پرداختی:
+                            <span ion-text color="subTitle">{{t.Amount ? t.Amount/10 : 0}}</span> تومان
+                        </h3>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-6 col-lg-6 col-md-6 text-right>
+                        <h3 class="fluid" ion-text color="light">وضعیت تراکنش:
+                            <span ion-text color="subTitle">{{t.State}}</span>
+                        </h3>
+                    </ion-col>
+                    <ion-col col-6 col-lg-6 col-md-6 text-right>
+                        <h3 class="fluid" ion-text color="light">نام آزمون:
+                            <span ion-text color="subTitle">{{t.exam_name}}</span>
+                        </h3>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+    </ion-list>
+</ion-content>

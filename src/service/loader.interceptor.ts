@@ -12,7 +12,7 @@ export class LoaderInterceptor implements HttpInterceptor {
     constructor(public _loader: LoaderService, public _auth: AuthService) { }
     //------------------------------------------------------------------------------
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        this._loader.show().present();
+        //this._loader.show().present();
         let changeRequest = req.clone();
         if (this._auth.token) {
             changeRequest = req.clone({
@@ -24,7 +24,7 @@ export class LoaderInterceptor implements HttpInterceptor {
         }
         return next.handle(changeRequest).pipe(tap((event: HttpEvent<any>) => {
             if (event instanceof HttpResponse) {
-                this._loader.hide();
+                //this._loader.hide();
             }
         }));
     }

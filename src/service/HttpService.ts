@@ -64,6 +64,9 @@ export class HttpService {
     public save_result_exam(data?: any) {
         return this.http.post(this.urlPoint + this.urlApp + 'result_exam', data);
     }
+    public update_result_exam(data?: any) {
+        return this.http.put(this.urlPoint + this.urlApp + 'result_exam', data);
+    }
     //-----------------------------------------------------------
     public find_student_exam_list(value?: any) {
         return this.http.get(this.urlPoint + this.urlApp + 'find_student_exam_list/' + value);
@@ -84,5 +87,8 @@ export class HttpService {
     }
     public save_payment_for_teacher(data?: any) {
         return this.http.post(this.urlPoint + this.urlApp + 'save_payment_for_teacher', data);
+    }
+    public find_user_payment(student_id?: any) {
+        return this.http.get(this.urlPoint + this.urlApp + 'find_user_payment/' + student_id);
     }
 }
