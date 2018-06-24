@@ -4,30 +4,37 @@
     </ion-navbar>
 </ion-header>
 <ion-content class="main-bg">
-    <ion-list col-md-12 col-lg-7 col-12 push-lg-3 push-md-2 [virtualScroll]="pay_list | async" [approxItemHeight]="'40px'" no-lines>
+    <ion-list col-md-12 col-lg-8 col-12 push-lg-3 [virtualScroll]="pay_list | async" [approxItemHeight]="'40px'" no-lines>
         <ion-item *virtualItem="let t" class="transparent_item" text-right>
             <ion-grid no-padding no-margin class="border-bottom">
                 <ion-row>
-                    <ion-col col-6 col-lg-6 col-md-6 text-right>
+                    <ion-col col-8 col-lg-6 col-md-8 text-right>
                         <h3 class="fluid" ion-text color="light">شماره پیگیری:
                             <span ion-text color="subTitle">{{t.TRACENO}}</span>
                         </h3>
                     </ion-col>
-                    <ion-col col-6 col-lg-6 col-md-6 text-right>
+                    <ion-col col-4 col-lg-6 col-md-4 text-right>
                         <h3 class="fluid" ion-text color="light">مبلغ پرداختی:
                             <span ion-text color="subTitle">{{t.Amount ? t.Amount/10 : 0}}</span> تومان
                         </h3>
                     </ion-col>
                 </ion-row>
                 <ion-row>
-                    <ion-col col-6 col-lg-6 col-md-6 text-right>
+                    <ion-col col-8 col-lg-6 col-md-8 text-right>
                         <h3 class="fluid" ion-text color="light">وضعیت تراکنش:
                             <span ion-text color="subTitle">{{t.State}}</span>
                         </h3>
                     </ion-col>
-                    <ion-col col-6 col-lg-6 col-md-6 text-right>
+                    <ion-col col-4 col-lg-6 col-md-4 text-right>
                         <h3 class="fluid" ion-text color="light">نام آزمون:
                             <span ion-text color="subTitle">{{t.exam_name}}</span>
+                        </h3>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-8 col-lg-6 col-md-8 text-right>
+                        <h3 class="fluid" ion-text color="light">تاریخ تراکنش:
+                            <span ion-text color="subTitle">{{t.kharid_date | toShamsiDatePipe}}</span>
                         </h3>
                     </ion-col>
                 </ion-row>

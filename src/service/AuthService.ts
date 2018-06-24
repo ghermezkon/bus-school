@@ -15,7 +15,6 @@ export class AuthService {
     isLoggedIn$: Observable<boolean> = this.subject.asObservable();
     headers: any;
     public token: any;
-    public csrf: any;
     //-----------------------------------------------------------------------------------
     constructor(public http: HttpClient, public _http: HttpService, public events: Events) {
         this.headers = new HttpHeaders();

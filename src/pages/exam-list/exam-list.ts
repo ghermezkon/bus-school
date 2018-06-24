@@ -3,6 +3,7 @@ import { IonicPage, NavParams, NavController, ModalController } from "ionic-angu
 import { HttpService } from "../../service/HttpService";
 import { MessageService } from "../../util/message.service";
 import { Observable } from "rxjs";
+import { LoaderService } from "../../service/LoaderService";
 
 @IonicPage()
 @Component({
@@ -17,7 +18,7 @@ export class ExamListPage {
     teacher_id: string;
     //---------------------------------------------------------
     constructor(public _http: HttpService, public navCtrl: NavController, public _msg: MessageService,
-        public navParams: NavParams, public modal: ModalController) {
+        public navParams: NavParams, public modal: ModalController, public _loader: LoaderService) {
         this.getParams();
         if (this.teacher_name == undefined) {
             this.navCtrl.setRoot('HomePage');
@@ -25,8 +26,11 @@ export class ExamListPage {
     }
     //---------------------------------------------------------
     ionViewWillLoad() {
-        var res = this._msg.inMemoryFindUser();
-        this.exam_list = this._http.find_exam_list_by_lesson_name(this.lesson_name, this.teacher_name, res._id);
+        this._loader.show().present().then(() => {
+            var res = this._msg.inMemoryFindUser();
+            this.exam_list = this._http.find_exam_list_by_lesson_name(this.lesson_name, this.teacher_name, res._id);
+            this._loader.hide();
+        })
     }
     //---------------------------------------------------------
     getParams() {

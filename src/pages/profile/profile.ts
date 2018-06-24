@@ -9,6 +9,7 @@ import { CustomeValidator } from "../../util/CustomValidator";
 import { AuthService } from "../../service/AuthService";
 import { ToastController } from "ionic-angular";
 import { take } from "rxjs/operators";
+import { LoaderService } from "../../service/LoaderService";
 
 @IonicPage()
 @Component({ selector: 'profile-page', templateUrl: 'profile.html' })
@@ -32,7 +33,7 @@ export class ProfilePage {
         ]
     }
     //-----------------------------------------------------
-    constructor(public _msg: MessageService, public fb: FormBuilder,
+    constructor(public _msg: MessageService, public fb: FormBuilder, public _loader: LoaderService,
         public _http: HttpService, public _auth: AuthService, public toastCtrl: ToastController) {
         this.range_list = this._msg.getUserRange();
     }
@@ -56,9 +57,11 @@ export class ProfilePage {
         this.userInfo = res;
         this.range_selected = this.userInfo.user_range;
         this.study_selected = this.userInfo.study;
-
-        this.subscription = this._http.find_study_by_name(this.range_selected.user_range_value).pipe(take(1)).subscribe((res: any) => {
-            this.study_list = res;
+        this._loader.show().present().then(() => {
+            this.subscription = this._http.find_study_by_name(this.range_selected.user_range_value).pipe(take(1)).subscribe((res: any) => {
+                this.study_list = res;
+            })
+            this._loader.hide();
         })
         this.passwordForm = this.fb.group({
             password: ['', Validators.required],

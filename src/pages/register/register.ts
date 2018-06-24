@@ -8,6 +8,7 @@ import { IUser } from "../../model/IUser";
 import { AuthService } from "../../service/AuthService";
 import { Observable } from "rxjs";
 import { take, debounceTime, distinctUntilChanged, map } from "rxjs/operators";
+import { LoaderService } from "../../service/LoaderService";
 
 //----------------------------------------------------------
 @IonicPage()
@@ -56,7 +57,7 @@ export class RegisterPage {
         ]
     }
     //----------------------------------------------------
-    constructor(public _msg: MessageService, public navCtrl: NavController,
+    constructor(public _msg: MessageService, public navCtrl: NavController, public _loader: LoaderService,
         public fb: FormBuilder, public _auth: AuthService,
         public _http: HttpService) { }
     //----------------------------------------------------
@@ -88,8 +89,11 @@ export class RegisterPage {
     sexItemClick(data) {
         this.userInfo.user_sex = data;
         this.level_panel = 3;
-        this._http.find_study_by_name(this.userInfo.user_range['user_range_value']).pipe(take(1)).subscribe((res: any) => {
-            this.study_list = res;
+        this._loader.show().present().then(() => {
+            this._http.find_study_by_name(this.userInfo.user_range['user_range_value']).pipe(take(1)).subscribe((res: any) => {
+                this.study_list = res;
+            })
+            this._loader.hide()
         })
     }
     studyItemClick(data) {
@@ -101,45 +105,56 @@ export class RegisterPage {
         this.level_panel = 5;
     }
     passwordItemClick() {
-        this._http.generate_security_code(this.dataForm.value.mobile).pipe(take(1)).subscribe((res: any) => {
-            this.token = res.headers.get('s-token');
-            if (res.body) {
-                this.userInfo.password = this.passwordForm.get('password').value;
-                this.level_panel = 6;
-                this.error_security_code = false;
-                this.runTimer(120);
-            } else {
-                this.error_security_code = true;
-            }
-        });
+        this._loader.show().present().then(() => {
+            this._http.generate_security_code(this.dataForm.value.mobile).pipe(take(1)).subscribe((res: any) => {
+                this.token = res.headers.get('s-token');
+                if (res.body) {
+                    this.userInfo.password = this.passwordForm.get('password').value;
+                    this.level_panel = 6;
+                    this.error_security_code = false;
+                    this.runTimer(120);
+                } else {
+                    this.error_security_code = true;
+                }
+            });
+            this._loader.hide();
+        })
     }
     securityItemClick() {
-        this._http.check_security_code(this.codeForm.get('security_code').value, this.token).subscribe((res: any) => {
-            if (res) {
-                this.level_panel = 7;
-                this.userInfo.isEnabled = true;
-                this.userInfo.isUser = true;
-                this._auth.signUp(this.userInfo).pipe(take(1)).subscribe((res: any) => {
-                    if (res.body.result.n >= 1) {//Success    
-                        this._msg.inMemoryInsert(res.body.ops[0]);
+        this._loader.show().present().then(() => {
+            this._http.check_security_code(this.codeForm.get('security_code').value, this.token).subscribe((res: any) => {
+                if (res) {
+                    this.level_panel = 7;
+                    this.userInfo.isEnabled = true;
+                    this.userInfo.isUser = true;
+                    this._auth.signUp(this.userInfo).pipe(take(1)).subscribe((res: any) => {
+                        if (res.body.result.n >= 1) {//Success    
+                            this._msg.inMemoryInsert(res.body.ops[0]);
 
-                        this.navCtrl.setRoot('HomePage');
-                        this.navCtrl.popToRoot();
-                    }
-                })
-            } else {
-                this.codeForm.get('security_code').setErrors({ wrongCode: true });
-            }
-        })
+                            this.navCtrl.setRoot('HomePage');
+                            this.navCtrl.popToRoot();
+                        }
+                    })
+                } else {
+                    this.codeForm.get('security_code').setErrors({ wrongCode: true });
+                }
+            });
+            this._loader.hide();
+        });
     }
     //-------------------------------------------------------------------------
     asyncMobileInUse(control: FormControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
-        return this._http.mobile_in_use(control.value).pipe(
-            take(1), debounceTime(500), distinctUntilChanged(),
-            map(res =>{
-                return (res === true) ? { mobileInUse: true } : null;
-            }),            
-        );
+        var returnValue;
+        this._loader.show().present().then(() => {
+            returnValue = this._http.mobile_in_use(control.value).pipe(
+                take(1), debounceTime(500), distinctUntilChanged(),
+                map(res => {
+                    return (res === true) ? { mobileInUse: true } : null;
+                }),
+            );
+            this._loader.hide();
+        });
+        return returnValue;
     }
     //------------------------------------------------------------------------
     runTimer(seconds) {
@@ -152,18 +167,4 @@ export class RegisterPage {
             };
         }, 1300);
     }
-    // ngOnInit() {
-    //     this.screenOrientation.onChange().subscribe(
-    //         () => {
-    //             if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT ||
-    //                 this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY ||
-    //                 this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_SECONDARY) {
-    //                 this.landscape = false;
-    //             } else {
-    //                 this.landscape = true;
-    //             }
-    //         }
-    //     );
-    // }
-
 }

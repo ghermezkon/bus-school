@@ -17,8 +17,8 @@ export class LoaderService {
         return loader;
     }
     public hide() {
-        //setTimeout(() => {
-        this.loader.dismiss();
-        //}, 200);
+        setTimeout(() => {
+            this.loader.dismiss();
+        }, 200);
     }
 }

@@ -5,6 +5,7 @@ import { HttpService } from "../../service/HttpService";
 import { MessageService } from "../../util/message.service";
 import { interval } from "rxjs";
 import { take, tap } from "rxjs/operators";
+import { LoaderService } from "../../service/LoaderService";
 
 @IonicPage()
 @Component({
@@ -29,28 +30,31 @@ export class DoExamPage {
     current = 5; max = 100;
     //------------------------------------------------------
     constructor(public timerService: TimerService, public _http: HttpService, public _msg: MessageService,
-        public navCtrl: NavController,
+        public navCtrl: NavController, public _loader: LoaderService,
         public navParams: NavParams, public modal: ModalController, public toastCtrl: ToastController) { }
     //------------------------------------------------------
     ionViewWillLoad() {
-        this.slides.lockSwipes(true);
-        this.exam_info = this.navParams.get('exam_info');
-        this.counter = this.startCounter = +this.exam_info.exam_time;
+        this._loader.show().present().then(() => {
+            this.slides.lockSwipes(true);
+            this.exam_info = this.navParams.get('exam_info');
+            this.counter = this.startCounter = +this.exam_info.exam_time;
 
-        this._http.find_exam_by_id(this.exam_info._id).pipe(take(1)).subscribe((res: any) => {
-            this.exam = res[0].exam_questions;
+            this._http.find_exam_by_id(this.exam_info._id).pipe(take(1)).subscribe((res: any) => {
+                this.exam = res[0].exam_questions;
+            })
+
+            this.countDown = this.timerService.getCounter(this.startCounter).pipe(tap(() => --this.counter));
+            //****************************************************** */
+            let progressBar = interval(950).subscribe(res => {
+                res++;
+                this.progressWidth = Math.floor((res / this.startCounter) * 100);
+                if (this.progressWidth >= 100) {
+                    progressBar.unsubscribe();
+                }
+            });
+            //***************************************************** */
+            this._loader.hide();
         })
-
-        this.countDown = this.timerService.getCounter(this.startCounter).pipe(tap(() => --this.counter));
-        //****************************************************** */
-        let progressBar = interval(950).subscribe(res => {
-            res++;
-            this.progressWidth = Math.floor((res / this.startCounter) * 100);
-            if (this.progressWidth >= 100) {
-                progressBar.unsubscribe();
-            }
-        });
-        //***************************************************** */
     }
     //------------------------------------------------------
     slideChanged() {
@@ -80,42 +84,43 @@ export class DoExamPage {
         var exam_score = 0;
         var save_info: any = {};
         var score: any[] = [];
-        this._http.find_score_by_exam_id(this.exam_info._id).pipe(take(1)).subscribe((res: any) => {
-            score = res[0].exam_questions;
-            if (this.answers.length == 0) {
-                for (let i = 0; i < score.length; i++) {
-                    this.answers[i] = -1;
+        this._loader.show().present().then(() => {
+            this._http.find_score_by_exam_id(this.exam_info._id).pipe(take(1)).subscribe((res: any) => {
+                score = res[0].exam_questions;
+                if (this.answers.length == 0) {
+                    for (let i = 0; i < score.length; i++) {
+                        this.answers[i] = -1;
+                    }
                 }
-            }
-            for (let i = 0; i < this.answers.length; i++) {
-                pattern = { question_number: +score[i].question_number, user_answer: +this.answers[i], answer_fine: +score[i].answer_fine }
+                for (let i = 0; i < this.answers.length; i++) {
+                    pattern = { question_number: +score[i].question_number, user_answer: +this.answers[i], answer_fine: +score[i].answer_fine }
 
-                if (+this.answers[i] == +score[i].answer_fine) {
-                    sumScore += +score[i].question_grade;
+                    if (+this.answers[i] == +score[i].answer_fine) {
+                        sumScore += +score[i].question_grade;
+                    }
+                    exam_score += +score[i].question_grade;
+                    final.push(pattern);
                 }
-                exam_score += +score[i].question_grade;
-                final.push(pattern);
-            }
-            save_info['exam_id'] = this.exam_info._id;
-            save_info['final'] = final;
-            save_info['user_score'] = sumScore;
-            save_info['exam_score'] = exam_score;
-            var user = this._msg.inMemoryFindUser();
-            var result = { student_id: user._id, exam_id: this.exam_info._id, result: final, exam_score: exam_score, user_score: sumScore };
-            //this.navCtrl.push('CheckScorePage', { exam_info: save_info });
-            this._http.update_result_exam(result).pipe(take(1)).subscribe((data: any) => {
-                console.log(data);
-                if (data.ok == 1 && data.n >= 1) {
-                    this.navCtrl.push('CheckScorePage', { exam_info: save_info });
-                } else {
-                    let toast = this.toastCtrl.create({
-                        message: 'ارتباط با سرور قطع گردید',
-                        duration: 2000,
-                        cssClass: 'toastCss'
-                    });
-                    toast.present();
-                }
-            });
+                save_info['exam_id'] = this.exam_info._id;
+                save_info['final'] = final;
+                save_info['user_score'] = sumScore;
+                save_info['exam_score'] = exam_score;
+                var user = this._msg.inMemoryFindUser();
+                var result = { student_id: user._id, exam_id: this.exam_info._id, result: final, exam_score: exam_score, user_score: sumScore };
+                this._http.update_result_exam(result).pipe(take(1)).subscribe((data: any) => {
+                    if (data.ok == 1 && data.n >= 1) {
+                        this.navCtrl.push('CheckScorePage', { exam_info: save_info });
+                    } else {
+                        let toast = this.toastCtrl.create({
+                            message: 'ارتباط با سرور قطع گردید',
+                            duration: 2000,
+                            cssClass: 'toastCss'
+                        });
+                        toast.present();
+                    }
+                });
+                this._loader.hide();
+            })
         })
     }
 }

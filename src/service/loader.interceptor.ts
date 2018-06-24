@@ -3,13 +3,12 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } fr
 
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { LoaderService } from './LoaderService';
 import { AuthService } from './AuthService';
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
     //------------------------------------------------------------------------------
-    constructor(public _loader: LoaderService, public _auth: AuthService) { }
+    constructor(public _auth: AuthService) { }
     //------------------------------------------------------------------------------
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         //this._loader.show().present();
@@ -23,8 +22,8 @@ export class LoaderInterceptor implements HttpInterceptor {
             });
         }
         return next.handle(changeRequest).pipe(tap((event: HttpEvent<any>) => {
-            if (event instanceof HttpResponse) {
-                //this._loader.hide();
+            if (event instanceof HttpResponse) {                
+                    //this._loader.hide();
             }
         }));
     }
