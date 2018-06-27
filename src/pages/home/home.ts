@@ -15,6 +15,7 @@ export class HomePage {
   folder?: undefined | null | string;
   profilePage: any = 'ProfilePage';
   teacherListPage: any = 'TeacherListPage';
+  examRatePage: any = 'ExamRatePage';
   //-------------------------------------------
   isLoggedIn$: Observable<boolean>;
   //----------------------------------------------------------------------------------------

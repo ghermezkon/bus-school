@@ -1,0 +1,6 @@
+exam-rate{
+    .rating:not(:checked) > label {
+        direction:rtl !important;
+        font-size:9vh !important;  
+    }
+}

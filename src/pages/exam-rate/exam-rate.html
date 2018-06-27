@@ -1,0 +1,25 @@
+<ion-header class="item-center">
+    <ion-navbar transparent hideBackButton="true" col-md-11 col-lg-6 col-12>
+    </ion-navbar>
+</ion-header>
+<ion-content class="main-bg">
+    <ion-grid padding col-md-10 col-lg-6 col-12>
+        <ion-row style="border-bottom:dashed 1px #fff;">
+            <ion-col col-12 text-center>
+                <h2 class="fluid" ion-text color="light">نظر شما در خصوص با این آزمون برای ما بسیار مهم است، لطفاً نظر خود را برای ما ثبت کنید.</h2>
+            </ion-col>
+        </ion-row>
+        <ion-row style="border-bottom:dashed 1px #fff;">
+            <ion-col col-12 text-center>
+                <rating [disabled]='false' [value]="value" (ratingClick)='ratingComponetClick($event)'></rating>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-12 text-center>
+                <button ion-button color="accent" (click)="showResult()" large full *ngIf="value > 0">
+                    مشاهده نتیجه آزمون
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
