@@ -102,28 +102,18 @@ export class ConfirmPriceModal {
             save_info['user_score'] = sumScore;
             save_info['exam_score'] = exam_score;
             var user = this._msg.inMemoryFindUser();
-            var result = { student_id: user._id, exam_id: this.exam_info._id, result: final, exam_score: exam_score, user_score: sumScore };
+            var result = {
+              student_id: user._id, exam_id: this.exam_info._id, result: final, exam_score: exam_score,
+              user_score: sumScore, teacher_code: this.teacher_id, exam_price: this.exam_info.exam_price
+            };
             this._http.save_result_exam(result).pipe(take(1)).subscribe((data: any) => {
               if (data.ok == 1 && data.n >= 1) {
-                this._http.checkTeacherPayment(new_kharid_number, this.teacher_id).pipe(take(1)).subscribe((teacher: any) => {
-                  if (teacher == 0) {
-                    var data = {
-                      teacher_code: this.teacher_id, kharid_number: new_kharid_number,
-                      student_id: student_id, exam_id: exam_id, kharid_date: new Date(), checkout_date: null
-                    };
-                    this._http.save_payment_for_teacher(data).pipe(take(1)).subscribe((newRes: any) => {
-                      if (newRes.n >= 1) {
-                        this.start_exam = true;
-                        this.isPayment = false;
-                        this.transaction_flag = false;
-                        this.kharid_number = '';
-                      } else {
-                        this.transaction_flag = true;
-                      }
-                    })
-                  }
-                })
+                this.start_exam = true;
+                this.isPayment = false;
+                this.transaction_flag = false;
+                this.kharid_number = '';
               } else {
+                this.transaction_flag = true;
                 let toast = this.toastCtrl.create({
                   message: 'ارتباط با سرور قطع گردید',
                   duration: 2000,
@@ -139,7 +129,6 @@ export class ConfirmPriceModal {
         this._loader.hide();
       })
     })//end Loader
-
   }
   backToHome() {
     this.kharid_number = '';
@@ -151,6 +140,7 @@ export class ConfirmPriceModal {
   }
   //-------------------------------------------------------------------------
   doExam() {
+    this.exam_info.teacher_code = this.teacher_id;
     this.navCtrl.push('DoExamPage', { exam_info: this.exam_info });
   }
 }

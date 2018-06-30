@@ -79,10 +79,13 @@ export class ProfilePage {
     }
     //-----------------------------------------------------
     rangeSelectChange(event) {
-        this.subscription = this._http.find_study_by_name(event['user_range_value']).pipe(take(1)).subscribe((res: any) => {
-            this.study_list = res;
+        this._loader.show().present().then(() => {
+            this.subscription = this._http.find_study_by_name(event['user_range_value']).pipe(take(1)).subscribe((res: any) => {
+                this.study_list = res;
+            })
+            this.study_selected = '';
+            this._loader.hide();
         })
-        this.study_selected = '';
     }
     passwordReset(event) {
         this.passwordForm.reset();

@@ -106,10 +106,11 @@ export class DoExamPage {
                 save_info['user_score'] = sumScore;
                 save_info['exam_score'] = exam_score;
                 var user = this._msg.inMemoryFindUser();
-                var result = { student_id: user._id, exam_id: this.exam_info._id, result: final, exam_score: exam_score, user_score: sumScore };
+                var result = { student_id: user._id, exam_id: this.exam_info._id, result: final, exam_score: exam_score, user_score: sumScore, 
+                    teacher_code: this.exam_info.teacher_code, exam_price: this.exam_info.exam_price };
                 this._http.update_result_exam(result).pipe(take(1)).subscribe((data: any) => {
                     if (data.ok == 1 && data.n >= 1) {
-                        this.navCtrl.push('ExamRatePage', { exam_info: save_info });
+                        this.navCtrl.push('ExamRatePage', { exam_info: this.exam_info, result_info: save_info });
                     } else {
                         let toast = this.toastCtrl.create({
                             message: 'ارتباط با سرور قطع گردید',
